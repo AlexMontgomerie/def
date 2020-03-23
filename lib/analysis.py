@@ -1,14 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def bitwise_probability(stream_in):
-    # accumulate bits
-    bit_average = np.zeros(stream_in.bitwidth, dtype=np.float32)
-    for val in stream_in.arr:
-        bit_average += val.to_bin()
-    # return per-bit average
-    return np.true_divide(bit_average,stream_in.arr.shape[0])
+def _stream_to_bin_array(stream_in):
+    return np.array([ val.to_bin() for val in stream_in.arr ])
 
+def bitwise_probability(stream_in):
+    return np.average(_stream_to_bin_array(stream_in),axis=0)
+
+def bitwise_mean(stream_in):
+    return np.average(_stream_to_bin_array(stream_in),axis=0)
+
+def bitwise_variance(stream_in):
+    return np.var(_stream_to_bin_array(stream_in),axis=0)
 
 # Stream Statistics
 def bias(caffe_stream_in):
@@ -30,7 +33,21 @@ def channel_bias(caffe_stream_in):
 def plot_switching_activity(stream,transition_encoding=True):
     pass
 
-def plot_bitwise_probability(net):
+def plot_bitwise_probability(net,prob_type="MEAN"):
+    # iterate over layers
+    bit_prob = {}
+    for layer in net.feature_maps:
+        # get the bitwise probobility
+        if prob_type == "MEAN":
+            bit_prob[layer] = bitwise_mean(net.fm_streams[layer])
+        if prob_type == "VAR":
+            bit_prob[layer] = bitwise_variance(net.fm_streams[layer])
+        # plot probability
+        plt.plot(np.arange(len(bit_prob[layer])),bit_prob[layer])
+    plt.ylim(0,1)
+    plt.show()
+
+def plot_bitwise_variance(net):
     # iterate over layers
     bit_prob = {}
     for layer in net.feature_maps:

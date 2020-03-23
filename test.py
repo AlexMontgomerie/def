@@ -36,7 +36,7 @@ sa_diff         = {}
 sa_channel_diff = {}
 for layer in cs.feature_maps:
     
-    sa[layer] = np.average(analysis.bitwise_probability(cs.fm_streams[layer]))
+    sa[layer] = np.average(analysis.bitwise_mean(cs.fm_streams[layer]))
     # TODO: try encoding
     #print("encoding: ",layer,"\t (bias)")
     #cs.fm_streams[layer].array_to_queue()
@@ -56,7 +56,7 @@ for layer in cs.feature_maps:
     #    analysis.bitwise_probability(encoding.channel_diff(cs.fm_streams[layer],len(channel_bias[layer]))))
     #cs.fm_streams[layer].array_to_queue()
 
-analysis.plot_bitwise_probability(cs)
+analysis.plot_bitwise_probability(cs,prob_type="VAR")
 
 #plot_sa(sa)
 #plot_sa(sa_bias)
