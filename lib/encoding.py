@@ -12,7 +12,6 @@ def transition_encoding(stream_in):
         stream_out.push(fixed.sub(val,bias))
         val = stream_in.pop()
  
-
 def no_bias(stream_in,bias):
     # convert bias to fixed
     bias = fixed(bias,int_width=stream_in.int_width,frac_width=stream_in.frac_width)

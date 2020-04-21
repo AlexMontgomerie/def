@@ -11,7 +11,12 @@ class fixed():
 
         # variables
         self.sign    = np.sign(val)
-        self.val     = FpBinary(int_bits=int_width,frac_bits=frac_width,signed=False,value=abs(val))
+        if type(val) == float:
+            self.val     = FpBinary(int_bits=int_width,frac_bits=frac_width,signed=False,value=abs(val))
+        elif type(val) == int:
+            self.val     = FpBinary(int_bits=int_width,frac_bits=frac_width,signed=False,bit_field=abs(val))
+        else:
+            raise TypeError
         self.val_raw = val
 
     def to_bin(self):
@@ -19,7 +24,7 @@ class fixed():
         return np.array([ 0 if self.sign == 1.0 else 1 , * [ 0 ]*(self.bitwidth-1-len(bits)) , *bits ], dtype=int)
 
     def to_int(self):
-        return int(bin(self.val))
+        return self.val.bits_to_signed() | ( (0 if self.sign == 1.0 else 1) << (self.bitwidth-1) )
 
     # operators
     @staticmethod

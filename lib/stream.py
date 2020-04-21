@@ -78,7 +78,7 @@ class stream():
         self.bitwidth   = self.int_width+self.frac_width+1
 
         # stream variables    
-        self.arr   = np.array(list(map(lambda x : fixed(x,int_width,frac_width), arr)))
+        self.arr   = np.array(list(map(lambda x : fixed(float(x),int_width,frac_width), arr)))
         self.queue = deque(self.arr)
 
     def queue_to_array(self):
