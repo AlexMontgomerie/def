@@ -93,6 +93,14 @@ class stream():
     def pop(self):
         return self.queue.pop()
 
+    @staticmethod
+    def check_streams_equal(a,b):
+        assert a.int_width  == b.int_width
+        assert a.frac_width == b.frac_width
+        assert a.arr.shape  == b.arr.shape
+        for i in range(a.arr.shape[0]):
+            assert a.arr[i].to_int() == b.arr[i].to_int(), "ERROR (value) : {} != {}".format(a.arr[i].to_int(),b.arr[i].to_int())
+
 if __name__=="__main__":
     tmp = caffe_stream(
         "lenet",

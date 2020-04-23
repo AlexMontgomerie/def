@@ -14,8 +14,7 @@ def correlator(stream_in):
         val = stream_in.pop()
         val_delay = fifo.pop()
         # convert both to int
-        val_out = fixed(val.to_int()^val_delay.to_int(),
-                int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+        val_out = fixed.xor(val,val_delay)
         stream_out.push(val_out)
         fifo.push(val_out)
     # empty fifo
@@ -37,8 +36,7 @@ def decorrelator(stream_in):
         val = stream_in.pop()
         val_delay = fifo.pop()
         # convert both to int
-        val_out = fixed(val.to_int()^val_delay.to_int(),
-                int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+        val_out = fixed.xor(val,val_delay)
         stream_out.push(val_out)
         fifo.push(val)
     # empty fifo

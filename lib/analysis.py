@@ -65,3 +65,4 @@ def plot_bitwise_variance(net):
     plt.ylim(0,1)
     plt.show()
 
+

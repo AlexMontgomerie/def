@@ -45,7 +45,8 @@ def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis a
         ## send to stream 
         for w in range(window_size):
             ## convert to int
-            val = fixed(int("".join(str(i) for i in window_cache[w,:]), 2),int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+            #val = fixed(int("".join(str(i) for i in window_cache[w,:]), 2),int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+            val = fixed.from_bitfield(window_cache[w,:],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
             stream_out.push(val)
     # send the last 
     while len(stream_in.queue):

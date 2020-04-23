@@ -13,28 +13,53 @@ import lib.apbm.coding
 
 import lib.abe.coding
 
-def plot_sa(sa):
-    labels = []
-    vals   = []
-    for layer in sa:
-        labels.append(layer)
-        vals.append(sa[layer])
-    plt.bar(np.arange(len(vals)),vals)
-    plt.xticks(np.arange(len(vals)),labels)
-    plt.ylabel("Switching Activity")
-    plt.xlabel("Layer")
-    plt.ylim(0,1)
+import lib.bi.coding
+
+def plot_reduction(sa):
+    layers = sa['baseline'].keys()
+    x = np.arange(len(layers))
+    width = 0.15
+    fig, ax = plt.subplots()
+    encoding_schemes = []
+    for encoding in sa:
+        if encoding != 'baseline':
+            encoding_schemes.append(encoding)
+    for encoding in encoding_schemes:
+       # get values
+        values = [ 100*(sa['baseline'][layer]-sa[encoding][layer])/sa['baseline'][layer] for layer in layers ]
+        offset = encoding_schemes.index(encoding)*width - len(encoding_schemes)*width/2
+        ax.bar(x+offset, values, width, label=encoding.upper())
+    ax.set_ylabel("Switcihng Activity Reduction (%)")
+    ax.set_title("Comparison of Switching Activity Reduction for Encoding Methods in AlexNet")
+    ax.set_xticks(x)
+    ax.set_xticklabels(layers)
+    ax.legend()
+    plt.ylim(-100,100)
     plt.show()
+
+def get_table(sa):
+    for layer in sa["baseline"]:
+        line_out = "layers\t"
+        for encoder in sa:
+            line_out += encoder+"\t"
+    print(line_out)
+    for layer in sa["baseline"]:
+        line_out = layer+"\t"
+        for encoder in sa:
+            line_out += "%0.4f" % (sa[encoder][layer]) + "\t"
+        print(line_out)
 
 name         = "alexnet"
 model_path   = "models/alexnet.prototxt"
 weight_path  = "weights/alexnet.caffemodel"
 dataset_path = "/home/alex/imagenet" 
 
+"""
 name         = "lenet"
 model_path   = "models/lenet.prototxt"
 weight_path  = "weights/lenet.caffemodel"
 dataset_path = "/home/alex/mnist" 
+"""
 
 cs = stream.caffe_stream(name,model_path,weight_path,dataset_path)
 
@@ -46,14 +71,10 @@ sa = {
     "baseline"  : {},
     "dsam"      : {},
     "apbm"      : {},
-    "abe"       : {}
+    "abe"       : {},
+    "bi"        : {}
 }
-sa_bias         = {}
-sa_channel_bias = {}
-sa_diff         = {}
-sa_channel_diff = {}
-sa_apbm         = {}
-sa_abe          = {}
+
 for layer in cs.feature_maps:
 
     print("encoding: ",layer,"\t (baseline)")
@@ -62,11 +83,11 @@ for layer in cs.feature_maps:
 
     print("encoding: ",layer,"\t (dsam)")
     encoded_dsam = lib.dsam.coding.encoder(cs.fm_streams[layer],channels=len(channel_bias[layer]))
-    decoded_dsam = lib.dsam.coding.decoder(encoded_dsam,channels=len(channel_bias[layer]))
-    decoded_dsam.queue_to_array()
+    #decoded_dsam = lib.dsam.coding.decoder(encoded_dsam,channels=len(channel_bias[layer]))
+    #decoded_dsam.queue_to_array()
     sa["dsam"][layer] = analysis.average_switching_activity(encoded_dsam)
     cs.fm_streams[layer].array_to_queue()
-    stream.stream.check_streams_equal(decoded_dsam, cs.fm_streams[layer])
+    #stream.stream.check_streams_equal(decoded_dsam, cs.fm_streams[layer])
 
     #for i in range(decoded_dsam.arr.shape[0]):
     #    if decoded_dsam.arr[i].val != cs.fm_streams[layer].arr[i].val:
@@ -84,10 +105,17 @@ for layer in cs.feature_maps:
     sa["abe"][layer] = analysis.average_switching_activity(encoded_abe)
     cs.fm_streams[layer].array_to_queue()
 
-#analysis.plot_bitwise_probability(cs,prob_type="VAR")
+    print("encoding: ",layer,"\t (bi)")
+    encoded_bi = lib.bi.coding.encoder(cs.fm_streams[layer])
+    sa["bi"][layer] = analysis.average_switching_activity(encoded_bi)
+    cs.fm_streams[layer].array_to_queue()
 
+
+#analysis.plot_bitwise_probability(cs,prob_type="VAR")
+plot_reduction(sa)
+get_table(sa)
 for i in sa:
     print(i)
     print(sa[i])
-    plot_sa(sa[i])
+    #plot_sa(sa[i])
 

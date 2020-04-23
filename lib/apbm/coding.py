@@ -6,8 +6,7 @@ def encoder(stream_in, code_table={}):
     stream_out = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
     # iterate over stream
     for _ in range(stream_in.arr.shape[0]):
-        val_in    = stream_in.pop()
-        stream_out.push(code_table[val_in.to_int()])
+        stream_out.push(code_table[stream_in.pop().to_int()])
     # return stream out
     stream_out.queue_to_array()    
     return correlator(stream_out)
