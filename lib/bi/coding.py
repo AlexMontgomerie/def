@@ -6,7 +6,6 @@ def hamming_distance(x1,x2):
 
 def encoder(stream_in):
     bitwidth = stream_in.bitwidth
-    print(bitwidth/2)
     # stream initialisations
     stream_out = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
     fifo       = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)

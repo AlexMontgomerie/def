@@ -24,7 +24,8 @@ class caffe_stream():
         self.image_paths = random.sample(glob.glob(os.path.join(input_path,"*.jpg")),self.batch_size)
 
         # run network
-        self.preprocess_fn = lambda x : np.true_divide(x,128) 
+        #self.preprocess_fn = lambda x : np.true_divide(x,128) 
+        self.preprocess_fn = lambda x : x
         self.run_net()
 
         # save feature map arrays
@@ -70,7 +71,7 @@ class caffe_stream():
 
 class stream():
 
-    def __init__(self,arr,int_width=7,frac_width=8):
+    def __init__(self,arr,int_width=3,frac_width=12):
 
         # parameters
         self.int_width  = int_width

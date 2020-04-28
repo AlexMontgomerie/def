@@ -15,6 +15,8 @@ import lib.abe.coding
 
 import lib.bi.coding
 
+import lib.rle.coding
+
 def plot_reduction(sa):
     layers = sa['baseline'].keys()
     x = np.arange(len(layers))
@@ -49,9 +51,19 @@ def get_table(sa):
             line_out += "%0.4f" % (sa[encoder][layer]) + "\t"
         print(line_out)
 
+name         = "mobilenet"
+model_path   = "models/mobilenet.prototxt"
+weight_path  = "weights/mobilenet.caffemodel"
+dataset_path = "/home/alex/imagenet" 
+
 name         = "alexnet"
 model_path   = "models/alexnet.prototxt"
 weight_path  = "weights/alexnet.caffemodel"
+dataset_path = "/home/alex/imagenet" 
+
+name         = "vgg"
+model_path   = "models/vgg16.prototxt"
+weight_path  = "weights/VGG16_SalObjSub.caffemodel"
 dataset_path = "/home/alex/imagenet" 
 
 """
@@ -71,8 +83,9 @@ sa = {
     "baseline"  : {},
     "dsam"      : {},
     "apbm"      : {},
-    "abe"       : {},
-    "bi"        : {}
+    #"abe"       : {},
+    "bi"        : {},
+    "rle"       : {}
 }
 
 for layer in cs.feature_maps:
@@ -83,6 +96,7 @@ for layer in cs.feature_maps:
 
     print("encoding: ",layer,"\t (dsam)")
     encoded_dsam = lib.dsam.coding.encoder(cs.fm_streams[layer],channels=len(channel_bias[layer]))
+    print(encoded_dsam.arr.shape)
     #decoded_dsam = lib.dsam.coding.decoder(encoded_dsam,channels=len(channel_bias[layer]))
     #decoded_dsam.queue_to_array()
     sa["dsam"][layer] = analysis.average_switching_activity(encoded_dsam)
@@ -97,19 +111,26 @@ for layer in cs.feature_maps:
     code_table = lib.apbm.analysis.get_code_table(cs.fm_streams[layer])
     cs.fm_streams[layer].array_to_queue()
     encoded_apbm = lib.apbm.coding.encoder(cs.fm_streams[layer],code_table)
+    print(encoded_apbm.arr.shape)
     sa["apbm"][layer] = analysis.average_switching_activity(encoded_apbm)
     cs.fm_streams[layer].array_to_queue()
     
-    print("encoding: ",layer,"\t (abe)")
-    encoded_abe = lib.abe.coding.encoder(cs.fm_streams[layer])
-    sa["abe"][layer] = analysis.average_switching_activity(encoded_abe)
-    cs.fm_streams[layer].array_to_queue()
+    #print("encoding: ",layer,"\t (abe)")
+    #encoded_abe = lib.abe.coding.encoder(cs.fm_streams[layer],window_size=len(channel_bias[layer]))
+    #sa["abe"][layer] = analysis.average_switching_activity(encoded_abe)
+    #cs.fm_streams[layer].array_to_queue()
 
     print("encoding: ",layer,"\t (bi)")
     encoded_bi = lib.bi.coding.encoder(cs.fm_streams[layer])
+    print(encoded_bi.arr.shape)
     sa["bi"][layer] = analysis.average_switching_activity(encoded_bi)
     cs.fm_streams[layer].array_to_queue()
 
+    print("encoding: ",layer,"\t (rle)")
+    encoded_rle = lib.rle.coding.encoder(cs.fm_streams[layer])
+    print(encoded_rle.arr.shape)
+    sa["rle"][layer] = analysis.average_switching_activity(encoded_rle)
+    cs.fm_streams[layer].array_to_queue()
 
 #analysis.plot_bitwise_probability(cs,prob_type="VAR")
 plot_reduction(sa)

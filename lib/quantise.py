@@ -10,13 +10,18 @@ class fixed():
         self.bitwidth   = self.int_width+self.frac_width+1
 
         # variables
-        self.sign    = np.sign(val)
+        self.sign = np.sign(val)
         if   type(val) == float:
             self.val     = FpBinary(int_bits=int_width,frac_bits=frac_width,signed=False,value=abs(val))
         elif type(val) == int:
             self.val     = FpBinary(int_bits=int_width,frac_bits=frac_width,signed=False,bit_field=abs(val))
         else:
             raise TypeError
+         
+        #self.sign = -1.0 if self.val.__lt__(0.0) else 1.0 
+        #if self.val == 0.0:
+        #    self.sign = 1.0
+        
         self.val_raw = val
 
     def to_bin(self):

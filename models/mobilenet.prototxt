@@ -1960,7 +1960,7 @@ layer {
   top: "pool6"
   pooling_param {
     pool: AVE
-    global_pooling: true
+    #global_pooling: true
     kernel_size: 7
   }
 }

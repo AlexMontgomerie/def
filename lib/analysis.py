@@ -17,6 +17,9 @@ def bitwise_mean(stream_in):
 def bitwise_variance(stream_in):
     return np.var(_stream_to_bin_array(stream_in),axis=0)
 
+def total_transitions(stream_in):
+    return np.sum(_get_transitions(stream_in))
+
 def average_switching_activity(stream_in):
     return np.average(_get_transitions(stream_in))
 
