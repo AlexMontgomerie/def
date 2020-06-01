@@ -14,8 +14,8 @@ def encoder(stream_in):
                 stream_out.push(val)
             # zero buffer
             else:
-                stream_out.push(fixed.from_int_bitfield(0,int_width=stream_in.int_width,frac_width=stream_in.frac_width))
-                stream_out.push(fixed.from_int_bitfield(zero_counter,int_width=stream_in.int_width,frac_width=stream_in.frac_width))
+                stream_out.push(fixed(val=0,int_width=stream_in.int_width,frac_width=stream_in.frac_width))
+                stream_out.push(fixed(val=zero_counter,int_width=stream_in.int_width,frac_width=stream_in.frac_width))
                 stream_out.push(val)
                 zero_counter = 0
         # increase zero buffer

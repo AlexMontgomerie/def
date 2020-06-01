@@ -17,7 +17,7 @@ def get_code_table(stream_in):
     code_table = {}
     # add keys in stream to code table
     for i in range(len(scheme)):
-        code_table[scheme[i][0]] = fixed.from_int_bitfield(i,int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+        code_table[scheme[i][0]] = fixed(bitfield=i,int_width=stream_in.int_width,frac_width=stream_in.frac_width)
         #code_table[scheme[i][0]] = fixed((i&(2**(total_width-1)-1)),int_width=stream_in.int_width,frac_width=stream_in.frac_width)
         #code_table[scheme[i][0]].sign = float(1- 2*(i >> total_width))
     # add the rest
@@ -38,7 +38,7 @@ def get_decode_table(stream_in):
     code_table = get_code_table(stream_in)
     decode_table = {}
     for codeword in code_table:
-        decode_table[code_table[codeword].to_int()] = fixed.from_int_bitfield(codeword,int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+        decode_table[code_table[codeword].to_int()] = fixed(bitfield=codeword,int_width=stream_in.int_width,frac_width=stream_in.frac_width)
         #decode_table[code_table[codeword].to_int()] = fixed((codeword&(2**(total_width-1)-1)),int_width=stream_in.int_width,frac_width=stream_in.frac_width)
         #decode_table[code_table[codeword].to_int()].sign = float(1- 2*(codeword >> total_width))
     return decode_table

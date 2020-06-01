@@ -59,14 +59,14 @@ dataset_path = "/home/alex/imagenet"
 name         = "alexnet"
 model_path   = "models/alexnet.prototxt"
 weight_path  = "weights/alexnet.caffemodel"
-dataset_path = "/home/alex/imagenet" 
+dataset_path = "/home/alex/imagenet/val/n01632777" 
 
+"""
 name         = "vgg"
 model_path   = "models/vgg16.prototxt"
 weight_path  = "weights/VGG16_SalObjSub.caffemodel"
 dataset_path = "/home/alex/imagenet" 
 
-"""
 name         = "lenet"
 model_path   = "models/lenet.prototxt"
 weight_path  = "weights/lenet.caffemodel"
@@ -133,7 +133,7 @@ for layer in cs.feature_maps:
     cs.fm_streams[layer].array_to_queue()
 
 #analysis.plot_bitwise_probability(cs,prob_type="VAR")
-plot_reduction(sa)
+#plot_reduction(sa)
 get_table(sa)
 for i in sa:
     print(i)

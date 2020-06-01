@@ -17,16 +17,18 @@ def encoder(stream_in, channels=256):
     for _ in range(stream_in.arr.shape[0]-channels):
         val_in    = stream_in.pop()
         val_delay = fifo.pop()
-        val_out   = fixed.int_sub(val_in,val_delay)
+        val_out   = fixed.sub(val_in,val_delay)
         stream_out.push(val_out)
         fifo.push(val_in)
     stream_out.queue_to_array()    
     # return encoded stream
-    return correlator(stream_out)
+    return stream_out
+    #return correlator(stream_out)
 
 def decoder(stream_in, channels=256):
     # decorrelate stream in
-    stream_in_decorr = decorrelator(stream_in)
+    #stream_in_decorr = decorrelator(stream_in)
+    stream_in_decorr = copy.copy(stream_in)
     # stream initialisations
     stream_out = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
     fifo       = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
@@ -39,7 +41,7 @@ def decoder(stream_in, channels=256):
     for _ in range(stream_in_decorr.arr.shape[0]-channels):
         val_in    = stream_in_decorr.pop()
         val_delay = fifo.pop()
-        val_out   = fixed.int_add(val_in,val_delay)
+        val_out   = fixed.add(val_in,val_delay)
         stream_out.push(val_out)
         fifo.push(val_out)
     stream_out.queue_to_array()    

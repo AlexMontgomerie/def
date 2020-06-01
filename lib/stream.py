@@ -21,7 +21,8 @@ class caffe_stream():
         self.batch_size = self.net.blobs['data'].data[...].shape[0]
 
         # select random files from 
-        self.image_paths = random.sample(glob.glob(os.path.join(input_path,"*.jpg")),self.batch_size)
+        #self.image_paths = random.sample(glob.glob(os.path.join(input_path,"*.jpg")),self.batch_size)
+        self.image_paths = random.sample(glob.glob(os.path.join(input_path,"*.JPEG")),self.batch_size)
 
         # run network
         #self.preprocess_fn = lambda x : np.true_divide(x,128) 
@@ -71,7 +72,7 @@ class caffe_stream():
 
 class stream():
 
-    def __init__(self,arr,int_width=3,frac_width=12):
+    def __init__(self,arr,int_width=7,frac_width=8):
 
         # parameters
         self.int_width  = int_width
@@ -79,7 +80,7 @@ class stream():
         self.bitwidth   = self.int_width+self.frac_width+1
 
         # stream variables    
-        self.arr   = np.array(list(map(lambda x : fixed(float(x),int_width,frac_width), arr)))
+        self.arr   = np.array(list(map(lambda x : fixed(val=float(x),int_width=int_width,frac_width=frac_width), arr)))
         self.queue = deque(self.arr)
 
     def queue_to_array(self):
