@@ -157,7 +157,6 @@ class fixed():
         tmp.__sub__(b)
         return tmp
 
-
 if __name__=="__main__":
     # test init
     print(hex(fixed(val=1.0).to_int()))
