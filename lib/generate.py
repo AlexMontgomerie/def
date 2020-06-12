@@ -8,7 +8,7 @@ import copy
 import os
 
 def gen_caffe_featuremap(model_path, weight_path, input_path, output_path, bitwidth=8, \
-        transform = lambda x : x/256):
+        transform = lambda x : x):
     
     # load network
     net = caffe.Classifier(model_path,weight_path)
@@ -38,7 +38,7 @@ def gen_caffe_featuremap(model_path, weight_path, input_path, output_path, bitwi
         image = np.array(image,dtype=np.float32)
         image = transform(image)
         ### normalize image
-        #image = (image - image.mean(axis=(0,1,2), keepdims=True)) / image.std(axis=(0,1,2), keepdims=True)
+        image = (image - image.mean(axis=(0,1,2), keepdims=True)) / image.std(axis=(0,1,2), keepdims=True)
         ### append image to input blob
         batch_index = image_paths.index(image_path)
         if len(image.shape) == 2:
@@ -54,7 +54,7 @@ def gen_caffe_featuremap(model_path, weight_path, input_path, output_path, bitwi
     # save feature map arrays
     feature_maps = {}
     for layer in net.blobs:
-        feature_maps[layer] = net.blobs[layer].data[...]
+        feature_maps[layer.replace("/","_")] = net.blobs[layer].data[...]
 
     # apply symmetric quantisation to each featuremap
     for layer in feature_maps:
@@ -65,15 +65,6 @@ def gen_caffe_featuremap(model_path, weight_path, input_path, output_path, bitwi
         # change data type
         feature_maps[layer] = feature_maps[layer].astype(np.int64)
 
-        print(feature_maps[layer].shape)
-
     # write to output
     dd.io.save(output_path, feature_maps)
 
-if __name__ == "__main__":
-    # 8 bit networks
-    gen_caffe_featuremap( "models/alexnet.prototxt", "weights/alexnet.caffemodel", "/home/alex/imagenet/val/", "featuremaps/caffe_alexnet_8b.h5", bitwidth=8 )
-    #gen_caffe_featuremap( "models/googlenet.prototxt", "weights/googlenet.caffemodel", "/home/alex/imagenet/val/", "featuremaps/caffe_googlenet_8b.h5", bitwidth=8 )
-    # 16 bit networks
-    gen_caffe_featuremap( "models/alexnet.prototxt", "weights/alexnet.caffemodel", "/home/alex/imagenet/val/", "featuremaps/caffe_alexnet_16b.h5", bitwidth=16 )
-    #gen_caffe_featuremap( "models/googlenet.prototxt", "weights/googlenet.caffemodel", "/home/alex/imagenet/val/", "featuremaps/caffe_googlenet_16b.h5", bitwidth=16 )

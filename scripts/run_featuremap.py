@@ -1,5 +1,7 @@
 import argparse
 import copy
+import json
+import os
 
 import lib.stream
 import lib.analysis
@@ -19,8 +21,20 @@ if __name__ == "__main__":
     parser.add_argument('-n','--name', type=str, default="network", help='Name of network')
     parser.add_argument('-f','--featuremap_path',metavar='PATH',required=True,
         help='Path to feature map file (.h5)')
+    parser.add_argument('-o','--output_path',metavar='PATH',required=True,
+        help='Path for output (.json)')
     parser.add_argument('-l','--limit',metavar='N',type=int,default=100000,
         help='Limit on stream samples')
+    parser.add_argument('-b','--bitwidth',metavar='N',type=int,default=8,
+        help='Bitwidth of samples')
+
+    # get datatype
+    if args.bitwidth == 8:
+        dtype = lib.quantise.sint8
+    if args.bitwidth == 16:
+        dtype = lib.quantise.sint16
+    if args.bitwidth == 32:
+        dtype = lib.quantise.sint32
 
     # parse arguments
     args = parser.parse_args()
@@ -71,7 +85,7 @@ if __name__ == "__main__":
         layer_metrics = { layer : [] }
 
         # load feature map
-        featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, limit=args.limit, dtype=lib.quantise.sint8)
+        featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, limit=args.limit, dtype=dtype)
       
         # iterate over encoders
         for encoder in encoders:
@@ -84,15 +98,17 @@ if __name__ == "__main__":
             # get all the metrics
             layer_metrics[layer].append({
                 encoder : {
-                    "bitwise_mean"          : lib.analysis.bitwise_mean(stream_out),
-                    "bitwise_variance"      : lib.analysis.bitwise_variance(stream_out),
-                    "total_transitions"     : lib.analysis.total_transitions(stream_out),
-                    "average_sa"            : lib.analysis.average_switching_activity(stream_out),
-                    "average_sa_per_line"   : lib.analysis.average_switching_activity_per_line(stream_out)
+                    "bitwise_mean"          : lib.analysis.bitwise_mean(stream_out).astype(float).tolist(),
+                    "bitwise_variance"      : lib.analysis.bitwise_variance(stream_out).astype(float).tolist(),
+                    "total_transitions"     : lib.analysis.total_transitions(stream_out).astype(float),
+                    "average_sa"            : lib.analysis.average_switching_activity(stream_out).astype(float),
+                    "average_sa_per_line"   : lib.analysis.average_switching_activity_per_line(stream_out).astype(float).tolist()
                 }
             })
 
         # append layer metrics to all metrics
         metrics.append(layer_metrics)
 
-    print(metrics)
+    # save output 
+    with open(os.path.join(args.output_path,"output_metrics.json"),"w") as f:
+        json.dump(metrics, f, indent=4)

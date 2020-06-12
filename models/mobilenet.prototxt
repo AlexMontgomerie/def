@@ -1,12 +1,6 @@
 name: "MOBILENET"
-#  transform_param {
-#    scale: 0.017
-#    mirror: false
-#    crop_size: 224
-#    mean_value: [103.94,116.78,123.68]
-#  }
 input: "data"
-input_dim: 1
+input_dim: 64
 input_dim: 3
 input_dim: 224
 input_dim: 224
