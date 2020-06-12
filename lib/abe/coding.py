@@ -2,15 +2,14 @@ import math
 import lib.analysis
 import numpy as np
 from lib.stream import stream
-from lib.quantise import fixed
 
 def _bin_arr_to_int_arr(arr):
     pass
 
 def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis and cluster information
     # stream initialisations
-    stream_out = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
-    bitwidth   = stream_in.bitwidth
+    stream_out = stream([], dtype=stream_in.dtype)
+    bitwidth   = stream_in.dtype.bitwidth
     # iterate over stream
     for _ in range(math.floor(stream_in.arr.shape[0]/window_size)):
         ## window cache
@@ -46,7 +45,7 @@ def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis a
         for w in range(window_size):
             ## convert to int
             #val = fixed(int("".join(str(i) for i in window_cache[w,:]), 2),int_width=stream_in.int_width,frac_width=stream_in.frac_width)
-            val = fixed.fixed(bitfield=int("".join(str(i) for i in window_cache[w,:]), 2),int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+            val = stream_in.dtype( int("".join(str(i) for i in window_cache[w,:]), 2) )
             stream_out.push(val)
     # send the last 
     while len(stream_in.queue):

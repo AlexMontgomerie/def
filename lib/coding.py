@@ -1,10 +1,9 @@
 from lib.stream import stream
-from lib.quantise import fixed
 
 def correlator(stream_in):
     # stream initialisations
-    stream_out = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
-    fifo       = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+    stream_out = stream([], dtype=stream_in.dtype)
+    fifo       = stream([], dtype=stream_in.dtype)
     # fill buffer
     val = stream_in.pop()
     fifo.push(val)
@@ -14,7 +13,7 @@ def correlator(stream_in):
         val = stream_in.pop()
         val_delay = fifo.pop()
         # convert both to int
-        val_out = fixed.xor(val,val_delay)
+        val_out = val.__xor__(val_delay)
         stream_out.push(val_out)
         fifo.push(val_out)
     # empty fifo
@@ -25,8 +24,8 @@ def correlator(stream_in):
  
 def decorrelator(stream_in):
     # stream initialisations
-    stream_out = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
-    fifo       = stream([],int_width=stream_in.int_width,frac_width=stream_in.frac_width)
+    stream_out = stream([], dtype=stream_in.dtype)
+    fifo       = stream([], dtype=stream_in.dtype)
     # fill buffer
     val = stream_in.pop()
     fifo.push(val)
@@ -36,7 +35,7 @@ def decorrelator(stream_in):
         val = stream_in.pop()
         val_delay = fifo.pop()
         # convert both to int
-        val_out = fixed.xor(val,val_delay)
+        val_out = val.__xor__(val_delay)
         stream_out.push(val_out)
         fifo.push(val)
     # empty fifo

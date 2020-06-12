@@ -51,6 +51,7 @@ def get_table(sa):
             line_out += "%0.4f" % (sa[encoder][layer]) + "\t"
         print(line_out)
 
+"""
 name         = "mobilenet"
 model_path   = "models/mobilenet.prototxt"
 weight_path  = "weights/mobilenet.caffemodel"
@@ -61,17 +62,16 @@ model_path   = "models/alexnet.prototxt"
 weight_path  = "weights/alexnet.caffemodel"
 dataset_path = "/home/alex/imagenet/val/n01632777" 
 
-"""
 name         = "vgg"
 model_path   = "models/vgg16.prototxt"
 weight_path  = "weights/VGG16_SalObjSub.caffemodel"
 dataset_path = "/home/alex/imagenet" 
+"""
 
 name         = "lenet"
 model_path   = "models/lenet.prototxt"
 weight_path  = "weights/lenet.caffemodel"
 dataset_path = "/home/alex/mnist" 
-"""
 
 cs = stream.caffe_stream(name,model_path,weight_path,dataset_path)
 
