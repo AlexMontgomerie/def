@@ -111,7 +111,7 @@ class sint():
 
     # representation
     def __repr__(self):
-        return int( self.get_val() * (1-2*self.get_sign()) )
+        return str( int( self.get_val() * (1-2*self.get_sign()) ) )
 
     def __str__(self):
         return str( self.__repr__() )

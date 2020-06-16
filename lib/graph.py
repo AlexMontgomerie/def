@@ -1,3 +1,4 @@
+import json
 import matplotlib.pyplot as plt
 
 def plot_switching_activity(stream,transition_encoding=True):
@@ -28,4 +29,24 @@ def plot_bitwise_variance(net):
     plt.ylim(0,1)
     plt.show()
 
-
+def plot_switching_activity_per_layer(metric_path, output_path):
+    # load the metrics
+    with open(metric_path,"r") as f:
+        metrics = json.load(metric_path)
+    # get all the layers
+    layers = metrics.keys()
+    # get all encoding schemes
+    encoding_schemes = metrics[layers[0]].keys()
+    # switching activity
+    sa = {}
+    for encoding_scheme in encoding_schemes:
+        sa[encoding_scheme] = []
+    # iterate over layers
+    for layer in layers:
+        # iterate over encoding schemes
+        for encoding_scheme in encoding_schemes:
+            # append switching activity
+            sa[encoding_scheme].append(metrics[layer][encoding_scheme]["average_sa"])
+    # plot switching activity for each layer
+    for encoding_scheme in encoding_schemes:
+        plt.plot(layers, sa[encoding_scheme], label=encoding_scheme)

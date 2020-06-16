@@ -19,6 +19,12 @@ def bitwise_variance(stream_in):
 def total_transitions(stream_in):
     return np.sum(_get_transitions(stream_in))
 
+def total_transitions_per_line(stream_in):
+    return np.sum(_get_transitions(stream_in),axis=0)
+
+def total_samples(stream_in):
+    return stream_in.arr.shape[0]
+
 def average_switching_activity(stream_in):
     return np.average(_get_transitions(stream_in))
 

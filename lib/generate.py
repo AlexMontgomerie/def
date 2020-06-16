@@ -1,5 +1,6 @@
 import caffe
 from PIL import Image
+from collections import OrderedDict
 import numpy as np
 import deepdish as dd
 import random
@@ -53,8 +54,10 @@ def gen_caffe_featuremap(model_path, weight_path, input_path, output_path, bitwi
 
     # save feature map arrays
     feature_maps = {}
+    layers = []
     for layer in net.blobs:
         feature_maps[layer.replace("/","_")] = net.blobs[layer].data[...]
+        layers.append( layer.replace("/","_") )
 
     # apply symmetric quantisation to each featuremap
     for layer in feature_maps:
@@ -64,6 +67,9 @@ def gen_caffe_featuremap(model_path, weight_path, input_path, output_path, bitwi
         feature_maps[layer] = np.multiply(feature_maps[layer],scale)
         # change data type
         feature_maps[layer] = feature_maps[layer].astype(np.int64)
+
+    # save the layers 
+    feature_maps['layers'] = layers
 
     # write to output
     dd.io.save(output_path, feature_maps)

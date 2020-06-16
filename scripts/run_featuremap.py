@@ -12,6 +12,7 @@ import lib.bi.coding
 import lib.dsam.coding
 import lib.abe.coding
 import lib.rle.coding
+import lib.huffman.coding
 import lib.apbm.coding
 
 if __name__ == "__main__":
@@ -28,6 +29,9 @@ if __name__ == "__main__":
     parser.add_argument('-b','--bitwidth',metavar='N',type=int,default=8,
         help='Bitwidth of samples')
 
+    # parse arguments
+    args = parser.parse_args()
+
     # get datatype
     if args.bitwidth == 8:
         dtype = lib.quantise.sint8
@@ -35,9 +39,6 @@ if __name__ == "__main__":
         dtype = lib.quantise.sint16
     if args.bitwidth == 32:
         dtype = lib.quantise.sint32
-
-    # parse arguments
-    args = parser.parse_args()
 
     # get all the layers
     layers = lib.featuremap.get_layers( args.featuremap_path )
@@ -62,6 +63,10 @@ if __name__ == "__main__":
     def run_abe(stream_in, layer):
         return lib.abe.coding.encoder(stream_in,window_size=32)
 
+    def run_huffman(stream_in, layer):
+        code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
+        return lib.huffman.coding.encoder(stream_in, code_table)
+
     def run_rle(stream_in, layer):
         return lib.rle.coding.encoder(stream_in)
    
@@ -72,17 +77,18 @@ if __name__ == "__main__":
         "dsam"      : run_dsam,
         "apbm"      : run_apbm,
         "abe"       : run_abe,
+        "huffman"   : run_huffman,
         "rle"       : run_rle
     }
 
     # list of metrics for each layer
-    metrics = []
+    metrics = {} 
 
     # iterate over layers in featuremap
     for layer in layers:
 
         # add layer to outputs
-        layer_metrics = { layer : [] }
+        metrics[layer] = {}
 
         # load feature map
         featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, limit=args.limit, dtype=dtype)
@@ -96,19 +102,16 @@ if __name__ == "__main__":
             stream_out = encoders[encoder](copy.deepcopy(featuremap), layer)
 
             # get all the metrics
-            layer_metrics[layer].append({
-                encoder : {
-                    "bitwise_mean"          : lib.analysis.bitwise_mean(stream_out).astype(float).tolist(),
-                    "bitwise_variance"      : lib.analysis.bitwise_variance(stream_out).astype(float).tolist(),
-                    "total_transitions"     : lib.analysis.total_transitions(stream_out).astype(float),
-                    "average_sa"            : lib.analysis.average_switching_activity(stream_out).astype(float),
-                    "average_sa_per_line"   : lib.analysis.average_switching_activity_per_line(stream_out).astype(float).tolist()
-                }
-            })
-
-        # append layer metrics to all metrics
-        metrics.append(layer_metrics)
-
+            metrics[layer][encoder] = {
+                "bitwise_mean"                  : lib.analysis.bitwise_mean(stream_out).astype(float).tolist(),
+                "bitwise_variance"              : lib.analysis.bitwise_variance(stream_out).astype(float).tolist(),
+                "total_transitions"             : lib.analysis.total_transitions(stream_out).astype(float),
+                "total_transitions_per_line"    : lib.analysis.total_transitions_per_line(stream_out).astype(float).tolist(),
+                "total_samples"                 : lib.analysis.total_samples(stream_out),
+                "average_sa"                    : lib.analysis.average_switching_activity(stream_out).astype(float),
+                "average_sa_per_line"           : lib.analysis.average_switching_activity_per_line(stream_out).astype(float).tolist()
+            }
+        
     # save output 
     with open(os.path.join(args.output_path,"output_metrics.json"),"w") as f:
         json.dump(metrics, f, indent=4)

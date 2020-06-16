@@ -7,14 +7,17 @@ def get_layers(filepath):
     # load file
     featuremaps = dd.io.load(filepath)
     # return keys
-    return featuremaps.keys()
+    return featuremaps['layers']
 
 def get_dimensions(filepath):
     # load file
     featuremaps = dd.io.load(filepath)
     # get dimensions of each layer
     dimensions = {}
-    for layer in featuremaps:
+    #get layers 
+    layers = get_layers(filepath)
+    # iterate over layers
+    for layer in layers:
         dimensions[layer] = featuremaps[layer].shape
     # return dimensions
     return dimensions
