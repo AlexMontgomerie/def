@@ -99,6 +99,9 @@ class sint():
         elif a.get_sign() == 1 and b.get_sign() == 1:
             a.set_val( a.get_val() + b.get_val() )
             a.set_sign(1)
+        # set sign to zero if zero
+        if a.get_val() == 0:
+            a.set_sign(0)
         return a
 
     def __sub__(self,b):

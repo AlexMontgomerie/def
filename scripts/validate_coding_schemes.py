@@ -14,7 +14,7 @@ import lib.abe.coding
 import lib.rle.coding
 import lib.apbm.coding
 
-limit=10000
+limit=100000
 
 # load the test featuremap stream
 test_stream = lib.featuremap.to_stream("featuremaps/test.h5", "data", limit=limit, dtype=lib.quantise.sint8)

@@ -23,4 +23,7 @@ def encoder(stream_in):
     # return stream out
     stream_out.queue_to_array()    
     return stream_out
- 
+
+def decoder(stream_in):
+    # TODO
+    return stream_in

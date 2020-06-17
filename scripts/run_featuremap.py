@@ -10,6 +10,7 @@ import lib.quantise
 
 import lib.bi.coding
 import lib.dsam.coding
+import lib.dsam_bi.coding
 import lib.abe.coding
 import lib.rle.coding
 import lib.huffman.coding
@@ -56,6 +57,17 @@ if __name__ == "__main__":
         channels = dimensions[layer][1]
         return lib.dsam.coding.encoder(stream_in, channels=channels)
 
+    def run_dsam_rle(stream_in, layer):
+        channels = dimensions[layer][1]
+        dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
+        return lib.rle.coding.encoder(dsam_stream)
+
+    def run_dsam_bi(stream_in, layer):
+        channels = dimensions[layer][1]
+        return lib.dsam_bi.coding.encoder(stream_in, channels=channels)
+        #dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
+        #return lib.bi.coding.encoder(dsam_stream)
+
     def run_apbm(stream_in, layer):
         code_table = lib.apbm.coding.get_code_table(copy.deepcopy(stream_in))
         return lib.apbm.coding.encoder(stream_in, code_table=code_table)
@@ -75,9 +87,11 @@ if __name__ == "__main__":
         "baseline"  : run_baseline,
         "bi"        : run_bi,
         "dsam"      : run_dsam,
-        "apbm"      : run_apbm,
-        "abe"       : run_abe,
-        "huffman"   : run_huffman,
+        "dsam_rle"  : run_dsam_rle,
+        "dsam_bi"   : run_dsam_bi,
+        #"apbm"      : run_apbm,
+        #"abe"       : run_abe,
+        #"huffman"   : run_huffman,
         "rle"       : run_rle
     }
 
