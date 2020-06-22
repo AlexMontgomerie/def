@@ -62,11 +62,21 @@ if __name__ == "__main__":
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
         return lib.bi.coding.encoder(stream_in)
 
-    def run_dsam(stream_in, layer):
+    def run_dsam_serial(stream_in, layer):
         channels = dimensions[layer][1]
         stream_in = lib.dsam.coding.encoder(stream_in, channels=channels, use_correlator=False)
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
         return lib.coding.correlator(stream_in)
+
+    def run_dsam_parallel(stream_in, layer):
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width)
+        channels = dimensions[layer][1]
+        if channels%stream_in.n_channels:
+            print("ERR: cannot parallise stream")
+            return stream_in.single_stream()
+        for i in range(stream_in.n_channels):
+            stream_in.streams[i] = lib.dsam.coding.encoder(stream_in.streams[i], channels=int(channels/stream_in.n_channels))
+        return stream_in.single_stream() 
 
     def run_apbm(stream_in, layer):
         code_table = lib.apbm.coding.get_code_table(copy.deepcopy(stream_in))
@@ -99,17 +109,18 @@ if __name__ == "__main__":
    
     # encoders to run
     encoders = {
-        "baseline"  : run_baseline,
-        "bi"        : run_bi,
-        "dsam"      : run_dsam,
-        #"apbm"      : run_apbm,
-        #"abe"       : run_abe,
-        "awr"       : run_awr,
-        #"huffman"   : run_huffman,
-        #"huffman_bi": run_huffman_bi,
-        #"rle"       : run_rle,
-        #"rle_bi"    : run_rle_bi,
-        #"rle_dsam"  : run_rle_dsam
+        "baseline"      : run_baseline,
+        "bi"            : run_bi,
+        "dsam_serial"   : run_dsam_serial,
+        "dsam_parallel" : run_dsam_parallel,
+        #"apbm"         : run_apbm,
+        #"abe"          : run_abe,
+        "awr"           : run_awr,
+        #"huffman"      : run_huffman,
+        #"huffman_bi"   : run_huffman_bi,
+        #"rle"          : run_rle,
+        #"rle_bi"       : run_rle_bi,
+        #"rle_dsam"     : run_rle_dsam
     }
 
     # list of metrics for each layer

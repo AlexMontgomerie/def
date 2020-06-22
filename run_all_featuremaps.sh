@@ -1,5 +1,5 @@
 
-LIMIT=10000
+LIMIT=100000
 
 #mkdir -p outputs/caffe_alexnet_8b  && python -m scripts.run_featuremap -n alexnet -f featuremaps/caffe_alexnet_8b.h5  -o outputs/caffe_alexnet_8b  -l $LIMIT -b 8
 mkdir -p outputs/caffe_alexnet_8b  && python -m scripts.run_featuremap_multi -n alexnet -f featuremaps/caffe_alexnet_8b.h5  -o outputs/caffe_alexnet_8b  -l $LIMIT -b 8

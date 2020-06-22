@@ -25,11 +25,13 @@ def get_dimensions(filepath):
 def load_layer(filepath, layer):
     return dd.io.load(filepath)[layer]
 
-def to_stream(filepath, layer, offset=0, limit=None, dtype=lib.quantise.sint8):
+def to_stream(filepath, layer, offset=0, limit=None, dtype=lib.quantise.sint8, single_batch=False):
     # convert each feature map into stream
     featuremap = load_layer(filepath,layer)
     # re-order dimensions
     featuremap = np.moveaxis(featuremap,1,-1)
+    if single_batch:
+        featuremap=featuremap[0]
     # flatten feature map
     featuremap = featuremap.reshape(-1)
     # select only portition of the featuremap
