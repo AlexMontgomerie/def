@@ -6,12 +6,12 @@ class sint():
     def __init__(self, bitfield, bitwidth=8, convert=False):
 
         # setup value
-        self.bitwidth = bitwidth
-        self.bitfield = np.uint32(bitfield & (2**(bitwidth)-1) )
+        self.bitwidth = np.uint32(bitwidth)
+        self.bitfield = np.uint64(np.uint64(bitfield) & np.uint64(2**(bitwidth)-1) )
 
         # signed integer masks
-        self.val_mask  = 2**(self.bitwidth-1)-1
-        self.sign_mask = 1 << (self.bitwidth-1)
+        self.val_mask  = np.uint64( 2**(self.bitwidth-1)-1 )
+        self.sign_mask = np.uint64( 1 << (self.bitwidth-1) )
 
         self.val_max = int(self.val_mask)
         self.val_min = int(-self.val_mask)
@@ -26,17 +26,17 @@ class sint():
 
     # get signed integer fields
     def get_sign(self):
-        return int( ( self.bitfield & self.sign_mask ) >> ( self.bitwidth - 1 ) )
+        return int( np.uint64( self.bitfield & self.sign_mask ) >> np.uint64( self.bitwidth - 1 ) )
 
     def get_val(self):
         return int( self.bitfield & self.val_mask )
 
     # set signed integer fields
     def set_sign(self,x):
-        self.bitfield = ( self.bitfield & self.val_mask  ) | ( ( x & 1 ) << ( self.bitwidth - 1 ) )
+        self.bitfield = np.uint64( np.uint64(self.bitfield) & np.uint64(self.val_mask) ) | np.uint64( np.uint64( np.uint64(x) & np.uint64(1) ) << np.uint64( self.bitwidth - 1 ) ) 
 
     def set_val(self,x):
-        self.bitfield = ( self.bitfield & self.sign_mask ) | ( x & self.val_mask )
+        self.bitfield = np.uint64( np.uint64(self.bitfield) & np.uint64(self.sign_mask) ) | np.uint64( np.uint64(x) & np.uint64(self.val_mask) )
 
     # convert from integer representation
     def convert(self,x):
@@ -45,14 +45,18 @@ class sint():
         self.bitfield = 0
 
         # get sign and val
-        sign = int( ( x & self.sign_mask ) >> ( self.bitwidth - 1 ) )
-        val  = int( x & self.val_mask )
+        sign = np.uint64( np.uint64( np.uint64(x) & self.sign_mask ) >> np.uint64( np.uint64(self.bitwidth) - 1 ) )
+        val  = np.uint64( np.uint64(x) & self.val_mask )
 
         # adjust for twos complement
         if sign:
-            val = int( ~val & self.val_mask )
+            val = np.uint64( ~val & self.val_mask )
             if val != self.val_mask:
                 val += 1
+
+        # set all zeros to regular zero
+        if val == 0:
+            sign = 0
 
         # set sign and val
         self.set_sign(sign)
@@ -140,6 +144,11 @@ class sint32(sint):
     bitwidth=32
     def __init__(self, bitfield, convert=False):
         sint.__init__(self, bitfield, bitwidth=32,convert=convert)
+
+class sint64(sint):
+    bitwidth=64
+    def __init__(self, bitfield, convert=False):
+        sint.__init__(self, bitfield, bitwidth=64,convert=convert)
 
 # function to convert feature map to signed-bit integer
 def convert_featuremap(filepath, bitwidth=8):

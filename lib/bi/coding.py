@@ -1,7 +1,8 @@
 from lib.stream import stream
+import numpy as np
 
 def hamming_distance(x1,x2):
-    return bin(x1 ^ x2).count('1')
+    return bin(np.uint64(x1) ^ np.uint64(x2)).count('1')
 
 def encoder(stream_in):
     # stream initialisations

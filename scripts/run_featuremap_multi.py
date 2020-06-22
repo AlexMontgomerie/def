@@ -8,6 +8,7 @@ import lib.analysis
 import lib.featuremap
 import lib.quantise
 
+import lib.coding
 import lib.bi.coding
 import lib.dsam.coding
 import lib.dsam_bi.coding
@@ -23,7 +24,7 @@ import lib.apbm.coding
 if __name__ == "__main__":
 
     # setup argument parser
-    parser = argparse.ArgumentParser(description="Feature map encoding script")
+    parser = argparse.ArgumentParser(description="Feature map encoding script (Multi channel)")
     parser.add_argument('-n','--name', type=str, default="network", help='Name of network')
     parser.add_argument('-f','--featuremap_path',metavar='PATH',required=True,
         help='Path to feature map file (.h5)')
@@ -33,6 +34,9 @@ if __name__ == "__main__":
         help='Limit on stream samples')
     parser.add_argument('-b','--bitwidth',metavar='N',type=int,default=8,
         help='Bitwidth of samples')
+    parser.add_argument('-m','--memory_width',metavar='N',type=int,default=64,
+        help='Memory bitwidth')
+
 
     # parse arguments
     args = parser.parse_args()
@@ -52,25 +56,17 @@ if __name__ == "__main__":
     dimensions = lib.featuremap.get_dimensions( args.featuremap_path )
 
     def run_baseline(stream_in, layer):
-        return stream_in
+        return lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
 
     def run_bi(stream_in, layer):
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
         return lib.bi.coding.encoder(stream_in)
 
     def run_dsam(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.dsam.coding.encoder(stream_in, channels=channels)
-
-    def run_dsam_rle(stream_in, layer):
-        channels = dimensions[layer][1]
-        dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
-        return lib.rle.coding.encoder(dsam_stream)
-
-    def run_dsam_bi(stream_in, layer):
-        channels = dimensions[layer][1]
-        return lib.dsam_bi.coding.encoder(stream_in, channels=channels)
-        #dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
-        #return lib.bi.coding.encoder(dsam_stream)
+        stream_in = lib.dsam.coding.encoder(stream_in, channels=channels, use_correlator=False)
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
+        return lib.coding.correlator(stream_in)
 
     def run_apbm(stream_in, layer):
         code_table = lib.apbm.coding.get_code_table(copy.deepcopy(stream_in))
@@ -80,6 +76,7 @@ if __name__ == "__main__":
         return lib.abe.coding.encoder(stream_in,window_size=32)
 
     def run_awr(stream_in, layer):
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
         return lib.awr.coding.encoder(stream_in,N=4)
 
     def run_huffman(stream_in, layer):
@@ -105,8 +102,6 @@ if __name__ == "__main__":
         "baseline"  : run_baseline,
         "bi"        : run_bi,
         "dsam"      : run_dsam,
-        #"dsam_rle"  : run_dsam_rle,
-        #"dsam_bi"   : run_dsam_bi,
         #"apbm"      : run_apbm,
         #"abe"       : run_abe,
         "awr"       : run_awr,
@@ -128,7 +123,9 @@ if __name__ == "__main__":
 
         # load feature map
         featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, limit=args.limit, dtype=dtype)
-      
+     
+        # convert to multi stream
+
         # iterate over encoders
         for encoder in encoders:
 

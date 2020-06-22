@@ -3,7 +3,7 @@ from lib.coding import correlator
 from lib.coding import decorrelator
 import copy
 
-def encoder(stream_in, channels=256):
+def encoder(stream_in, channels=256,use_correlator=True):
     # stream initialisations
     stream_out = stream([], dtype=stream_in.dtype)
     fifo       = stream([], dtype=stream_in.dtype)
@@ -21,11 +21,17 @@ def encoder(stream_in, channels=256):
         fifo.push(val_in)
     stream_out.queue_to_array()    
     # return encoded stream
-    return correlator(stream_out)
+    if use_correlator:
+        return correlator(stream_out)
+    else:
+        return stream_out
 
-def decoder(stream_in, channels=256):
+def decoder(stream_in, channels=256,use_correlator=True):
     # decorrelate stream in
-    stream_in_decorr = decorrelator(stream_in)
+    if use_correlator:
+        stream_in_decorr = decorrelator(stream_in)
+    else:
+        stream_in_decorr = stream_in
     #stream_in_decorr = copy.deepcopy(stream_in)
     # stream initialisations
     stream_out = stream([], dtype=stream_in.dtype)
