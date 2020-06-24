@@ -47,24 +47,25 @@ class diff_encoder(val width:Int, val depth:Int) extends Module {
   })
   
   // initialise counter
-  val counter = Counter(depth)
+  val counter = RegInit(0.U(32.W))
 
   // initialise delay buffer
-  val buffer = Pipe(io.in, depth)
+  val buffer = Pipe(io.in, depth+1)
  
   // increment counter until pipe filled
-  when(io.in.valid && (counter.value < depth.U) ) {
-    counter.inc()
+  when(io.in.valid && (counter <= depth.U) ) {
+    counter := counter + 1.U
   }
 
   // assign output
-  when( counter.value < depth.U ) {
+  when( counter <= depth.U ) {
     io.out.bits   := io.in.bits
     io.out.valid  := io.in.valid
   } .otherwise { 
     io.out.bits   := io.in.bits - buffer.bits 
     io.out.valid  := buffer.valid
   }
+  
 }
 
 /*

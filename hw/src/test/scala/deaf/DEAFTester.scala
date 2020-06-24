@@ -49,18 +49,22 @@ class correlator_tester(c: correlator) extends PeekPokeTester(c) {
 }
 
 
-class correlator_tester(c: correlator) extends PeekPokeTester(c) {
+class diff_encoder_tester(c: diff_encoder) extends PeekPokeTester(c) {
 
   poke(c.io.in.valid, 1)
   
-  var prev = 0
-  for(i <- 0 to 100) {
-    // update variable
-    prev = prev ^ i
+  for(i <- 0 to c.depth-1) {
     // perform HW test
     poke(c.io.in.bits,i)
     step(1)
-    expect(c.io.out.bits, prev )
+    expect(c.io.out.bits,i)
+  }
+  
+  for(i <- c.depth to 100) {
+    // perform HW test
+    poke(c.io.in.bits,i)
+    step(1)
+    expect(c.io.out.bits, c.depth )
   }
 
 }
@@ -72,6 +76,8 @@ class DEAFTester extends ChiselFlatSpec {
   "correlator" should s"be correct" in {
     Driver(() => new correlator(8)) { c => new correlator_tester(c) } should be (true)
   }
-
+  "diff_encoder" should s"be correct" in {
+    Driver(() => new diff_encoder(8,3)) { c => new diff_encoder_tester(c) } should be (true)
+  }
 }
 
