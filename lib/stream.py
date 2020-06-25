@@ -20,6 +20,22 @@ class stream():
         self.sc_arr   = np.zeros(self.arr.shape[0], dtype=np.uint32)
         self.sc_queue = deque(self.sc_arr)
 
+    def to_bin(self, output_path):
+        # get datatype
+        if self.bitwidth <= 64:
+            dtype = np.uint64
+        elif self.bitwidth <= 32:
+            dtype = np.uint32
+        elif self.bitwidth <= 16:
+            dtype = np.uint16
+        elif self.bitwidth <= 8:
+            dtype = np.uint8
+        # convert array to these datatypes
+        arr_out = np.array([x.bitfield for x in self.arr], dtype=dtype)
+        # save as binary file
+        arr.tofile(output_path)
+
+    # main queue functions
     def queue_to_array(self):
         self.arr = np.array(list(self.queue))
 

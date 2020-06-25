@@ -63,7 +63,7 @@ class diff_encoder(val width:Int, val depth:Int) extends Module {
     io.out.valid  := io.in.valid
   } .otherwise { 
     io.out.bits   := io.in.bits - buffer.bits 
-    io.out.valid  := buffer.valid
+    io.out.valid  := buffer.valid & io.in.valid
   }
   
 }
@@ -110,6 +110,18 @@ class deaf_encoder(val width:Int, val depth:Int) extends Module {
     val in  = Flipped(Valid(UInt(width.W)))
     val out = Valid(UInt(width.W))
   })
+  
+  // initialise modules
+  val int_to_sint_module  = Module(new int_to_sint(width))
+  val diff_encoder_module = Module(new diff_encoder(width, depth))
+  val correlator_module   = Module(new correlator(width))
+
+  // wire connections
+  int_to_sint_module.io.in  := io.in
+  diff_encoder_module.io.in := int_to_sint_module.io.out
+  correlator_module.io.in   := diff_encoder_module.io.out
+  io.out   := correlator_module.io.out
+
 }
 
 /*

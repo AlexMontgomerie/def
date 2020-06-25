@@ -21,7 +21,7 @@ def gen_caffe_featuremap(model_path, weight_path, input_path, output_path, bitwi
     image_paths = []
     for _ in range(batch_size):
         # get random directory
-        rnd_dir = random.choice(os.listdir(input_path))
+        rnd_dir = random.choice(os.listdir(input_path)) #TODO: only choose directories, not
         # get random image path
         rnd_image_path = os.path.join(input_path,rnd_dir,random.choice(os.listdir(os.path.join(input_path, rnd_dir))))
         # append to image paths
