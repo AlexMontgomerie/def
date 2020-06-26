@@ -10,15 +10,15 @@ import lib.quantise
 
 import lib.bi.coding
 import lib.dsam.coding
-import lib.dsam_bi.coding
 import lib.abe.coding
 import lib.awr.coding
 import lib.rle.coding
-import lib.rle_bi.coding
 import lib.rle_dsam.coding
 import lib.huffman.coding
-import lib.huffman_bi.coding
 import lib.apbm.coding
+
+ABE_N = 32
+AWR_N = 4
 
 if __name__ == "__main__":
 
@@ -44,6 +44,8 @@ if __name__ == "__main__":
         dtype = lib.quantise.sint16
     if args.bitwidth == 32:
         dtype = lib.quantise.sint32
+    if args.bitwidth == 64:
+        dtype = lib.quantise.sint64
 
     # get all the layers
     layers = lib.featuremap.get_layers( args.featuremap_path )
@@ -68,19 +70,18 @@ if __name__ == "__main__":
 
     def run_dsam_bi(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.dsam_bi.coding.encoder(stream_in, channels=channels)
-        #dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
-        #return lib.bi.coding.encoder(dsam_stream)
+        dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
+        return lib.bi.coding.encoder(dsam_stream)
 
     def run_apbm(stream_in, layer):
         code_table = lib.apbm.coding.get_code_table(copy.deepcopy(stream_in))
         return lib.apbm.coding.encoder(stream_in, code_table=code_table)
 
     def run_abe(stream_in, layer):
-        return lib.abe.coding.encoder(stream_in,window_size=32)
+        return lib.abe.coding.encoder(stream_in,window_size=ABE_N)
 
     def run_awr(stream_in, layer):
-        return lib.awr.coding.encoder(stream_in,N=4)
+        return lib.awr.coding.encoder(stream_in,N=AWR_N)
 
     def run_huffman(stream_in, layer):
         code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
@@ -88,13 +89,15 @@ if __name__ == "__main__":
 
     def run_huffman_bi(stream_in, layer):
         code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
-        return lib.huffman_bi.coding.encoder(stream_in, code_table)
+        huffman_stream = lib.huffman.coding.encoder(stream_in, code_table)
+        return lib.bi.coding.encoder(huffman_stream)
 
     def run_rle(stream_in, layer):
         return lib.rle.coding.encoder(stream_in)
  
     def run_rle_bi(stream_in, layer):
-        return lib.rle_bi.coding.encoder(stream_in)
+        rle_stream = lib.rle.coding.encoder(stream_in)
+        return lib.bi.coding.encoder(rle_stream)
  
     def run_rle_dsam(stream_in, layer):
         channels = dimensions[layer][1]
@@ -105,16 +108,16 @@ if __name__ == "__main__":
         "baseline"  : run_baseline,
         "bi"        : run_bi,
         "dsam"      : run_dsam,
-        #"dsam_rle"  : run_dsam_rle,
-        #"dsam_bi"   : run_dsam_bi,
-        #"apbm"      : run_apbm,
-        #"abe"       : run_abe,
+        "dsam_rle"  : run_dsam_rle,
+        "dsam_bi"   : run_dsam_bi,
+        "apbm"      : run_apbm,
+        "abe"       : run_abe,
         "awr"       : run_awr,
-        #"huffman"   : run_huffman,
-        #"huffman_bi": run_huffman_bi,
-        #"rle"       : run_rle,
-        #"rle_bi"    : run_rle_bi,
-        #"rle_dsam"  : run_rle_dsam
+        "huffman"   : run_huffman,
+        "huffman_bi": run_huffman_bi,
+        "rle"       : run_rle,
+        "rle_bi"    : run_rle_bi,
+        "rle_dsam"  : run_rle_dsam
     }
 
     # list of metrics for each layer

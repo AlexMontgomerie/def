@@ -166,14 +166,13 @@ def plot_transitions_per_samples(metric_path, output_path, encoding_scheme_filte
     for layer in layers:
         for encoding_scheme in encoding_schemes:
             vals[encoding_scheme] += metrics[layer][encoding_scheme]["total_transitions"]
-    print(total_samples)
     for encoding_scheme in encoding_schemes:
-        plt.scatter([total_samples[encoding_scheme]],[vals[encoding_scheme]], label=encoding_scheme)
-    #plt.ylim(bottom=0)
-    #plt.xticks(rotation=45)
+        plt.scatter([total_samples[encoding_scheme]],[vals[encoding_scheme]])
+        plt.text(total_samples[encoding_scheme],vals[encoding_scheme], encoding_scheme)
     plt.title("Total Transitions")
     plt.ylabel("Transitions")
-    plt.ylabel("Samples")
+    plt.xlabel("Samples")
+    plt.grid(True)
     plt.savefig(output_path,bbox_inches='tight')
     if show_plot:
         plt.show()
