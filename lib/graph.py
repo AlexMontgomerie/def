@@ -2,6 +2,29 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
+def _get_total_samples(metrics):
+    # get layers and encoding schemes
+    layers = list(metrics.keys())
+    encoding_schemes = list(metrics[layers[0]].keys())
+    # total transitions
+    total_samples = {}
+    for encoding_scheme in encoding_schemes:
+        total_samples[encoding_scheme] = 0
+    # iterate over layers
+    for layer in layers:
+        for encoding_scheme in encoding_schemes:
+            total_samples[encoding_scheme] += metrics[layer][encoding_scheme]["total_samples"]
+    # return table of all samples
+    return total_samples
+
+def _get_average_metric(metrics, metric):
+    # get layers and encoding schemes
+    layers = list(metrics.keys())
+    encoding_schemes = list(metrics[layers[0]].keys())
+    # total transitions
+    total_samples = {}
+
+
 def plot_bitwise(metric_path, output_path, metric="total_transitions_per_line", single_layer="", encoding_scheme_filter=[], show_plot=True):
     # load the metrics
     with open(metric_path,"r") as f:
@@ -17,12 +40,14 @@ def plot_bitwise(metric_path, output_path, metric="total_transitions_per_line", 
         for encoding_scheme in encoding_schemes:
             bitwise_vals[encoding_scheme] = metrics[layer][encoding_scheme][metric]
     else:
+        total_samples = _get_total_samples(metrics)
         for encoding_scheme in encoding_schemes:
             bitwise_vals[encoding_scheme] = [0]*len(metrics[layers[0]][encoding_schemes[0]][metric])
         for layer in layers:
             for encoding_scheme in encoding_schemes:
                 for i in range(len(bitwise_vals[encoding_scheme])):
-                    bitwise_vals[encoding_scheme][i] += metrics[layer][encoding_scheme][metric][i]/len(layers)
+                    bitwise_vals[encoding_scheme][i] += metrics[layer][encoding_scheme][metric][i]*(
+                            metrics[layer][encoding_scheme]["total_samples"]/total_samples[encoding_scheme])
     # plot switching activity for each layer
     for encoding_scheme in encoding_schemes:
         plt.bar(np.arange(len(bitwise_vals[encoding_scheme])), bitwise_vals[encoding_scheme], label=encoding_scheme)
@@ -106,11 +131,13 @@ def plot_per_encoding_scheme(metric_path, output_path, metric="total_transitions
     if not encoding_schemes:
         encoding_schemes = list(metrics[layers[0]].keys())
     vals = {}
+    total_samples = _get_total_samples(metrics)
     for encoding_scheme in encoding_schemes:
         vals[encoding_scheme] = 0
     for layer in layers:
         for encoding_scheme in encoding_schemes:
-            vals[encoding_scheme] += metrics[layer][encoding_scheme][metric]/len(layers)
+            vals[encoding_scheme] += metrics[layer][encoding_scheme][metric]*(
+                    metrics[layer][encoding_scheme]["total_samples"]/total_samples[encoding_scheme])
     # plot switching activity for each layer
     vals = [ vals[encoding_scheme] for encoding_scheme in encoding_schemes ]
     plt.bar(encoding_schemes, vals)
@@ -118,6 +145,35 @@ def plot_per_encoding_scheme(metric_path, output_path, metric="total_transitions
     plt.xticks(rotation=45)
     plt.title("{} per encoding scheme".format(metric))
     plt.ylabel(metric)
+    plt.savefig(output_path,bbox_inches='tight')
+    if show_plot:
+        plt.show()
+
+def plot_transitions_per_samples(metric_path, output_path, encoding_scheme_filter=[], show_plot=True):
+    # load the metrics
+    with open(metric_path,"r") as f:
+        metrics = json.load(f)
+    # get all the layers
+    layers = list(metrics.keys())
+    # get all encoding schemes
+    encoding_schemes = encoding_scheme_filter
+    if not encoding_schemes:
+        encoding_schemes = list(metrics[layers[0]].keys())
+    vals = {}
+    for encoding_scheme in encoding_schemes:
+        vals[encoding_scheme] = 0
+    total_samples = _get_total_samples(metrics)
+    for layer in layers:
+        for encoding_scheme in encoding_schemes:
+            vals[encoding_scheme] += metrics[layer][encoding_scheme]["total_transitions"]
+    print(total_samples)
+    for encoding_scheme in encoding_schemes:
+        plt.scatter([total_samples[encoding_scheme]],[vals[encoding_scheme]], label=encoding_scheme)
+    #plt.ylim(bottom=0)
+    #plt.xticks(rotation=45)
+    plt.title("Total Transitions")
+    plt.ylabel("Transitions")
+    plt.ylabel("Samples")
     plt.savefig(output_path,bbox_inches='tight')
     if show_plot:
         plt.show()
