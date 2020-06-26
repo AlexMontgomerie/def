@@ -8,7 +8,7 @@ def _bin_arr_to_int_arr(arr):
 
 def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis and cluster information
     # stream initialisations
-    stream_out = stream([], dtype=stream_in.dtype)
+    stream_out = stream([], dtype=stream_in.dtype, sc_width=1)
     bitwidth   = stream_in.dtype.bitwidth
     # iterate over stream
     for _ in range(math.floor(stream_in.arr.shape[0]/window_size)):
@@ -43,10 +43,17 @@ def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis a
             window_cache[:,cluster] = np.bitwise_xor(window_cache[:,cluster],window_cache[:,basis])
         ## send to stream 
         for w in range(window_size):
+            ## send start of frame signal
+            if w == 0:
+                stream_out.sc_push(0)
+            else:
+                stream_out.sc_push(1)
             ## convert to int
-            #val = fixed(int("".join(str(i) for i in window_cache[w,:]), 2),int_width=stream_in.int_width,frac_width=stream_in.frac_width)
             val = stream_in.dtype( int("".join(str(i) for i in window_cache[w,:]), 2) )
             stream_out.push(val)
+        # send last frame with basis information
+        stream_out.push(stream_in.dtype(1<<basis))
+        stream_out.sc_push(1)
     # send the last 
     while len(stream_in.queue):
         stream_out.push(stream_in.pop())
