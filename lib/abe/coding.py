@@ -57,7 +57,9 @@ def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis a
     # send the last 
     while len(stream_in.queue):
         stream_out.push(stream_in.pop())
+        stream_out.sc_push(1)
     # return stream out
     stream_out.queue_to_array()    
+    stream_out.sc_queue_to_array()    
     return stream_out
  

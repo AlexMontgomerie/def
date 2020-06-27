@@ -12,6 +12,7 @@ def encoder(stream_in):
     val = stream_in.pop()
     fifo.push(val)
     stream_out.push(val)
+    stream_out.sc_push(0)
     # iterate over rest of stream
     for _ in range(stream_in.arr.shape[0]-1):
         val_in    = stream_in.pop()

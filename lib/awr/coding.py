@@ -1,10 +1,11 @@
 from lib.stream import stream
 from lib.bi.coding import hamming_distance
 import math
+import copy
 
 def encoder(stream_in, N=32): # TODO: add side channel
     # stream initialisations
-    stream_out = stream([], dtype=stream_in.dtype,sc_width=,math.log(N,2))
+    stream_out = stream([], dtype=stream_in.dtype,sc_width=math.log(N,2))
     prev_val = 0
     # iterate over stream
     for _ in range(math.floor(stream_in.arr.shape[0]/N)):
@@ -13,7 +14,7 @@ def encoder(stream_in, N=32): # TODO: add side channel
         for i in range(N):
             window[i] = stream_in.pop().bitfield
         # copy window so we can get index
-        window_copy = window
+        window_copy = copy.deepcopy(window)
         # iterate over window
         for i in range(N):
             # get distance of all values with the previous value 

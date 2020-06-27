@@ -1,7 +1,13 @@
 import numpy as np
+import lib.quantise
 
 def _stream_to_bin_array(stream_in):
-    return np.array([ val.to_bin() for val in stream_in.arr ])
+    if stream_in.sc_width == 0:
+        return np.array([ val.to_bin() for val in stream_in.arr ])
+    else:
+        return np.array([ lib.quantise.sint(np.uint64(stream_in.arr[i].bitfield)|np.uint64(stream_in.sc_arr[i]<<stream_in.bitwidth), 
+            bitwidth=stream_in.bitwidth+stream_in.sc_width).to_bin()
+            for i in range(stream_in.arr.shape[0]) ])
 
 def _get_transitions(stream_in):
     bin_stream_in = _stream_to_bin_array(stream_in)
