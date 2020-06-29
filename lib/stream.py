@@ -80,11 +80,7 @@ class multi_stream:
         self.streams = [ stream(self.multi_channel_arr[i],dtype=dtype) for i in range(self.n_channels) ]
 
     def single_stream(self): # TODO: convert to a single wide stream
-        # get the data type
-        if self.memory_bus_width == 32:
-            dtype = lib.quantise.sint32
-        elif self.memory_bus_width == 64:
-            dtype = lib.quantise.sint64
+        dtype = lib.quantise.sint64
         # initialise the stream out
         stream_out = stream([], dtype=dtype)
         # iterate over stream dimensions

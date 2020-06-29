@@ -11,14 +11,11 @@ import lib.quantise
 import lib.coding
 import lib.bi.coding
 import lib.dsam.coding
-import lib.dsam_bi.coding
 import lib.abe.coding
 import lib.awr.coding
 import lib.rle.coding
-import lib.rle_bi.coding
 import lib.rle_dsam.coding
 import lib.huffman.coding
-import lib.huffman_bi.coding
 import lib.apbm.coding
 
 if __name__ == "__main__":
@@ -34,9 +31,6 @@ if __name__ == "__main__":
         help='Limit on stream samples')
     parser.add_argument('-b','--bitwidth',metavar='N',type=int,default=8,
         help='Bitwidth of samples')
-    parser.add_argument('-m','--memory_width',metavar='N',type=int,default=64,
-        help='Memory bitwidth')
-
 
     # parse arguments
     args = parser.parse_args()
@@ -56,20 +50,20 @@ if __name__ == "__main__":
     dimensions = lib.featuremap.get_dimensions( args.featuremap_path )
 
     def run_baseline(stream_in, layer):
-        return lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
+        return lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
 
     def run_bi(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=56).single_stream()
         return lib.bi.coding.encoder(stream_in)
 
     def run_dsam_serial(stream_in, layer):
         channels = dimensions[layer][1]
         stream_in = lib.dsam.coding.encoder(stream_in, channels=channels, use_correlator=False)
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
         return lib.coding.correlator(stream_in)
 
     def run_dsam_parallel(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width)
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64)
         channels = dimensions[layer][1]
         if channels%stream_in.n_channels:
             print("ERR: cannot parallise stream")
@@ -79,29 +73,37 @@ if __name__ == "__main__":
         return stream_in.single_stream() 
 
     def run_apbm(stream_in, layer):
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
         code_table = lib.apbm.coding.get_code_table(copy.deepcopy(stream_in))
         return lib.apbm.coding.encoder(stream_in, code_table=code_table)
 
     def run_abe(stream_in, layer):
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=56).single_stream()
         return lib.abe.coding.encoder(stream_in,window_size=32)
 
     def run_awr(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=args.memory_width).single_stream()
-        return lib.awr.coding.encoder(stream_in,N=4)
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=56).single_stream()
+        return lib.awr.coding.encoder(stream_in,N=8)
 
     def run_huffman(stream_in, layer):
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
         code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
         return lib.huffman.coding.encoder(stream_in, code_table)
 
     def run_huffman_bi(stream_in, layer):
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
         code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
-        return lib.huffman_bi.coding.encoder(stream_in, code_table)
+        huffman_stream = lib.huffman.coding.encoder(stream_in, code_table)
+        return lib.bi.coding.encoder(huffman_stream)
 
     def run_rle(stream_in, layer):
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
         return lib.rle.coding.encoder(stream_in)
  
     def run_rle_bi(stream_in, layer):
-        return lib.rle_bi.coding.encoder(stream_in)
+        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        rle_stream = lib.rle.coding.encoder(stream_in)
+        return lib.bi.coding.encoder(rle_stream)
  
     def run_rle_dsam(stream_in, layer):
         channels = dimensions[layer][1]
@@ -113,13 +115,13 @@ if __name__ == "__main__":
         "bi"            : run_bi,
         "dsam_serial"   : run_dsam_serial,
         "dsam_parallel" : run_dsam_parallel,
-        #"apbm"         : run_apbm,
-        #"abe"          : run_abe,
+        "apbm"         : run_apbm,
+        "abe"          : run_abe,
         "awr"           : run_awr,
-        #"huffman"      : run_huffman,
-        #"huffman_bi"   : run_huffman_bi,
-        #"rle"          : run_rle,
-        #"rle_bi"       : run_rle_bi,
+        "huffman"      : run_huffman,
+        "huffman_bi"   : run_huffman_bi,
+        "rle"          : run_rle,
+        "rle_bi"       : run_rle_bi,
         #"rle_dsam"     : run_rle_dsam
     }
 
@@ -147,12 +149,13 @@ if __name__ == "__main__":
 
             # get all the metrics
             metrics[layer][encoder] = {
+                "bitwidth"                      : 64,
                 "bitwise_mean"                  : lib.analysis.bitwise_mean(stream_out).astype(float).tolist(),
                 "bitwise_variance"              : lib.analysis.bitwise_variance(stream_out).astype(float).tolist(),
                 "total_transitions"             : lib.analysis.total_transitions(stream_out).astype(float),
                 "total_transitions_per_line"    : lib.analysis.total_transitions_per_line(stream_out).astype(float).tolist(),
                 "total_samples"                 : lib.analysis.total_samples(stream_out),
-                "average_sa"                    : lib.analysis.average_switching_activity(stream_out).astype(float),
+                "average_sa"                    : lib.analysis.average_switching_activity(stream_out,bitwidth=64).astype(float),
                 "average_sa_per_line"           : lib.analysis.average_switching_activity_per_line(stream_out).astype(float).tolist()
             }
         

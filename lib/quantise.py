@@ -7,7 +7,7 @@ class sint():
 
         # setup value
         self.bitwidth = np.uint32(bitwidth)
-        self.bitfield = np.uint64(np.uint64(bitfield) & np.uint64(2**(bitwidth)-1) )
+        self.bitfield = np.uint64(np.uint64(np.uint64(bitfield) & np.uint64(2**(bitwidth)-1) ))
 
         # signed integer masks
         self.val_mask  = np.uint64( 2**(self.bitwidth-1)-1 )

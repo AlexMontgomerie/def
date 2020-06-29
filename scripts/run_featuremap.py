@@ -142,6 +142,7 @@ if __name__ == "__main__":
 
             # get all the metrics
             metrics[layer][encoder] = {
+                "bitwidth"                      : stream_out.bitwidth + stream_out.sc_width,
                 "bitwise_mean"                  : lib.analysis.bitwise_mean(stream_out).astype(float).tolist(),
                 "bitwise_variance"              : lib.analysis.bitwise_variance(stream_out).astype(float).tolist(),
                 "total_transitions"             : lib.analysis.total_transitions(stream_out).astype(float),

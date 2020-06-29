@@ -5,8 +5,8 @@ def _stream_to_bin_array(stream_in):
     if stream_in.sc_width == 0:
         return np.array([ val.to_bin() for val in stream_in.arr ])
     else:
-        return np.array([ lib.quantise.sint(np.uint64(stream_in.arr[i].bitfield)|np.uint64(stream_in.sc_arr[i]<<stream_in.bitwidth), 
-            bitwidth=stream_in.bitwidth+stream_in.sc_width).to_bin()
+        return np.array([ lib.quantise.sint(np.uint64(np.uint64(stream_in.arr[i].bitfield)|np.uint64(stream_in.sc_arr[i]<<stream_in.bitwidth), 
+            bitwidth=stream_in.bitwidth+stream_in.sc_width)).to_bin()
             for i in range(stream_in.arr.shape[0]) ])
 
 def _get_transitions(stream_in):
@@ -31,8 +31,11 @@ def total_transitions_per_line(stream_in):
 def total_samples(stream_in):
     return stream_in.arr.shape[0]
 
-def average_switching_activity(stream_in):
-    return np.average(_get_transitions(stream_in))
+def average_switching_activity(stream_in, bitwidth=0):
+    if bitwidth:
+        return (np.sum(_get_transitions(stream_in))/(bitwidth*stream_in.arr.shape[0]))
+    else:
+        return np.average(_get_transitions(stream_in))
 
 def average_switching_activity_per_line(stream_in):
     return np.average(_get_transitions(stream_in),axis=0)
