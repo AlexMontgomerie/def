@@ -2,6 +2,7 @@ import argparse
 import copy
 import json
 import os
+import numpy as np
 
 import lib.stream
 import lib.analysis
@@ -74,7 +75,9 @@ if __name__ == "__main__":
         return lib.bi.coding.encoder(dsam_stream)
 
     def run_apbm(stream_in, layer):
-        code_table = lib.apbm.coding.get_code_table(copy.deepcopy(stream_in))
+        code_table_stream =copy.deepcopy(stream_in)
+        code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
+        code_table = lib.apbm.coding.get_code_table(code_table_stream)
         return lib.apbm.coding.encoder(stream_in, code_table=code_table)
 
     def run_abe(stream_in, layer):
