@@ -55,56 +55,62 @@ if __name__ == "__main__":
     dimensions = lib.featuremap.get_dimensions( args.featuremap_path )
 
     def run_baseline(stream_in, layer):
-        return stream_in
+        return stream_in, [0,0]
 
     def run_bi(stream_in, layer):
-        return lib.bi.coding.encoder(stream_in)
+        return lib.bi.coding.encoder(stream_in), [0,0]
 
     def run_dsam(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.dsam.coding.encoder(stream_in, channels=channels)
+        return lib.dsam.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
 
     def run_dsam_rle(stream_in, layer):
         channels = dimensions[layer][1]
         dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
-        return lib.rle.coding.encoder(dsam_stream)
+        return lib.rle.coding.encoder(dsam_stream), [channels*stream_in.bitwidth, 0]
 
     def run_dsam_bi(stream_in, layer):
         channels = dimensions[layer][1]
         dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
-        return lib.bi.coding.encoder(dsam_stream)
+        return lib.bi.coding.encoder(dsam_stream), [channels*stream_in.bitwidth, 0]
 
     def run_apbm(stream_in, layer):
         code_table_stream =copy.deepcopy(stream_in)
         code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
         code_table = lib.apbm.coding.get_code_table(code_table_stream)
-        return lib.apbm.coding.encoder(stream_in, code_table=code_table)
+        return lib.apbm.coding.encoder(stream_in, code_table=code_table), [len(code_table.keys())*stream_in.bitwidth,0]
 
     def run_abe(stream_in, layer):
-        return lib.abe.coding.encoder(stream_in,window_size=ABE_N)
+        return lib.abe.coding.encoder(stream_in,window_size=ABE_N), [ABE_N*stream_in.bitwidth,0]
 
     def run_awr(stream_in, layer):
-        return lib.awr.coding.encoder(stream_in,N=AWR_N)
+        return lib.awr.coding.encoder(stream_in,N=AWR_N), [AWR_N,0]
 
     def run_huffman(stream_in, layer):
-        code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
-        return lib.huffman.coding.encoder(stream_in, code_table)
+        code_table_stream =copy.deepcopy(stream_in)
+        code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
+        code_table = lib.huffman.coding.get_code_table(code_table_stream)
+        code_table_size = np.sum([ code_table._table[key][0] for key in code_table._table ])
+        return lib.huffman.coding.encoder(stream_in, code_table), [code_table_size,0]
 
     def run_huffman_bi(stream_in, layer):
-        code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
+        code_table_stream =copy.deepcopy(stream_in)
+        code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
+        code_table = lib.huffman.coding.get_code_table(code_table_stream)
+        code_table_size = np.sum([ code_table._table[key][0] for key in code_table._table ])
         huffman_stream = lib.huffman.coding.encoder(stream_in, code_table)
-        return lib.bi.coding.encoder(huffman_stream)
+        return lib.bi.coding.encoder(huffman_stream), [code_table_size,0]
 
     def run_rle(stream_in, layer):
-        return lib.rle.coding.encoder(stream_in)
+        return lib.rle.coding.encoder(stream_in), [0,0]
  
     def run_rle_bi(stream_in, layer):
         rle_stream = lib.rle.coding.encoder(stream_in)
-        return lib.bi.coding.encoder(rle_stream)
+        return lib.bi.coding.encoder(rle_stream), [0,0]
  
     def run_rle_dsam(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.rle_dsam.coding.encoder(stream_in,channels=channels)
+        return lib.rle_dsam.coding.encoder(stream_in,channels=channels), [channels*stream_in.bitwidth, 0]
    
     # encoders to run
     encoders = {
@@ -141,11 +147,12 @@ if __name__ == "__main__":
             print("{}: \t running {}".format(layer,encoder))
 
             # get the stream out
-            stream_out = encoders[encoder](copy.deepcopy(featuremap), layer)
+            stream_out, resources = encoders[encoder](copy.deepcopy(featuremap), layer)
 
             # get all the metrics
             metrics[layer][encoder] = {
                 "bitwidth"                      : stream_out.bitwidth + stream_out.sc_width,
+                "resources"                     : resources,
                 "bitwise_mean"                  : lib.analysis.bitwise_mean(stream_out).astype(float).tolist(),
                 "bitwise_variance"              : lib.analysis.bitwise_variance(stream_out).astype(float).tolist(),
                 "total_transitions"             : lib.analysis.total_transitions(stream_out).astype(float),

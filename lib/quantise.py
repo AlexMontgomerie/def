@@ -182,6 +182,14 @@ if __name__=="__main__":
     print(tmp.get_val())
     print("-3-2 = ", tmp )
 
-    print(hex(sint8(-5,convert=True).to_int()))
+    a = sint8(-127,convert=True)
+    b = sint8(-127,convert=True)
+    print(hex(a.to_int()), hex(b.to_int()))
+    c = a + b
+    d = c - b
+    print(hex(c.to_int()))
+    print(hex(d.to_int()))
+
+    #print(hex(sint8(-5,convert=True).to_int()))
 
     #print(convert_featuremap("featuremaps/distiller_alexnet.h5"))
