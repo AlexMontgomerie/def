@@ -1,5 +1,5 @@
 #!/bin/bash
-LIMIT=100000
+LIMIT=56000
 
 function run {
     mkdir -p outputs/caffe_alexnet_8b  && python -m scripts.run_featuremap -n alexnet -f featuremaps/caffe_alexnet_8b.h5  -o outputs/caffe_alexnet_8b  -l $LIMIT -b 8
@@ -13,7 +13,7 @@ function run_multi {
 
 }
 
-run
-#run_multi
+#run
+run_multi
 
 #mkdir -p outputs && python -m scripts.run_graphs

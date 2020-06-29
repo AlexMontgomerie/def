@@ -4,7 +4,7 @@ from lib.coding import decorrelator
 import lib.rle.coding
 import copy
 
-def encoder(stream_in, channels=256):
+def encoder(stream_in, channels=256,use_correlator=True):
     rle_zero = 1 << ( stream_in.bitwidth-1 )
     # get the raw length of the stream
     stream_in_length = stream_in.arr.shape[0]
@@ -53,7 +53,10 @@ def encoder(stream_in, channels=256):
             index += 1
     stream_out.queue_to_array()    
     # return encoded stream
-    return correlator(stream_out)
+    if use_correlator:
+        return correlator(stream_out)
+    else:
+        return stream_out
 
 def decoder(stream_in, channels=256):
     # decorrelate stream in
