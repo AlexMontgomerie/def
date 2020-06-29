@@ -20,15 +20,12 @@ def get_code_table(stream_in):
     for i in range(len(scheme)):
         code_table[scheme[i][0]] = stream_in.dtype(i)
     # add the rest
-    """
     codeword = len(scheme)
     for i in range(2**total_width):
         if i in code_table:
             pass
-        code_table[i] = fixed((i&(2**(total_width-1)-1)),int_width=stream_in.int_width,frac_width=stream_in.frac_width)
-        code_table[i].sign = float(1- 2*(i >> total_width))
+        code_table[i] = stream_in.dtype(i)
         codeword += 1
-    """
     # return code table
     return code_table
 
