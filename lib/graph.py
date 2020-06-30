@@ -197,6 +197,7 @@ def plot_sa_cr(metric_paths, output_path, encoding_scheme="rle_dsam", show_plot=
     # load metrics for each network
     metrics = {}
     for network in metric_paths:
+        print(network)
         with open(metric_paths[network],"r") as f:
             metrics[network] = json.load(f)
     # outputs
@@ -214,8 +215,8 @@ def plot_sa_cr(metric_paths, output_path, encoding_scheme="rle_dsam", show_plot=
     for network in metrics:
         plt.scatter([encoded[network][0]],[encoded[network][1]])
     plt.xlim([0,0.5])
-    plt.ylim([0,1])
-    plt.yscale("log")
+    #plt.ylim([0,1])
+    #plt.yscale("log")
     plt.title("Total Transitions")
     plt.ylabel("Transitions")
     plt.xlabel("Samples")
