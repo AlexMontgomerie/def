@@ -88,14 +88,12 @@ if __name__ == "__main__":
 
     def run_huffman(stream_in, layer):
         code_table_stream =copy.deepcopy(stream_in)
-        code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
         code_table = lib.huffman.coding.get_code_table(code_table_stream)
         code_table_size = np.sum([ code_table._table[key][0] for key in code_table._table ])
         return lib.huffman.coding.encoder(stream_in, code_table), [code_table_size,0]
 
     def run_huffman_bi(stream_in, layer):
         code_table_stream =copy.deepcopy(stream_in)
-        code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
         code_table = lib.huffman.coding.get_code_table(code_table_stream)
         code_table_size = np.sum([ code_table._table[key][0] for key in code_table._table ])
         huffman_stream = lib.huffman.coding.encoder(stream_in, code_table)
@@ -151,8 +149,8 @@ if __name__ == "__main__":
 
             # get all the metrics
             metrics[layer][encoder] = {
-                "bitwidth"                      : stream_out.bitwidth + stream_out.sc_width,
-                "resources"                     : resources,
+                "bitwidth"                      : int(stream_out.bitwidth + stream_out.sc_width),
+                "resources"                     : int(resources[0]),
                 "bitwise_mean"                  : lib.analysis.bitwise_mean(stream_out).astype(float).tolist(),
                 "bitwise_variance"              : lib.analysis.bitwise_variance(stream_out).astype(float).tolist(),
                 "total_transitions"             : lib.analysis.total_transitions(stream_out).astype(float),
