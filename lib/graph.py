@@ -23,9 +23,36 @@ def _get_average_metric(metrics, metric):
     encoding_schemes = list(metrics[layers[0]].keys())
     # total transitions
     total_samples = {}
+    vals = {}
+    total_samples = _get_total_samples(metrics)
+    for encoding_scheme in encoding_schemes:
+        vals[encoding_scheme] = 0
+    for layer in layers:
+        for encoding_scheme in encoding_schemes:
+            vals[encoding_scheme] += metrics[layer][encoding_scheme][metric]*(
+                    metrics[layer][encoding_scheme]["total_samples"]/total_samples[encoding_scheme])
+    # return values
+    return vals
 
+def _get_average_metric_bitwise(metrics, metric):
+    # get layers and encoding schemes
+    layers = list(metrics.keys())
+    encoding_schemes = list(metrics[layers[0]].keys())
+    # total transitions
+    total_samples = {}
+    bitwise_vals = {}
+    total_samples = _get_total_samples(metrics)
+    for encoding_scheme in encoding_schemes:
+        bitwise_vals[encoding_scheme] = [0]*len(metrics[layers[0]][encoding_schemes[0]][metric])
+    for layer in layers:
+        for encoding_scheme in encoding_schemes:
+            for i in range(len(bitwise_vals[encoding_scheme])):
+                bitwise_vals[encoding_scheme][i] += metrics[layer][encoding_scheme][metric][i]*(
+                        metrics[layer][encoding_scheme]["total_samples"]/total_samples[encoding_scheme])
+    # return values
+    return bitwise_vals
 
-def plot_bitwise(metric_path, output_path, metric="total_transitions_per_line", single_layer="", encoding_scheme_filter=[], show_plot=True):
+def plot_bitwise(metric_path, output_path, metric="total_transitions_per_line", encoding_scheme_filter=[], show_plot=True):
     # load the metrics
     with open(metric_path,"r") as f:
         metrics = json.load(f)
@@ -35,19 +62,10 @@ def plot_bitwise(metric_path, output_path, metric="total_transitions_per_line", 
     encoding_schemes = encoding_scheme_filter
     if not encoding_schemes:
         encoding_schemes = list(metrics[layers[0]].keys())
-    bitwise_vals = {}
-    if single_layer:
-        for encoding_scheme in encoding_schemes:
-            bitwise_vals[encoding_scheme] = metrics[layer][encoding_scheme][metric]
-    else:
-        total_samples = _get_total_samples(metrics)
-        for encoding_scheme in encoding_schemes:
-            bitwise_vals[encoding_scheme] = [0]*len(metrics[layers[0]][encoding_schemes[0]][metric])
-        for layer in layers:
-            for encoding_scheme in encoding_schemes:
-                for i in range(len(bitwise_vals[encoding_scheme])):
-                    bitwise_vals[encoding_scheme][i] += metrics[layer][encoding_scheme][metric][i]*(
-                            metrics[layer][encoding_scheme]["total_samples"]/total_samples[encoding_scheme])
+    # get average of metric across layers
+    bitwise_vals = _get_average_metric_bitwise(metrics, metric)
+    # filter encoding schemes
+    bitwise_vals = {key: bitwise_vals[key] for key in encoding_schemes}
     # plot switching activity for each layer
     for encoding_scheme in encoding_schemes:
         plt.bar(np.arange(len(bitwise_vals[encoding_scheme])), bitwise_vals[encoding_scheme], label=encoding_scheme)
@@ -70,9 +88,7 @@ def plot_per_layer(metric_path, output_path, metric="total_transitions", encodin
     if not encoding_schemes:
         encoding_schemes = list(metrics[layers[0]].keys())
     # transitions
-    vals = {}
-    for encoding_scheme in encoding_schemes:
-        vals[encoding_scheme] = []
+    vals = {encoding_scheme: [] for encoding_scheme in encoding_schemes}
     # iterate over layers
     for layer in layers:
         # iterate over encoding schemes
@@ -169,6 +185,37 @@ def plot_transitions_per_samples(metric_path, output_path, encoding_scheme_filte
     for encoding_scheme in encoding_schemes:
         plt.scatter([total_samples[encoding_scheme]],[vals[encoding_scheme]])
         plt.text(total_samples[encoding_scheme],vals[encoding_scheme], encoding_scheme)
+    plt.title("Total Transitions")
+    plt.ylabel("Transitions")
+    plt.xlabel("Samples")
+    plt.grid(True)
+    plt.savefig(output_path,bbox_inches='tight')
+    if show_plot:
+        plt.show()
+
+def plot_sa_cr(metric_paths, output_path, encoding_scheme="rle_dsam", show_plot=True):
+    # load metrics for each network
+    metrics = {}
+    for network in metric_paths:
+        with open(metric_paths[network],"r") as f:
+            metrics[network] = json.load(f)
+    # outputs
+    #baseline = { network: [0,0] for network in metrics }
+    encoded  = { network: [0,0] for network in metrics } 
+    # iterate over networks
+    for network in metrics:
+        # get average switching activity
+        average_sa = _get_average_metric(metrics[network], "average_sa")
+        encoded[network][0]  = average_sa[encoding_scheme]
+        # get compression ratio
+        total_samples = _get_total_samples(metrics[network])
+        encoded[network][1] = total_samples["baseline"]/total_samples[encoding_scheme]
+    # plot for each network
+    for network in metrics:
+        plt.scatter([encoded[network][0]],[encoded[network][1]])
+    plt.xlim([0,0.5])
+    plt.ylim([0,1])
+    plt.yscale("log")
     plt.title("Total Transitions")
     plt.ylabel("Transitions")
     plt.xlabel("Samples")

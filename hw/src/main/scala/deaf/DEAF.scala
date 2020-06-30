@@ -51,7 +51,7 @@ class diff_encoder(val width:Int, val depth:Int) extends Module {
 
   // initialise delay buffer
   val buffer = Pipe(io.in, depth+1)
- 
+
   // increment counter until pipe filled
   when(io.in.valid && (counter <= depth.U) ) {
     counter := counter + 1.U
@@ -117,9 +117,9 @@ class deaf_encoder(val width:Int, val depth:Int) extends Module {
   val correlator_module   = Module(new correlator(width))
 
   // wire connections
-  int_to_sint_module.io.in  := io.in
-  diff_encoder_module.io.in := int_to_sint_module.io.out
-  correlator_module.io.in   := diff_encoder_module.io.out
+  diff_encoder_module.io.in := io.in 
+  int_to_sint_module.io.in  := diff_encoder_module.io.out
+  correlator_module.io.in   := int_to_sint_module.io.out
   io.out   := correlator_module.io.out
 
 }

@@ -18,7 +18,13 @@ if __name__ == "__main__":
 
     lib.graph.plot_transitions_per_samples("outputs/caffe_alexnet_8b/output_metrics.json","outputs/sa_per_encoding_scheme.png", 
             encoding_scheme_filter=["rle","rle_dsam","huffman","huffman_bi","baseline"], show_plot=True)
- 
+
+    metric_paths = {
+            "alexnet"   : "outputs/distiller_alexnet_8b/output_metrics.json",
+            "mobilenet" : "outputs/distiller_mobilenet_v2_8b/output_metrics.json",
+    }
+    lib.graph.plot_sa_cr(metric_paths, "outputs/sa_cr.png", encoding_scheme="rle_dsam", show_plot=True)
+
     """
     # plot transitions per layer
     lib.graph.plot_per_layer(os.path.join(args.metric_path,"output_metrics.json"), os.path.join(args.metric_path,"transitions_per_layer.png"), 
