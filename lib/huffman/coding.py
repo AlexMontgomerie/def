@@ -8,6 +8,10 @@ def get_code_table(stream_in):
     # iterate over stream
     for i in range(stream_in.arr.shape[0]):
         occ_table[stream_in.arr[i].bitfield] = occ_table.get(stream_in.arr[i].bitfield,0)+1
+    # add the rest of the entries
+    for i in range(2**stream_in.bitwidth):
+        if not (i in occ_table):
+            occ_table[i] = 1
     # create huffman code
     return HuffmanCodec.from_frequencies(occ_table)
 
