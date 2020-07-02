@@ -4,16 +4,16 @@ package deaf
 
 import chisel3._
 import chisel3.util._
-import axi._
 
 /*
  * Int to Signed-Bit Int
  */
 class int_to_sint(val width:Int) extends Module {
   val io = IO(new Bundle {
-    val in  = Flipped(Valid(UInt(width.W)))
-    val out = Valid(UInt(width.W))
+    val in  = Flipped(Decoupled(UInt(width.W)))
+    val out = Decoupled(UInt(width.W))
   })
+  
   when( io.in.bits(width-1) === 1.U ) {
     when( io.in.bits(width-2,0) === 0.U ) {
       io.out.bits := Cat( 1.U(1.W), ~io.in.bits(width-2,0) )
@@ -23,8 +23,11 @@ class int_to_sint(val width:Int) extends Module {
   } .otherwise {
     io.out.bits := io.in.bits
   }
+  
   // assign valid signal
   io.out.valid  := io.in.valid
+  io.in.ready   := io.out.ready
+
 }
 
 /*
@@ -32,9 +35,24 @@ class int_to_sint(val width:Int) extends Module {
  */
 class sint_to_int(val width:Int) extends Module {
   val io = IO(new Bundle {
-    val in  = Flipped(Valid(UInt(width.W)))
-    val out = Valid(UInt(width.W))
+    val in  = Flipped(Decoupled(UInt(width.W)))
+    val out = Decoupled(UInt(width.W))
   })
+  
+  when( io.in.bits(width-1) === 1.U ) {
+    when( io.in.bits(width-2,0) === 0.U ) {
+      io.out.bits := Cat( 1.U(1.W), ~io.in.bits(width-2,0) )
+    } .otherwise {
+      io.out.bits := Cat( 1.U(1.W), ~io.in.bits(width-2,0) + 1.U )
+    }
+  } .otherwise {
+    io.out.bits := io.in.bits
+  }
+  
+  // assign valid signal
+  io.out.valid  := io.in.valid
+  io.in.ready   := io.out.ready
+
 }
 
 /*
@@ -42,30 +60,74 @@ class sint_to_int(val width:Int) extends Module {
  */
 class diff_encoder(val width:Int, val depth:Int) extends Module {
   val io = IO(new Bundle {
-    val in  = Flipped(Valid(UInt(width.W)))
-    val out = Valid(UInt(width.W))
+    val in  = Flipped(Decoupled(UInt(width.W)))
+    val out = Decoupled(UInt(width.W))
   })
-  
-  // initialise counter
-  val counter = RegInit(0.U(32.W))
 
-  // initialise delay buffer
-  val buffer = Pipe(io.in, depth+1)
+  // initialise buffer
+  val buffer = Module( new Queue(UInt(width.W), depth+1) )
 
-  // increment counter until pipe filled
-  when(io.in.valid && (counter <= depth.U) ) {
-    counter := counter + 1.U
+  // remove ready signal from buffer
+  buffer.io.deq.nodeq()
+
+  // only ready when buffer ready
+  io.in.ready := buffer.io.enq.ready
+
+  // write output when input valid and output ready
+  when( io.in.valid && io.out.ready ) {
+    when( buffer.io.count < depth.U ) {
+      io.out.enq( io.in.deq() ) 
+    }.elsewhen( buffer.io.deq.valid ) {
+      io.out.enq( io.in.deq() - buffer.io.deq.deq() )
+    }.otherwise {
+      io.out.bits   := 0.U
+      io.out.valid  := false.B
+    }
+  }.otherwise{
+    io.out.bits   := 0.U
+    io.out.valid  := false.B
+  }
+ 
+  // load buffer when input valid
+  when( io.in.valid ) {
+    buffer.io.enq.enq( io.in.deq() )
+  }.otherwise {
+    buffer.io.enq.bits  := 0.U
+    buffer.io.enq.valid := false.B
   }
 
-  // assign output
-  when( counter <= depth.U ) {
-    io.out.bits   := io.in.bits
-    io.out.valid  := io.in.valid
-  } .otherwise { 
-    io.out.bits   := io.in.bits - buffer.bits 
-    io.out.valid  := buffer.valid & io.in.valid
+}
+
+/*
+ *
+ */
+class diff_decoder(val width:Int, val depth:Int) extends Module {
+  val io = IO(new Bundle {
+    val in  = Flipped(Decoupled(UInt(width.W)))
+    val out = Decoupled(UInt(width.W))
+  })
+
+  // initialise buffer
+  val buffer = Module( new Queue(UInt(width.W), depth+1) )
+
+  // only ready when buffer ready
+  io.in.ready := buffer.io.enq.ready
+
+  // assign buffer output to module output
+  io.out <> buffer.io.deq
+
+  // write output when input valid and output ready
+  when( io.in.valid && io.out.ready ) {
+    when( buffer.io.count < (depth).U ) {
+      buffer.io.enq.enq( io.in.deq() ) 
+    }.otherwise {
+      buffer.io.enq.enq( io.in.deq() + buffer.io.deq.deq() )
+    }
+  }.otherwise{
+    buffer.io.enq.bits  := 0.U
+    buffer.io.enq.valid := false.B
   }
-  
+ 
 }
 
 /*
@@ -73,42 +135,69 @@ class diff_encoder(val width:Int, val depth:Int) extends Module {
  */
 class correlator(val width:Int) extends Module {
   val io = IO(new Bundle {
-    val in  = Flipped(Valid(UInt(width.W)))
-    val out = Valid(UInt(width.W))
+    val in  = Flipped(Decoupled(UInt(width.W)))
+    val out = Decoupled(UInt(width.W))
   })
 
   // initialise buffer
-  val buffer        = RegInit(0.U(width.W))
-  val buffer_valid  = RegInit(0.U(1.W)) 
-  
+  val buffer = Module( new Queue(UInt(width.W), 2) )
+
+  // only ready when buffer ready
+  io.in.ready := buffer.io.enq.ready
+
+  // assign buffer output to module output
+  io.out <> buffer.io.deq
+
   // assign buffer register
-  when( io.in.valid ) {
-    buffer := io.in.bits ^ buffer
+  when( io.in.valid && io.out.ready ) {
+    when( buffer.io.count === 0.U ) {
+      buffer.io.enq.enq( io.in.deq() )
+    } .otherwise {
+      buffer.io.enq.enq( io.in.deq() ^ buffer.io.deq.deq() )
+    } 
+  } .otherwise {
+    buffer.io.enq.bits  := 0.U
+    buffer.io.enq.valid := false.B
   }
 
-  // assign outputs
-  io.out.bits   := buffer
-  io.out.valid  := RegNext(io.in.valid)
 }
 
-/*
- *
- */
 class decorrelator(val width:Int) extends Module {
   val io = IO(new Bundle {
-    val in  = Flipped(Valid(UInt(width.W)))
-    val out = Valid(UInt(width.W))
+    val in  = Flipped(Decoupled(UInt(width.W)))
+    val out = Decoupled(UInt(width.W))
   })
+
+  // initialise buffer
+  val buffer = Module( new Queue(UInt(width.W), 2) )
+
+  // remove ready signal from buffer
+  buffer.io.deq.nodeq()
+
+  // only ready when buffer ready
+  io.in.ready := buffer.io.enq.ready
+
+  // assign buffer register
+  when( io.in.valid && io.out.ready ) {
+    buffer.io.enq.enq( io.in.deq() )
+    when( buffer.io.count === 0.U ) {
+      io.out.enq( io.in.deq() )
+    } .otherwise {
+      io.out.enq( io.in.deq() ^ buffer.io.deq.deq() )
+    } 
+  } .otherwise {
+    buffer.io.enq.bits  := 0.U
+    buffer.io.enq.valid := false.B
+    io.out.bits   := 0.U
+    io.out.valid  := false.B
+  }
 
 }
 
-/*
- *
- */
 class deaf_encoder(val width:Int, val depth:Int) extends Module {
   val io = IO(new Bundle {
-    val in  = Flipped(Valid(UInt(width.W)))
-    val out = Valid(UInt(width.W))
+    val in  = Flipped(Decoupled(UInt(width.W)))
+    val out = Decoupled(UInt(width.W))
   })
   
   // initialise modules
@@ -117,20 +206,28 @@ class deaf_encoder(val width:Int, val depth:Int) extends Module {
   val correlator_module   = Module(new correlator(width))
 
   // wire connections
-  diff_encoder_module.io.in := io.in 
-  int_to_sint_module.io.in  := diff_encoder_module.io.out
-  correlator_module.io.in   := int_to_sint_module.io.out
-  io.out   := correlator_module.io.out
+  diff_encoder_module.io.in <> io.in 
+  int_to_sint_module.io.in  <> diff_encoder_module.io.out
+  correlator_module.io.in   <> int_to_sint_module.io.out
+  io.out  <> correlator_module.io.out
 
 }
 
-/*
- *
- */
 class deaf_decoder(val width:Int, val depth:Int) extends Module {
   val io = IO(new Bundle {
-    val in  = Flipped(Valid(UInt(width.W)))
-    val out = Valid(UInt(width.W))
+    val in  = Flipped(Decoupled(UInt(width.W)))
+    val out = Decoupled(UInt(width.W))
   })
-}
+  
+  // initialise modules
+  val sint_to_int_module  = Module(new sint_to_int(width))
+  val diff_decoder_module = Module(new diff_decoder(width, depth))
+  val decorrelator_module = Module(new decorrelator(width))
 
+  // wire connections
+  decorrelator_module.io.in <> io.in 
+  sint_to_int_module.io.in  <> decorrelator_module.io.out
+  diff_decoder_module.io.in <> sint_to_int_module.io.out
+  io.out   <> diff_decoder_module.io.out
+
+}

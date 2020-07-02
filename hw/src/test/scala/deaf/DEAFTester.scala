@@ -1,83 +1,177 @@
 package deaf.test
 
 import deaf._
-
+/*
 import chisel3.iotesters
 import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 import org.scalatest.{Matchers, FlatSpec}
+*/
+import org.scalatest._
 
-class int_to_sint_tester(c: int_to_sint) extends PeekPokeTester(c) {
+import chisel3._
+import chiseltest._
+import chisel3.util._
 
-  poke(c.io.in.valid, 1)
+class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
+
+  behavior of "int_to_sint"
+  it should "function correctly" in {
+    test(new int_to_sint(8)) { c =>
+
+      // module setup
+      c.io.in.initSource().setSourceClock(c.clock)
+      c.io.out.initSink().setSinkClock(c.clock)
+
+      // run in parallel
+      fork {
+        c.io.in.enqueueSeq(Seq(
+            0.U,
+            10.U,
+            (-5 & (1 << c.width)-1).U,
+            ( 1 << (c.width-1)).U
+          ))
+      }.fork {
+        c.io.out.expectDequeueSeq(Seq(
+            0.U,
+            10.U,
+            ( 5 | ( 1 << (c.width-1) ) ).U,
+            ( (1 << c.width)-1 ).U
+          ))
+      }.join()
+    }
+  }
+
+  behavior of "correlator"
+  it should "function correctly" in {
+    test(new correlator(8)) { c =>
+      
+      // setup test values
+      var seq_in  = Seq[UInt]()
+      var seq_out = Seq[UInt]()
+      var prev = 0
+      for(i <- 0 to 100) {
+        
+        // update variable
+        prev = prev ^ i
+ 
+        // append to sequences
+        seq_in  = seq_in   :+ i.U
+        seq_out = seq_out  :+ prev.U
+
+      }
+
+      // module setup
+      c.io.in.initSource().setSourceClock(c.clock)
+      c.io.out.initSink().setSinkClock(c.clock)
+
+      // run in parallel
+      parallel(
+        c.io.in.enqueueSeq(seq_in),
+        c.io.out.expectDequeueSeq(seq_out)
+      )
+
+    }
+  }
+ 
+  behavior of "decorrelator"
+  it should "function correctly" in {
+    test(new decorrelator(8)) { c =>
+      
+      // setup test values
+      var seq_in  = Seq[UInt]()
+      var seq_out = Seq[UInt]()
+      var prev = 0
+      for(i <- 0 to 100) {
+        
+        // update variable
+        prev = prev ^ i
+ 
+        // append to sequences
+        seq_in  = seq_in   :+ i.U
+        seq_out = seq_out  :+ prev.U
+
+      }
+
+      // module setup
+      c.io.in.initSource().setSourceClock(c.clock)
+      c.io.out.initSink().setSinkClock(c.clock)
+
+      // run in parallel
+      parallel(
+        c.io.in.enqueueSeq(seq_out),
+        c.io.out.expectDequeueSeq(seq_in)
+      )
+
+    }
+  }
   
-  // check zero
-  poke(c.io.in.bits, 0)
-  step(1)
-  expect(c.io.out.bits, 0)
+  behavior of "diff_encoder"
+  it should "function correctly" in {
+    test(new diff_encoder(8,3)) { c =>
+      
+      // setup test values
+      var seq_in  = Seq[UInt]()
+      var seq_out = Seq[UInt]()
+      var prev = 0
+      
+      for(i <- 0 to c.depth-1) {
+        // append to sequences
+        seq_in  = seq_in   :+ i.U
+        seq_out = seq_out  :+ i.U
+     }
+      
+      for(i <- c.depth to 100) {
+        // append to sequences
+        seq_in  = seq_in   :+ i.U
+        seq_out = seq_out  :+ c.depth.U
+      }
 
-  // check +ve value
-  poke(c.io.in.bits, 10)
-  step(1)
-  expect(c.io.out.bits, 10)
+      // module setup
+      c.io.in.initSource().setSourceClock(c.clock)
+      c.io.out.initSink().setSinkClock(c.clock)
 
-  // check -ve value
-  poke(c.io.in.bits, -5 & (1 << c.width)-1 )
-  step(1)
-  expect(c.io.out.bits, ( 5 | ( 1 << (c.width-1) ) ) )
+      // run in parallel
+      parallel(
+        c.io.in.enqueueSeq(seq_in),
+        c.io.out.expectDequeueSeq(seq_out)
+      )
 
-  // check max -ve value
-  poke(c.io.in.bits, ( 1 << (c.width-1)) )
-  step(1)
-  expect(c.io.out.bits, (1 << c.width)-1 )
-
-}
-
-class correlator_tester(c: correlator) extends PeekPokeTester(c) {
-
-  poke(c.io.in.valid, 1)
-  
-  var prev = 0
-  for(i <- 0 to 100) {
-    // update variable
-    prev = prev ^ i
-    // perform HW test
-    poke(c.io.in.bits,i)
-    step(1)
-    expect(c.io.out.bits, prev )
+    }
   }
 
-}
+  behavior of "diff_decoder"
+  it should "function correctly" in {
+    test(new diff_decoder(8,3)) { c =>
+      
+      // setup test values
+      var seq_in  = Seq[UInt]()
+      var seq_out = Seq[UInt]()
+      var prev = 0
+      
+      for(i <- 0 to c.depth-1) {
+        // append to sequences
+        seq_in  = seq_in   :+ i.U
+        seq_out = seq_out  :+ i.U
+     }
+      
+      for(i <- c.depth to 100) {
+        // append to sequences
+        seq_in  = seq_in   :+ i.U
+        seq_out = seq_out  :+ c.depth.U
+      }
 
+      // module setup
+      c.io.in.initSource().setSourceClock(c.clock)
+      c.io.out.initSink().setSinkClock(c.clock)
 
-class diff_encoder_tester(c: diff_encoder) extends PeekPokeTester(c) {
+      // run in parallel
+      parallel(
+        c.io.in.enqueueSeq(seq_out),
+        c.io.out.expectDequeueSeq(seq_in)
+      )
 
-  poke(c.io.in.valid, 1)
-  
-  for(i <- 0 to c.depth-1) {
-    // perform HW test
-    poke(c.io.in.bits,i)
-    step(1)
-    expect(c.io.out.bits,i)
-  }
-  
-  for(i <- c.depth to 100) {
-    // perform HW test
-    poke(c.io.in.bits,i)
-    step(1)
-    expect(c.io.out.bits, c.depth )
+    }
   }
 
-}
-
-class DEAFTester extends ChiselFlatSpec {
-  "int_to_sint" should s"be correct" in {
-    Driver(() => new int_to_sint(8)) { c => new int_to_sint_tester(c) } should be (true)
-  }
-  "correlator" should s"be correct" in {
-    Driver(() => new correlator(8)) { c => new correlator_tester(c) } should be (true)
-  }
-  "diff_encoder" should s"be correct" in {
-    Driver(() => new diff_encoder(8,3)) { c => new diff_encoder_tester(c) } should be (true)
-  }
 }
 
