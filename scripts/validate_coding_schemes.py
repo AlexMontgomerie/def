@@ -15,14 +15,14 @@ import lib.rle.coding
 import lib.apbm.coding
 import lib.awr.coding
 
-limit=1024
+limit=20
 
 # load the test featuremap stream
 test_stream = lib.featuremap.to_stream("featuremaps/test.h5", "data", limit=limit, dtype=lib.quantise.sint8)
     
 multi_stream = lib.stream.multi_stream(test_stream, dtype=test_stream.dtype, memory_bus_width=32)
 tmp = multi_stream.single_stream()
-print(lib.analysis.bitwise_mean(tmp))
+#print(lib.analysis.bitwise_mean(tmp))
 
 # validate DSAM encoding
 dsam_stream_encoded = lib.dsam.coding.encoder(copy.deepcopy(test_stream),channels=3)

@@ -5,7 +5,7 @@ package deaf
 import chisel3._
 import chisel3.util._
 
-
+import scala.math._
 
 /*
  * Int to Signed-Bit Int
@@ -42,7 +42,7 @@ class sint_to_int(val width:Int) extends Module {
   })
   
   when( io.in.bits(width-1) === 1.U ) {
-    when( io.in.bits(width-2,0) === 0.U ) {
+    when( io.in.bits(width-2,0) === ((2<<(width-2))-1).U ) {
       io.out.bits := Cat( 1.U(1.W), ~io.in.bits(width-2,0) )
     } .otherwise {
       io.out.bits := Cat( 1.U(1.W), ~io.in.bits(width-2,0) + 1.U )
@@ -182,8 +182,8 @@ class decorrelator(val width:Int) extends Module {
   // initialise buffer
   val buffer = Module( new Queue(UInt(width.W), 2) )
 
-  // remove ready signal from buffer
-  buffer.io.deq.nodeq()
+  // assign ready signal from out to buffer
+  buffer.io.deq.ready := io.out.ready
 
   // only ready when buffer ready
   io.in.ready := buffer.io.enq.ready
@@ -197,10 +197,8 @@ class decorrelator(val width:Int) extends Module {
       io.out.enq( io.in.deq() ^ buffer.io.deq.deq() )
     } 
   } .otherwise {
-    buffer.io.enq.bits  := 0.U
-    buffer.io.enq.valid := false.B
-    io.out.bits   := 0.U
-    io.out.valid  := false.B
+    buffer.io.enq.noenq()
+    io.out.noenq()
   }
 
 }
@@ -210,17 +208,32 @@ class deaf_encoder(val width:Int, val depth:Int) extends Module {
     val in  = Flipped(Decoupled(UInt(width.W)))
     val out = Decoupled(UInt(width.W))
   })
-  
+
+
   // initialise modules
-  val int_to_sint_module  = Module(new int_to_sint(width))
   val diff_encoder_module = Module(new diff_encoder(width, depth))
+  val int_to_sint_module  = Module(new int_to_sint(width))
   val correlator_module   = Module(new correlator(width))
 
-  // wire connections
-  diff_encoder_module.io.in <> io.in 
-  int_to_sint_module.io.in  <> diff_encoder_module.io.out
-  correlator_module.io.in   <> int_to_sint_module.io.out
-  io.out  <> correlator_module.io.out
+  // wire connections ( diff_encoder <> input )
+  diff_encoder_module.io.in.bits  := RegNext(io.in.bits)
+  diff_encoder_module.io.in.valid := RegNext(io.in.valid)
+  io.in.ready := RegNext(diff_encoder_module.io.in.ready)
+
+  // wire connections ( int_to_sint <> diff_encoder )
+  int_to_sint_module.io.in.bits     := RegNext(diff_encoder_module.io.out.bits)
+  int_to_sint_module.io.in.valid    := RegNext(diff_encoder_module.io.out.valid)
+  diff_encoder_module.io.out.ready  := RegNext(int_to_sint_module.io.in.ready)
+  
+  // wire connections ( correlator <> int_to_sint )
+  correlator_module.io.in.bits    := RegNext(int_to_sint_module.io.out.bits)
+  correlator_module.io.in.valid   := RegNext(int_to_sint_module.io.out.valid)
+  int_to_sint_module.io.out.ready := RegNext(correlator_module.io.in.ready)
+  
+  // wire connections ( output <> correlator )
+  io.out.bits   := RegNext(correlator_module.io.out.bits)
+  io.out.valid  := RegNext(correlator_module.io.out.valid)
+  correlator_module.io.out.ready := RegNext(io.out.ready)
 
 }
 
@@ -230,76 +243,32 @@ class deaf_decoder(val width:Int, val depth:Int) extends Module {
     val out = Decoupled(UInt(width.W))
   })
   
+
   // initialise modules
+  val decorrelator_module = Module(new decorrelator(width))
   val sint_to_int_module  = Module(new sint_to_int(width))
   val diff_decoder_module = Module(new diff_decoder(width, depth))
-  val decorrelator_module = Module(new decorrelator(width))
 
-  // wire connections
-  decorrelator_module.io.in <> io.in 
-  sint_to_int_module.io.in  <> decorrelator_module.io.out
-  diff_decoder_module.io.in <> sint_to_int_module.io.out
-  io.out   <> diff_decoder_module.io.out
+  // wire connections ( diff_encoder <> input )
+  decorrelator_module.io.in.bits  := RegNext(io.in.bits)
+  decorrelator_module.io.in.valid := RegNext(io.in.valid)
+  io.in.ready := RegNext(decorrelator_module.io.in.ready)
 
-}
-
-/*
-class s_axis(val data_width: Int) extends Bundle {
-
-  val data  = Input(UInt(data_width.W))
-  val last  = Input(Bool())
-  val valid = Input(Bool())
-  val ready = Output(Bool())
-
-  def deq(): UInt = {
-    ready := true.B
-    data
-  }
-
-  def nodeq() = {
-    ready := false.B
-  }
-
-}
-
-class m_axis(val data_width: Int) extends Bundle {
-
-  val data  = Output(UInt(data_width.W))
-  val last  = Output(Bool())
-  val valid = Output(Bool())
-  val ready = Input(Bool())
-
-  def enq(dat: UInt) = {
-    valid := true.B
-    data  := dat
-    last  := false.B
-  }
+  // wire connections ( int_to_sint <> diff_encoder )
+  sint_to_int_module.io.in.bits     := RegNext(decorrelator_module.io.out.bits)
+  sint_to_int_module.io.in.valid    := RegNext(decorrelator_module.io.out.valid)
+  decorrelator_module.io.out.ready  := RegNext(sint_to_int_module.io.in.ready)
   
-  def noenq() = {
-    valid := false.B
-    data  := DontCare
-    last  := false.B
-  }
-
-  def enq_last(dat: UInt) = {
-    valid := true.B
-    data  := dat
-    last  := true.B
-  }
-
-}
-
-
-class s_axis_test(val width:Int) extends Module {
-  val io = IO(new Bundle {
-    val in  = new s_axis(data_width = width)
-    val out = new m_axis(data_width = width)
-  })
-
-  io.in.nodeq()
-  io.out.enq( 0.U )
+  // wire connections ( correlator <> int_to_sint )
+  diff_decoder_module.io.in.bits  := RegNext(sint_to_int_module.io.out.bits)
+  diff_decoder_module.io.in.valid := RegNext(sint_to_int_module.io.out.valid)
+  sint_to_int_module.io.out.ready := RegNext(diff_decoder_module.io.in.ready)
   
+  // wire connections ( output <> correlator )
+  io.out.bits   := RegNext(diff_decoder_module.io.out.bits)
+  io.out.valid  := RegNext(diff_decoder_module.io.out.valid)
+  diff_decoder_module.io.out.ready := RegNext(io.out.ready)
+
 }
-*/
 
 

@@ -10,39 +10,6 @@ import chisel3.util._
 
 class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
 
-/*
-  behavior of "int_to_sint"
-  it should "function correctly" in {
-    test(new s_axis_test(8)) { c =>
-      
-      val seq_in = Seq(0.U,1.U,3.U)
-
-      fork {
-        for(i <- seq_in.indices) {      // iterate over sequence 
-          c.io.in.data.poke(seq_in(i))  // poke sequence data
-          c.io.in.valid.poke(true.B)    // set valid
-          fork.withRegion(Monitor) {
-            while (c.io.in.ready.peek().litToBoolean == false) c.clock.step(1)
-          }.joinAndStep(c.clock)
-        }
-      }.fork {
-        for(i <- seq_in.indices) {      // iterate over sequence 
-          c.io.out.ready.poke(true.B)  // poke sequence data
-          fork.withRegion(Monitor) {
-            while (c.io.out.valid.peek().litToBoolean == false) c.clock.step(1)
-            c.io.out.valid.expect(true.B)
-            c.io.out.data.expect(seq_in(i))
-          }.joinAndStep(c.clock)
-
-        }
-     
-      }.join()
- 
-    }
-  }
-*/
-
-
   behavior of "int_to_sint"
   it should "function correctly" in {
     test(new int_to_sint(8)) { c =>
@@ -65,6 +32,33 @@ class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
             10.U,
             ( 5 | ( 1 << (c.width-1) ) ).U,
             ( (1 << c.width)-1 ).U
+          ))
+      }.join()
+    }
+  }
+
+  behavior of "sint_to_int"
+  it should "function correctly" in {
+    test(new sint_to_int(8)) { c =>
+
+      // module setup
+      c.io.in.initSource().setSourceClock(c.clock)
+      c.io.out.initSink().setSinkClock(c.clock)
+
+      // run in parallel
+      fork {
+        c.io.in.enqueueSeq(Seq(
+            0.U,
+            10.U,
+            ( 5 | ( 1 << (c.width-1) ) ).U,
+            ( (1 << c.width)-1 ).U
+         ))
+      }.fork {
+        c.io.out.expectDequeueSeq(Seq(
+            0.U,
+            10.U,
+            (-5 & (1 << c.width)-1).U,
+            ( 1 << (c.width-1)).U
           ))
       }.join()
     }
@@ -93,26 +87,10 @@ class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
       c.io.in.initSource().setSourceClock(c.clock)
       c.io.out.initSink().setSinkClock(c.clock)
 
-      // run in parallel
-      fork {
-        for(i <- seq_in.indices) {
-          c.io.in.bits.poke(seq_in(i))
-          c.io.in.valid.poke(true.B)
-          fork.withRegion(Monitor) {
-            while (c.io.in.ready.peek().litToBoolean == false) {
-              c.clock.step(1)
-            }
-          }.joinAndStep(c.clock)
-        }
-      }.fork {
+      parallel(
+        c.io.in.enqueueSeq(seq_in),
         c.io.out.expectDequeueSeq(seq_out)
-      }.join()
-     
-
-      //parallel(
-      //  c.io.in.enqueueSeq(seq_in),
-      //  c.io.out.expectDequeueSeq(seq_out)
-      //)
+      )
 
     }
   }
@@ -216,6 +194,65 @@ class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
 
     }
   }
+
+  behavior of "deaf_encoder"
+  it should "function correctly" in {
+    test(new deaf_encoder(8,3)) { c =>
+     
+      val stream_in_file  = io.Source.fromFile("data/stream_baseline.csv")
+      val stream_out_file = io.Source.fromFile("data/stream_encoded.csv")
+
+      val seq_in_raw  = stream_in_file.getLines.mkString.split(",").map(_.trim)
+      val seq_out_raw = stream_out_file.getLines.mkString.split(",").map(_.trim)
+      
+      var seq_in  = Seq[UInt]()
+      var seq_out = Seq[UInt]()
+      
+      for (i <- seq_in_raw  ) seq_in  = seq_in  :+ (i.toInt & ((2<<7)-1)).U
+      for (i <- seq_out_raw ) seq_out = seq_out :+ (i.toInt & ((2<<7)-1)).U
+
+      // module setup
+      c.io.in.initSource().setSourceClock(c.clock)
+      c.io.out.initSink().setSinkClock(c.clock)
+
+      // run in parallel
+      parallel(
+        c.io.in.enqueueSeq(seq_in),
+        c.io.out.expectDequeueSeq(seq_out)
+      )
+    
+    }
+  }
+
+  behavior of "deaf_decoder"
+  it should "function correctly" in {
+    test(new deaf_decoder(8,3)) { c =>
+     
+      val stream_in_file  = io.Source.fromFile("data/stream_encoded.csv")
+      val stream_out_file = io.Source.fromFile("data/stream_baseline.csv")
+
+      val seq_in_raw  = stream_in_file.getLines.mkString.split(",").map(_.trim)
+      val seq_out_raw = stream_out_file.getLines.mkString.split(",").map(_.trim)
+      
+      var seq_in  = Seq[UInt]()
+      var seq_out = Seq[UInt]()
+      
+      for (i <- seq_in_raw  ) seq_in  = seq_in  :+ (i.toInt & ((2<<7)-1)).U
+      for (i <- seq_out_raw ) seq_out = seq_out :+ (i.toInt & ((2<<7)-1)).U
+
+      // module setup
+      c.io.in.initSource().setSourceClock(c.clock)
+      c.io.out.initSink().setSinkClock(c.clock)
+
+      // run in parallel
+      parallel(
+        c.io.in.enqueueSeq(seq_in),
+        c.io.out.expectDequeueSeq(seq_out)
+      )
+    
+    }
+  }
+
 
 }
 
