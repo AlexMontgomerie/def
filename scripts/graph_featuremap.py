@@ -31,7 +31,7 @@ if __name__ == "__main__":
             "squeezenet": "outputs/distiller_squeezenet1_0_8b/output_metrics.json",
             "vgg"       : "outputs/distiller_vgg11_8b/output_metrics.json",
     }
-    lib.graph.plot_sa_cr(metric_paths, "outputs/sa_cr.png", encoding_scheme="rle_dsam", show_plot=True)
+    lib.graph.plot_sa_cr(metric_paths, "outputs/sa_cr.png", encoding_scheme="dsam", show_plot=True)
 
     """
     # plot transitions per layer

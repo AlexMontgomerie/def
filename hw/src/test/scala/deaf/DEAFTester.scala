@@ -1,11 +1,7 @@
 package deaf.test
 
 import deaf._
-/*
-import chisel3.iotesters
-import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
-import org.scalatest.{Matchers, FlatSpec}
-*/
+
 import org.scalatest._
 
 import chisel3._
@@ -13,6 +9,39 @@ import chiseltest._
 import chisel3.util._
 
 class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
+
+/*
+  behavior of "int_to_sint"
+  it should "function correctly" in {
+    test(new s_axis_test(8)) { c =>
+      
+      val seq_in = Seq(0.U,1.U,3.U)
+
+      fork {
+        for(i <- seq_in.indices) {      // iterate over sequence 
+          c.io.in.data.poke(seq_in(i))  // poke sequence data
+          c.io.in.valid.poke(true.B)    // set valid
+          fork.withRegion(Monitor) {
+            while (c.io.in.ready.peek().litToBoolean == false) c.clock.step(1)
+          }.joinAndStep(c.clock)
+        }
+      }.fork {
+        for(i <- seq_in.indices) {      // iterate over sequence 
+          c.io.out.ready.poke(true.B)  // poke sequence data
+          fork.withRegion(Monitor) {
+            while (c.io.out.valid.peek().litToBoolean == false) c.clock.step(1)
+            c.io.out.valid.expect(true.B)
+            c.io.out.data.expect(seq_in(i))
+          }.joinAndStep(c.clock)
+
+        }
+     
+      }.join()
+ 
+    }
+  }
+*/
+
 
   behavior of "int_to_sint"
   it should "function correctly" in {
@@ -65,10 +94,25 @@ class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
       c.io.out.initSink().setSinkClock(c.clock)
 
       // run in parallel
-      parallel(
-        c.io.in.enqueueSeq(seq_in),
+      fork {
+        for(i <- seq_in.indices) {
+          c.io.in.bits.poke(seq_in(i))
+          c.io.in.valid.poke(true.B)
+          fork.withRegion(Monitor) {
+            while (c.io.in.ready.peek().litToBoolean == false) {
+              c.clock.step(1)
+            }
+          }.joinAndStep(c.clock)
+        }
+      }.fork {
         c.io.out.expectDequeueSeq(seq_out)
-      )
+      }.join()
+     
+
+      //parallel(
+      //  c.io.in.enqueueSeq(seq_in),
+      //  c.io.out.expectDequeueSeq(seq_out)
+      //)
 
     }
   }

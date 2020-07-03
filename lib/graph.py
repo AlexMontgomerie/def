@@ -201,20 +201,20 @@ def plot_sa_cr(metric_paths, output_path, encoding_scheme="rle_dsam", show_plot=
         with open(metric_paths[network],"r") as f:
             metrics[network] = json.load(f)
     # outputs
-    #baseline = { network: [0,0] for network in metrics }
-    encoded  = { network: [0,0] for network in metrics } 
+    encoded = { network: [0,0] for network in metrics }
     # iterate over networks
     for network in metrics:
         # get average switching activity
         average_sa = _get_average_metric(metrics[network], "average_sa")
-        encoded[network][0]  = average_sa[encoding_scheme]
+        encoded[network][0]  = average_sa[encoding_scheme]/average_sa["baseline"]
         # get compression ratio
         total_samples = _get_total_samples(metrics[network])
-        encoded[network][1] = total_samples["baseline"]/total_samples[encoding_scheme]
+        encoded[network][1] = total_samples[encoding_scheme]/total_samples["baseline"]
     # plot for each network
     for network in metrics:
-        plt.scatter([encoded[network][0]],[encoded[network][1]])
-    plt.xlim([0,0.5])
+        plt.scatter([encoded[network][0]],[encoded[network][1]], c='r')
+        plt.text(encoded[network][0], encoded[network][1], network )
+    #plt.xlim([0,1])
     #plt.ylim([0,1])
     #plt.yscale("log")
     plt.title("Total Transitions")
