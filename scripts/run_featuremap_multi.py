@@ -63,6 +63,7 @@ if __name__ == "__main__":
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
         return lib.coding.correlator(stream_in)
 
+    """
     def run_deaf_parallel(stream_in, layer):
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64)
         channels = dimensions[layer][1]
@@ -72,6 +73,7 @@ if __name__ == "__main__":
         for i in range(stream_in.n_channels):
             stream_in.streams[i] = lib.deaf.coding.encoder(stream_in.streams[i], channels=int(channels/stream_in.n_channels))
         return stream_in.single_stream() 
+    """
 
     def run_apbm(stream_in, layer):
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
@@ -142,8 +144,6 @@ if __name__ == "__main__":
         # load feature map
         featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, limit=args.limit, dtype=dtype)
      
-        # convert to multi stream
-
         # iterate over encoders
         for encoder in encoders:
 
@@ -151,6 +151,9 @@ if __name__ == "__main__":
 
             # get the stream out
             stream_out = encoders[encoder](copy.deepcopy(featuremap), layer)
+
+            # save to binary file
+            stream_out.to_bin(os.path.join(args.output_path,"{}_{}.bin".format(encoder,layer)))
 
             # get all the metrics
             metrics[layer][encoder] = {
