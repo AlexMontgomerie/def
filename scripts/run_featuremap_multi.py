@@ -11,11 +11,11 @@ import lib.quantise
 
 import lib.coding
 import lib.bi.coding
-import lib.dsam.coding
+import lib.deaf.coding
 import lib.abe.coding
 import lib.awr.coding
 import lib.rle.coding
-import lib.rle_dsam.coding
+import lib.rle_deaf.coding
 import lib.huffman.coding
 import lib.apbm.coding
 
@@ -57,20 +57,20 @@ if __name__ == "__main__":
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=56).single_stream()
         return lib.bi.coding.encoder(stream_in)
 
-    def run_dsam_serial(stream_in, layer):
+    def run_deaf_serial(stream_in, layer):
         channels = dimensions[layer][1]
-        stream_in = lib.dsam.coding.encoder(stream_in, channels=channels, use_correlator=False)
+        stream_in = lib.deaf.coding.encoder(stream_in, channels=channels, use_correlator=False)
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
         return lib.coding.correlator(stream_in)
 
-    def run_dsam_parallel(stream_in, layer):
+    def run_deaf_parallel(stream_in, layer):
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64)
         channels = dimensions[layer][1]
         if channels%stream_in.n_channels:
             print("ERR: cannot parallise stream")
             return stream_in.single_stream()
         for i in range(stream_in.n_channels):
-            stream_in.streams[i] = lib.dsam.coding.encoder(stream_in.streams[i], channels=int(channels/stream_in.n_channels))
+            stream_in.streams[i] = lib.deaf.coding.encoder(stream_in.streams[i], channels=int(channels/stream_in.n_channels))
         return stream_in.single_stream() 
 
     def run_apbm(stream_in, layer):
@@ -108,9 +108,9 @@ if __name__ == "__main__":
         rle_stream = lib.rle.coding.encoder(stream_in)
         return lib.bi.coding.encoder(rle_stream)
  
-    def run_rle_dsam_serial(stream_in, layer):
+    def run_rle_deaf_serial(stream_in, layer):
         channels = dimensions[layer][1]
-        stream_in = lib.rle_dsam.coding.encoder(stream_in, channels=channels, use_correlator=False)
+        stream_in = lib.rle_deaf.coding.encoder(stream_in, channels=channels, use_correlator=False)
         stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
         return lib.coding.correlator(stream_in)
 
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     encoders = {
         "baseline"      : run_baseline,
         "bi"            : run_bi,
-        "dsam"          : run_dsam_serial,
+        "deaf"          : run_deaf_serial,
         "apbm"          : run_apbm,
         "abe"           : run_abe,
         "awr"           : run_awr,
@@ -127,7 +127,7 @@ if __name__ == "__main__":
         "huffman_bi"    : run_huffman_bi,
         "rle"           : run_rle,
         "rle_bi"        : run_rle_bi,
-        "rle_dsam"      : run_rle_dsam_serial
+        "rle_deaf"      : run_rle_deaf_serial
     }
 
     # list of metrics for each layer

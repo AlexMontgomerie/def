@@ -10,11 +10,11 @@ import lib.featuremap
 import lib.quantise
 
 import lib.bi.coding
-import lib.dsam.coding
+import lib.deaf.coding
 import lib.abe.coding
 import lib.awr.coding
 import lib.rle.coding
-import lib.rle_dsam.coding
+import lib.rle_deaf.coding
 import lib.huffman.coding
 import lib.apbm.coding
 
@@ -60,19 +60,19 @@ if __name__ == "__main__":
     def run_bi(stream_in, layer):
         return lib.bi.coding.encoder(stream_in), [0,0]
 
-    def run_dsam(stream_in, layer):
+    def run_deaf(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.dsam.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
+        return lib.deaf.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
 
-    def run_dsam_rle(stream_in, layer):
+    def run_deaf_rle(stream_in, layer):
         channels = dimensions[layer][1]
-        dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
-        return lib.rle.coding.encoder(dsam_stream), [channels*stream_in.bitwidth, 0]
+        deaf_stream = lib.deaf.coding.encoder(stream_in, channels=channels)
+        return lib.rle.coding.encoder(deaf_stream), [channels*stream_in.bitwidth, 0]
 
-    def run_dsam_bi(stream_in, layer):
+    def run_deaf_bi(stream_in, layer):
         channels = dimensions[layer][1]
-        dsam_stream = lib.dsam.coding.encoder(stream_in, channels=channels)
-        return lib.bi.coding.encoder(dsam_stream), [channels*stream_in.bitwidth, 0]
+        deaf_stream = lib.deaf.coding.encoder(stream_in, channels=channels)
+        return lib.bi.coding.encoder(deaf_stream), [channels*stream_in.bitwidth, 0]
 
     def run_apbm(stream_in, layer):
         code_table_stream =copy.deepcopy(stream_in)
@@ -108,17 +108,17 @@ if __name__ == "__main__":
         rle_stream = lib.rle.coding.encoder(stream_in)
         return lib.bi.coding.encoder(rle_stream), [0,0]
  
-    def run_rle_dsam(stream_in, layer):
+    def run_rle_deaf(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.rle_dsam.coding.encoder(stream_in,channels=channels), [channels*stream_in.bitwidth, 0]
+        return lib.rle_deaf.coding.encoder(stream_in,channels=channels), [channels*stream_in.bitwidth, 0]
    
     # encoders to run
     encoders = {
         "baseline"  : run_baseline,
         "bi"        : run_bi,
-        "dsam"      : run_dsam,
-        "dsam_rle"  : run_dsam_rle,
-        "dsam_bi"   : run_dsam_bi,
+        "deaf"      : run_deaf,
+        "deaf_rle"  : run_deaf_rle,
+        "deaf_bi"   : run_deaf_bi,
         "apbm"      : run_apbm,
         "abe"       : run_abe,
         "awr"       : run_awr,
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         "huffman_bi": run_huffman_bi,
         "rle"       : run_rle,
         "rle_bi"    : run_rle_bi,
-        "rle_dsam"  : run_rle_dsam
+        "rle_deaf"  : run_rle_deaf
     }
 
     # list of metrics for each layer

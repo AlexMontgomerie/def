@@ -6,7 +6,7 @@ import lib.analysis
 import lib.featuremap
 import lib.quantise
 
-import lib.dsam.coding
+import lib.deaf.coding
 
 def Reverse(lst):
     lst.reverse()
@@ -27,7 +27,7 @@ array_in = sint_convert(array_in)
 stream_in = lib.stream.stream(array_in.astype(lib.quantise.sint8), dtype=lib.quantise.sint8)
 
 # encode stream
-stream_out = lib.dsam.coding.encoder(copy.deepcopy(stream_in), channels=3)
+stream_out = lib.deaf.coding.encoder(copy.deepcopy(stream_in), channels=3)
 
 # save output to csv
 with open("hw/data/stream_encoded.csv","w") as f:
