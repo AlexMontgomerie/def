@@ -193,34 +193,48 @@ def plot_transitions_per_samples(metric_path, output_path, encoding_scheme_filte
     if show_plot:
         plt.show()
 
-def plot_sa_cr(metric_paths, output_path, encoding_scheme="rle_dsam", show_plot=True):
+def plot_sa_cr(metric_paths, output_path, encoding_scheme_filter=[], show_plot=True):
     # load metrics for each network
     metrics = {}
     for network in metric_paths:
         print(network)
         with open(metric_paths[network],"r") as f:
             metrics[network] = json.load(f)
+    # get all encoding schemes
+    encoding_schemes = encoding_scheme_filter
+    if not encoding_schemes:
+        encoding_schemes = list(metrics[layers[0]].keys())
     # outputs
-    encoded = { network: [0,0] for network in metrics }
-    # iterate over networks
-    for network in metrics:
-        # get average switching activity
-        average_sa = _get_average_metric(metrics[network], "average_sa")
-        encoded[network][0]  = average_sa[encoding_scheme]/average_sa["baseline"]
-        # get compression ratio
-        total_samples = _get_total_samples(metrics[network])
-        encoded[network][1] = total_samples[encoding_scheme]/total_samples["baseline"]
+    encoded = { encoding_scheme: { network: [0,0] for network in metrics } for encoding_scheme in encoding_schemes }
+    # iterate over encoding schemes
+    for encoding_scheme in encoding_schemes:
+        # iterate over networks
+        for network in metrics:
+            # get average switching activity
+            average_sa = _get_average_metric(metrics[network], "average_sa")
+            #encoded[encoding_scheme][network][0] = (average_sa["baseline"] - average_sa[encoding_scheme])/average_sa["baseline"]
+            #encoded[encoding_scheme][network][0] = average_sa[encoding_scheme]/average_sa["baseline"]
+            encoded[encoding_scheme][network][0] = average_sa[encoding_scheme]
+            # get compression ratio
+            total_samples = _get_total_samples(metrics[network])
+            encoded[encoding_scheme][network][1] = total_samples["baseline"]/total_samples[encoding_scheme]
     # plot for each network
-    for network in metrics:
-        plt.scatter([encoded[network][0]],[encoded[network][1]], c='r')
-        plt.text(encoded[network][0], encoded[network][1], network )
+    for encoding_scheme in encoding_schemes:
+        x = []
+        y = []
+        for network in metrics:
+            x.append(encoded[encoding_scheme][network][0])
+            y.append(encoded[encoding_scheme][network][1])
+        plt.plot(x, y, label= encoding_scheme)
+        #plt.text(encoded[network][0], encoded[network][1], network )
     #plt.xlim([0,1])
     #plt.ylim([0,1])
     #plt.yscale("log")
     plt.title("Total Transitions")
-    plt.ylabel("Transitions")
-    plt.xlabel("Samples")
+    plt.ylabel("Compression Ratio")
+    plt.xlabel("Switching Activity")
     plt.grid(True)
+    plt.legend()
     plt.savefig(output_path,bbox_inches='tight')
     if show_plot:
         plt.show()
