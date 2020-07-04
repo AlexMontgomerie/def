@@ -1,19 +1,18 @@
 from collections import deque
 import numpy as np
 
-import lib.quantise
-
 class stream():
 
-    def __init__(self, arr, dtype=lib.quantise.sint8, sc_width=0):
+    def __init__(self, arr, bitwidth=8, sc_width=0):
 
         # parameters
-        self.bitwidth = dtype.bitwidth
-        self.dtype = dtype
-
+        self.bitwidth = bitwidth
+        self.bit_mask = (2**self.bitwidth)-1
+        
         # stream variables    
-        self.arr   = np.array(arr, dtype=dtype)
-        self.queue = deque(self.arr)
+        convert     = np.vectorize( lambda x : np.bitwise_and(np.uint64(x),np.uint64(self.bit_mask)) )
+        self.arr    = convert(arr) if np.array(arr).any() else np.array(arr, dtype=np.uint64)
+        self.queue  = deque(self.arr)
 
         # side channel
         self.sc_width = sc_width
@@ -30,10 +29,8 @@ class stream():
             dtype = np.uint16
         elif self.bitwidth <= 8:
             dtype = np.uint8
-        # convert array to these datatypes
-        arr_out = np.array([x.bitfield for x in self.arr], dtype=dtype)
         # save as binary file
-        arr.tofile(output_path)
+        arr.astype(dtype).tofile(output_path)
 
     # main queue functions
     def queue_to_array(self):
@@ -43,7 +40,7 @@ class stream():
         self.queue = deque(self.arr)
 
     def push(self, x):
-        self.queue.appendleft(x)
+        self.queue.appendleft(np.bitwise_and(np.uint64(x),np.uint64(self.bit_mask)))
 
     def pop(self):
         return self.queue.pop()
@@ -65,30 +62,31 @@ class stream():
     def check_streams_equal(a,b):
         assert a.arr.shape  == b.arr.shape, "ERROR: {} != {}".format(a.arr.shape,b.arr.shape)
         for i in range(a.arr.shape[0]):
-            assert a.arr[i].bitfield == b.arr[i].bitfield, "ERROR (value) : {} != {}".format(a.arr[i].to_int(),b.arr[i].to_int())
+            assert a.arr[i] == b.arr[i], "ERROR (value) : {} != {}".format(a.arr[i],b.arr[i])
 
 
-class multi_stream:
+class multi_stream: # TODO:
 
-    def __init__(self, stream_in, dtype=lib.quantise.sint8, memory_bus_width=32):
+    def __init__(self, stream_in, bitwidth=8, memory_bus_width=32):
+
         # bus widths
+        self.channel_bitwidth = bitwidth
         self.memory_bus_width = memory_bus_width
         # convert the stream in to multi channels
         self.n_channels = int(self.memory_bus_width/stream_in.bitwidth)
         self.multi_channel_arr = stream_in.arr.reshape((self.n_channels,-1),order="F")
         # initialise streams 
-        self.streams = [ stream(self.multi_channel_arr[i],dtype=dtype) for i in range(self.n_channels) ]
+        self.streams = [ stream(self.multi_channel_arr[i],bitwidth=self.channel_bitwidth) for i in range(self.n_channels) ]
 
     def single_stream(self): # TODO: convert to a single wide stream
-        dtype = lib.quantise.sint64
         # initialise the stream out
-        stream_out = stream([], dtype=dtype)
+        stream_out = stream([], bitwidth= self.memory_bus_width)
         # iterate over stream dimensions
         stream_dim = self.streams[0].arr.shape[0]
         for i in range(stream_dim):
-            channel_out = dtype(0)
+            channel_out = np.uint64(0)
             for j in range(self.n_channels):
-                channel_out.bitfield = np.bitwise_or( channel_out.bitfield, np.uint64( np.uint64(self.streams[j].arr[i].bitfield) << np.uint64(j*self.streams[j].bitwidth) ) )
+                channel_out.bitfield = np.bitwise_or( channel_out, np.uint64( np.uint64(self.streams[j].arr[i]) << np.uint64(j*self.streams[j].bitwidth) ) )
             stream_out.push(channel_out)
         # return stream out
         stream_out.queue_to_array()    

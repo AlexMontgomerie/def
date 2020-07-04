@@ -4,15 +4,16 @@ from lib.coding import decorrelator
 import lib.rle.coding
 import copy
 
-def encoder(stream_in, channels=256,use_correlator=True):
-    rle_zero = 1 << ( stream_in.bitwidth-1 )
+def encoder(stream_in, channels=256, use_correlator=True):
+    # zero used in rle
+    rle_zero = 1 << (stream_in.bitwidth-1)
     # get the raw length of the stream
     stream_in_length = stream_in.arr.shape[0]
     # perform rle on stream
-    stream_rle = lib.rle.coding.encoder(stream_in)
+    stream_rle = lib.rle.coding.encoder(stream_in, rle_zero = rle_zero)
     # stream initialisations
-    stream_out = stream([], dtype=stream_in.dtype)
-    fifo       = stream([], dtype=stream_in.dtype)
+    stream_out = stream([], bitwidth=stream_in.bitwidth)
+    fifo       = stream([], bitwidth=stream_in.bitwidth)
     # index of stream_rle relative to stream_in
     index = 0
     # to handle zeros 
@@ -21,9 +22,9 @@ def encoder(stream_in, channels=256,use_correlator=True):
     # iterate over the first n_channels to fill buffer
     while index < channels:
         val = stream_rle.pop()
-        if val.bitfield == rle_zero:
+        if val == rle_zero:
             zero_buffer_val = stream_rle.pop()
-            zero_buffer_size = zero_buffer_val.bitfield
+            zero_buffer_size = zero_buffer_val
             fifo.push(val)
             fifo.push(zero_buffer_val)
             stream_out.push(val)
@@ -37,10 +38,10 @@ def encoder(stream_in, channels=256,use_correlator=True):
     while (index < stream_in_length) and (stream_rle.queue):
         val_in    = stream_rle.pop()
         val_delay = fifo.pop()
-        if val_in.bitfield == rle_zero:
+        if val_in == rle_zero:
             zero_buffer_val = stream_rle.pop()
             fifo.pop()
-            zero_buffer_size = zero_buffer_val.bitfield
+            zero_buffer_size = zero_buffer_val
             fifo.push(val_in)
             fifo.push(zero_buffer_val)
             stream_out.push(val_in)
@@ -62,8 +63,8 @@ def decoder(stream_in, channels=256):
     # decorrelate stream in
     stream_in_decorr = decorrelator(stream_in)
     # stream initialisations
-    stream_out = stream([], dtype=stream_in.dtype)
-    fifo       = stream([], dtype=stream_in.dtype)
+    stream_out = stream([], bitwidth=stream_in.bitwidth)
+    fifo       = stream([], bitwidth=stream_in.bitwidth)
     # fill buffer
     for _ in range(channels):
         val = stream_in_decorr.pop()

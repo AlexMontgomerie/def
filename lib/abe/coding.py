@@ -2,21 +2,22 @@ import math
 import lib.analysis
 import numpy as np
 from lib.stream import stream
+import lib.analysis
 
 def _bin_arr_to_int_arr(arr):
     pass
 
 def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis and cluster information
     # stream initialisations
-    stream_out = stream([], dtype=stream_in.dtype, sc_width=1)
-    bitwidth   = stream_in.dtype.bitwidth
+    bitwidth   = stream_in.bitwidth
+    stream_out = stream([], bitwidth=stream_in.bitwidth, sc_width=1)
     # iterate over stream
     for _ in range(math.floor(stream_in.arr.shape[0]/window_size)):
         ## window cache
         window_cache = np.zeros([window_size,bitwidth],dtype=int)
         ## build up the window
         for w in range(window_size):
-            window_cache[w] = stream_in.pop().to_bin()
+            window_cache[w] = lib.analysis.to_bin(stream_in.pop(), bitwidth=bitwidth)
         ## get the number of switching transitions (per bit line)
         window_transitions = np.bitwise_xor(window_cache[1:,:],window_cache[:-1,:])
         total_transitions  = np.sum(window_transitions)
@@ -44,15 +45,11 @@ def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis a
         ## send to stream 
         for w in range(window_size):
             ## send start of frame signal
-            if w == 0:
-                stream_out.sc_push(0)
-            else:
-                stream_out.sc_push(1)
+            stream_out.sc_push(0) if w == 0 else stream_out.sc_push(1)
             ## convert to int
-            val = stream_in.dtype( int("".join(str(i) for i in window_cache[w,:]), 2) )
-            stream_out.push(val)
+            stream_out.push(int("".join(str(i) for i in window_cache[w,:]), 2))
         # send last frame with basis information
-        stream_out.push(stream_in.dtype(1<<basis))
+        stream_out.push(1<<basis)
         stream_out.sc_push(1)
     # send the last 
     while len(stream_in.queue):
