@@ -2,3 +2,4 @@ weights/*
 **/__pycache__/
 __pycache__/
 featuremaps/
+**.bin
