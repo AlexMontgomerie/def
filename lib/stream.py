@@ -1,5 +1,6 @@
 from collections import deque
 import numpy as np
+import math
 
 import lib.quantise
 
@@ -33,7 +34,7 @@ class stream():
         # convert array to these datatypes
         arr_out = np.array([x.bitfield for x in self.arr], dtype=dtype)
         # save as binary file
-        arr.tofile(output_path)
+        arr_out.tofile(output_path)
 
     # main queue functions
     def queue_to_array(self):
@@ -75,6 +76,8 @@ class multi_stream:
         self.memory_bus_width = memory_bus_width
         # convert the stream in to multi channels
         self.n_channels = int(self.memory_bus_width/stream_in.bitwidth)
+        stream_length = math.floor(stream_in.arr.shape[0]/self.n_channels)*self.n_channels  # find longest stream that is a multiple of the channels
+        stream_in.arr = stream_in.arr[0:stream_length] # shorten stream
         self.multi_channel_arr = stream_in.arr.reshape((self.n_channels,-1),order="F")
         # initialise streams 
         self.streams = [ stream(self.multi_channel_arr[i],dtype=dtype) for i in range(self.n_channels) ]
