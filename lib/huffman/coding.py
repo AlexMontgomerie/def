@@ -7,7 +7,7 @@ def get_code_table(stream_in):
     occ_table = {}
     # iterate over stream
     for i in range(stream_in.arr.shape[0]):
-        occ_table[stream_in.arr[i].bitfield] = occ_table.get(stream_in.arr[i].bitfield,0)+1
+        occ_table[stream_in.arr[i]] = occ_table.get(stream_in.arr[i],0)+1
     # add the rest of the entries
     for i in range(2**stream_in.bitwidth):
         if not (i in occ_table):
@@ -17,11 +17,11 @@ def get_code_table(stream_in):
 
 def encoder(stream_in, code_table):
     # initialise stream out
-    stream_out = stream([], dtype=stream_in.dtype)
+    stream_out = stream([], bitwidth=stream_in.bitwidth)
     # convert stream to list
     stream_list = []
     for i in range(stream_in.arr.shape[0]):
-        stream_list.append(stream_in.arr[i].bitfield)
+        stream_list.append(stream_in.arr[i])
     # encode using code table
     encoded = code_table.encode(stream_list)
     # iterate over bytes of encoded stream
@@ -32,7 +32,7 @@ def encoder(stream_in, code_table):
             if encoded_index < len(encoded):
                 stream_val |= ( encoded[encoded_index] << j*8 )
             encoded_index += 1
-        stream_out.push(stream_in.dtype(stream_val))
+        stream_out.push(stream_val)
     # return stream out
     stream_out.queue_to_array()    
     return stream_out

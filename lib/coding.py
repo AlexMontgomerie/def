@@ -2,8 +2,8 @@ from lib.stream import stream
 
 def correlator(stream_in):
     # stream initialisations
-    stream_out = stream([], dtype=stream_in.dtype)
-    fifo       = stream([], dtype=stream_in.dtype)
+    stream_out = stream([], bitwidth=stream_in.bitwidth)
+    fifo       = stream([], bitwidth=stream_in.bitwidth)
     # fill buffer
     val = stream_in.pop()
     fifo.push(val)
@@ -24,8 +24,8 @@ def correlator(stream_in):
  
 def decorrelator(stream_in):
     # stream initialisations
-    stream_out = stream([], dtype=stream_in.dtype)
-    fifo       = stream([], dtype=stream_in.dtype)
+    stream_out = stream([], bitwidth=stream_in.bitwidth)
+    fifo       = stream([], bitwidth=stream_in.bitwidth)
     # fill buffer
     val = stream_in.pop()
     fifo.push(val)

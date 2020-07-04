@@ -5,8 +5,8 @@ import lib.graph
 if __name__ == "__main__":
   
     # plot switching activity per layer
-    lib.graph.plot_per_layer("outputs/distiller_mobilenet_v2_8b/output_metrics.json", "outputs/sa_per_layer.png", 
-            metric="average_sa", encoding_scheme_filter=["abe","bi","dsam","apbm","awr","baseline"], show_plot=True)
+    lib.graph.plot_per_layer("outputs/caffe_alexnet_8b/output_metrics.json", "outputs/sa_per_layer.png", 
+            metric="average_sa", encoding_scheme_filter=["abe","bi","deaf","apbm","awr","baseline"], show_plot=True)
 
     """
     # plot bitwise transitions
@@ -15,7 +15,8 @@ if __name__ == "__main__":
     """
 
     # 
-    lib.graph.plot_per_encoding_scheme("outputs/distiller_densenet121_8b/output_metrics.json", "outputs/sa_per_encoding_scheme.png",
+    #lib.graph.plot_per_encoding_scheme("outputs/distiller_densenet121_8b/output_metrics.json", "outputs/sa_per_encoding_scheme.png",
+    lib.graph.plot_per_encoding_scheme("outputs/caffe_alexnet_8b/output_metrics.json", "outputs/sa_per_encoding_scheme.png",
             metric="total_transitions", encoding_scheme_filter=[], show_plot=True)
 
     lib.graph.plot_transitions_per_samples("outputs/distiller_densenet121_8b/output_metrics.json","outputs/sa_per_encoding_scheme.png", 
