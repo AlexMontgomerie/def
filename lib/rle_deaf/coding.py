@@ -4,13 +4,13 @@ from lib.coding import decorrelator
 import lib.rle.coding
 import copy
 
-def encoder(stream_in, channels=256, use_correlator=True):
+def encoder(stream_in, channels=256, rle_zero_val=0, use_correlator=True):
     # zero used in rle
-    rle_zero = 1 << (stream_in.bitwidth-1)
+    rle_zero_symbol = 1 << (stream_in.bitwidth-1)
     # get the raw length of the stream
     stream_in_length = stream_in.arr.shape[0]
     # perform rle on stream
-    stream_rle = lib.rle.coding.encoder(stream_in, rle_zero = rle_zero)
+    stream_rle = lib.rle.coding.encoder(stream_in, rle_zero_symbol=rle_zero_symbol, rle_zero_val=rle_zero_val)
     # stream initialisations
     stream_out = stream([], bitwidth=stream_in.bitwidth)
     fifo       = stream([], bitwidth=stream_in.bitwidth)
@@ -22,7 +22,7 @@ def encoder(stream_in, channels=256, use_correlator=True):
     # iterate over the first n_channels to fill buffer
     while index < channels:
         val = stream_rle.pop()
-        if val == rle_zero:
+        if val == rle_zero_symbol:
             zero_buffer_val = stream_rle.pop()
             zero_buffer_size = zero_buffer_val
             fifo.push(val)
@@ -38,7 +38,7 @@ def encoder(stream_in, channels=256, use_correlator=True):
     while (index < stream_in_length) and (stream_rle.queue):
         val_in    = stream_rle.pop()
         val_delay = fifo.pop()
-        if val_in == rle_zero:
+        if val_in == rle_zero_symbol:
             zero_buffer_val = stream_rle.pop()
             fifo.pop()
             zero_buffer_size = zero_buffer_val
@@ -59,9 +59,12 @@ def encoder(stream_in, channels=256, use_correlator=True):
     else:
         return stream_out
 
-def decoder(stream_in, channels=256):
+def decoder(stream_in, channels=256, rle_zero_val=0, use_correlator=True):
     # decorrelate stream in
-    stream_in_decorr = decorrelator(stream_in)
+    if use_correlator:
+        stream_in_decorr = decorrelator(stream_in)
+    else:
+        stream_in_decorr = stream_in
     # stream initialisations
     stream_out = stream([], bitwidth=stream_in.bitwidth)
     fifo       = stream([], bitwidth=stream_in.bitwidth)

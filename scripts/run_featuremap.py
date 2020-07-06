@@ -3,6 +3,7 @@ import copy
 import json
 import os
 import numpy as np
+from scipy import stats
 
 import lib.stream
 import lib.analysis
@@ -92,15 +93,18 @@ if __name__ == "__main__":
         return lib.bi.coding.encoder(huffman_stream), [code_table_size,0]
 
     def run_rle(stream_in, layer):
-        return lib.rle.coding.encoder(stream_in), [0,0]
+        rle_zero = stats.mode(stream_in.arr).mode[0]
+        return lib.rle.coding.encoder(stream_in,rle_zero_symbol=rle_zero,rle_zero_val=rle_zero), [0,0]
  
     def run_rle_bi(stream_in, layer):
-        rle_stream = lib.rle.coding.encoder(stream_in)
+        rle_zero = stats.mode(stream_in.arr).mode[0]
+        rle_stream = lib.rle.coding.encoder(stream_in,rle_zero_symbol=rle_zero,rle_zero_val=rle_zero)
         return lib.bi.coding.encoder(rle_stream), [0,0]
  
     def run_rle_deaf(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.rle_deaf.coding.encoder(stream_in,channels=channels), [channels*stream_in.bitwidth, 0]
+        rle_zero = stats.mode(stream_in.arr).mode[0]
+        return lib.rle_deaf.coding.encoder(stream_in,channels=channels,rle_zero_val=rle_zero), [channels*stream_in.bitwidth, 0]
    
     # encoders to run
     encoders = {
@@ -129,7 +133,7 @@ if __name__ == "__main__":
         metrics[layer] = {}
 
         # load feature map
-        featuremap = lib.featuremap.to_stream( args.featuremap_path, layer, limit=args.limit, bitwidth=args.bitwidth )
+        featuremap = lib.featuremap.to_stream( args.featuremap_path, layer, restricted_range=True, limit=args.limit, bitwidth=args.bitwidth )
       
         # iterate over encoders
         for encoder in encoders:

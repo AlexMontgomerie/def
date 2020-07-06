@@ -42,7 +42,7 @@ function run_multi {
 
 #run_single
 #run_asym
-#run_sym
-run_multi
+run_sym
+#run_multi
 
 #mkdir -p outputs && python -m scripts.run_graphs
