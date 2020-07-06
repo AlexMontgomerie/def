@@ -38,7 +38,7 @@ def to_stream(filepath, layer, restricted_range=False, limit=None, bitwidth=8, s
         featuremap = featuremap[:limit]
     # apply restricted range
     if restricted_range:
-        featuremap = np.clip(featuremap,((2**(bitwidth-1))-1),-((2**(bitwidth-1))-1))    
+        featuremap = np.clip(featuremap,-((2**(bitwidth-1))-1),((2**(bitwidth-1))-1))    
     # return stream
     return stream(featuremap, bitwidth=bitwidth)
 

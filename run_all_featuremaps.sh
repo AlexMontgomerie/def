@@ -2,7 +2,7 @@
 
 function run_single {
     LIMIT=10000
-    mkdir -p outputs/caffe_alexnet_8b && python -m scripts.run_featuremap -n alexnet -f featuremaps/caffe_alexnet_8b.h5  -o outputs/caffe_alexnet_8b  -l $LIMIT -b 8
+    mkdir -p outputs/distiller_alexnet_8b && python -m scripts.run_featuremap -n alexnet -f featuremaps/caffe_alexnet_8b.h5  -o outputs/caffe_alexnet_8b  -l $LIMIT -b 8
 
 }
 
@@ -40,9 +40,9 @@ function run_multi {
 
 }
 
-#run_single
+run_single
 #run_asym
-run_sym
+#run_sym
 #run_multi
 
 #mkdir -p outputs && python -m scripts.run_graphs
