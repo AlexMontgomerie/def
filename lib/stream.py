@@ -31,7 +31,7 @@ class stream():
         elif self.bitwidth <= 8:
             dtype = np.uint8
         # save as binary file
-        arr.astype(dtype).tofile(output_path)
+        self.arr.astype(dtype).tofile(output_path)
 
     # main queue functions
     def queue_to_array(self):
@@ -89,7 +89,7 @@ class multi_stream: # TODO:
         for i in range(stream_dim):
             channel_out = np.uint64(0)
             for j in range(self.n_channels):
-                channel_out.bitfield = np.bitwise_or( channel_out, np.uint64( np.uint64(self.streams[j].arr[i]) << np.uint64(j*self.streams[j].bitwidth) ) )
+                channel_out = np.bitwise_or( channel_out, np.uint64( np.uint64(self.streams[j].arr[i]) << np.uint64(j*self.streams[j].bitwidth) ) )
             stream_out.push(channel_out)
         # return stream out
         stream_out.queue_to_array()    

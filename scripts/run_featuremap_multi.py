@@ -36,14 +36,6 @@ if __name__ == "__main__":
     # parse arguments
     args = parser.parse_args()
 
-    # get datatype
-    if args.bitwidth == 8:
-        dtype = lib.quantise.sint8
-    if args.bitwidth == 16:
-        dtype = lib.quantise.sint16
-    if args.bitwidth == 32:
-        dtype = lib.quantise.sint32
-
     # get all the layers
     layers = lib.featuremap.get_layers( args.featuremap_path )
 
@@ -51,21 +43,21 @@ if __name__ == "__main__":
     dimensions = lib.featuremap.get_dimensions( args.featuremap_path )
 
     def run_baseline(stream_in, layer):
-        return lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        return lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64).single_stream()
 
     def run_bi(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=56).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=56).single_stream()
         return lib.bi.coding.encoder(stream_in)
 
     def run_deaf_serial(stream_in, layer):
         channels = dimensions[layer][1]
         stream_in = lib.deaf.coding.encoder(stream_in, channels=channels, use_correlator=False)
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64).single_stream()
         return lib.coding.correlator(stream_in)
 
     """
     def run_deaf_parallel(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64)
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64)
         channels = dimensions[layer][1]
         if channels%stream_in.n_channels:
             print("ERR: cannot parallise stream")
@@ -76,44 +68,44 @@ if __name__ == "__main__":
     """
 
     def run_apbm(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64).single_stream()
         code_table_stream =copy.deepcopy(stream_in)
         code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
         code_table = lib.apbm.coding.get_code_table(code_table_stream)
         return lib.apbm.coding.encoder(stream_in, code_table=code_table)
 
     def run_abe(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=56).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=56).single_stream()
         return lib.abe.coding.encoder(stream_in,window_size=32)
 
     def run_awr(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=56).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=56).single_stream()
         return lib.awr.coding.encoder(stream_in,N=8)
 
     def run_huffman(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64).single_stream()
         code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
         return lib.huffman.coding.encoder(stream_in, code_table)
 
     def run_huffman_bi(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64).single_stream()
         code_table = lib.huffman.coding.get_code_table(copy.deepcopy(stream_in))
         huffman_stream = lib.huffman.coding.encoder(stream_in, code_table)
         return lib.bi.coding.encoder(huffman_stream)
 
     def run_rle(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64).single_stream()
         return lib.rle.coding.encoder(stream_in)
  
     def run_rle_bi(stream_in, layer):
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64).single_stream()
         rle_stream = lib.rle.coding.encoder(stream_in)
         return lib.bi.coding.encoder(rle_stream)
  
     def run_rle_deaf_serial(stream_in, layer):
         channels = dimensions[layer][1]
         stream_in = lib.rle_deaf.coding.encoder(stream_in, channels=channels, use_correlator=False)
-        stream_in = lib.stream.multi_stream(stream_in,dtype=dtype,memory_bus_width=64).single_stream()
+        stream_in = lib.stream.multi_stream(stream_in,bitwidth=args.bitwidth,memory_bus_width=64).single_stream()
         return lib.coding.correlator(stream_in)
 
   
@@ -121,7 +113,7 @@ if __name__ == "__main__":
     encoders = {
         "baseline"      : run_baseline,
         #"bi"            : run_bi,
-        "deaf"          : run_deaf_serial,
+        #"deaf"          : run_deaf_serial,
         #"apbm"          : run_apbm,
         #"abe"           : run_abe,
         #"awr"           : run_awr,
@@ -142,7 +134,7 @@ if __name__ == "__main__":
         metrics[layer] = {}
 
         # load feature map
-        featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, limit=args.limit, dtype=dtype)
+        featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, limit=args.limit, bitwidth=args.bitwidth)
      
         # iterate over encoders
         for encoder in encoders:

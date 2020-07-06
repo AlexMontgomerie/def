@@ -24,7 +24,7 @@ def get_dimensions(filepath):
 def load_layer(filepath, layer):
     return dd.io.load(filepath)[layer]
 
-def to_stream(filepath, layer, offset=0, limit=None, bitwidth=8, single_batch=False):
+def to_stream(filepath, layer, limit=None, bitwidth=8, single_batch=False):
     # convert each feature map into stream
     featuremap = load_layer(filepath,layer)
     # re-order dimensions
@@ -38,7 +38,7 @@ def to_stream(filepath, layer, offset=0, limit=None, bitwidth=8, single_batch=Fa
         featuremap = featuremap[:limit]
     # apply offset 
     featuremap = featuremap.astype(int)
-    featuremap = np.subtract(featuremap, offset)
+    print(np.mean(featuremap))
     # return stream
     return stream(featuremap, bitwidth=bitwidth)
 
