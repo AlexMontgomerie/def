@@ -133,7 +133,7 @@ if __name__ == "__main__":
         metrics[layer] = {}
 
         # load feature map
-        featuremap = lib.featuremap.to_stream( args.featuremap_path, layer, restricted_range=True, limit=args.limit, bitwidth=args.bitwidth )
+        featuremap = lib.featuremap.to_stream( args.featuremap_path, layer, limit=args.limit, bitwidth=args.bitwidth )
       
         # iterate over encoders
         for encoder in encoders:

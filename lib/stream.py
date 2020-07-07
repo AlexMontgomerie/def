@@ -83,7 +83,7 @@ class multi_stream: # TODO:
 
     def single_stream(self): # TODO: convert to a single wide stream
         # initialise the stream out
-        stream_out = stream([], bitwidth= self.memory_bus_width)
+        stream_out = stream([], bitwidth=self.memory_bus_width)
         # iterate over stream dimensions
         stream_dim = self.streams[0].arr.shape[0]
         for i in range(stream_dim):

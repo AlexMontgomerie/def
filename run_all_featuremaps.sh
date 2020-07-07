@@ -1,48 +1,63 @@
 #!/bin/bash
 
-function run_single {
-    LIMIT=10000
-    mkdir -p outputs/distiller_alexnet_8b && python -m scripts.run_featuremap -n alexnet -f featuremaps/caffe_alexnet_8b.h5  -o outputs/caffe_alexnet_8b  -l $LIMIT -b 8
+function run_network {
+    # get arguments
+    network=$1
+    limit=$2
+    # run script
+    mkdir -p outputs/${network} && python -m scripts.run_featuremap -f featuremaps/${network}.h5  -o outputs/${network}  -l $LIMIT -b 8
+}
 
+function run_multi_network {
+    # get arguments
+    network=$1
+    limit=$2
+    # run script
+    mkdir -p outputs/${network}_multi && python -m scripts.run_featuremap_multi -f featuremaps/${network}.h5  -o outputs/${network}_multi  -l $LIMIT -b 8
 }
 
 function run_asym {
     LIMIT=50000
     # distiller 8-bit
-    mkdir -p outputs/distiller_alexnet_8b && python -m scripts.run_featuremap -n alexnet -f featuremaps/distiller_alexnet_8b.h5 -o outputs/distiller_alexnet_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_densenet121_8b && python -m scripts.run_featuremap -n densenet -f featuremaps/distiller_densenet121_8b.h5 -o outputs/distiller_densenet121_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_googlenet_8b && python -m scripts.run_featuremap -n googlenet -f featuremaps/distiller_googlenet_8b.h5 -o outputs/distiller_googlenet_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_mobilenet_v2_8b && python -m scripts.run_featuremap -n mobilenet -f featuremaps/distiller_mobilenet_v2_8b.h5 -o outputs/distiller_mobilenet_v2_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_resnet18_8b && python -m scripts.run_featuremap -n resnet -f featuremaps/distiller_resnet18_8b.h5 -o outputs/distiller_resnet18_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_shufflenet_v2_x1_0_8b && python -m scripts.run_featuremap -n shufflenet -f featuremaps/distiller_shufflenet_v2_x1_0_8b.h5 -o outputs/distiller_shufflenet_v2_x1_0_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_squeezenet1_0_8b && python -m scripts.run_featuremap -n squeezenet -f featuremaps/distiller_squeezenet1_0_8b.h5 -o outputs/distiller_squeezenet1_0_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_vgg11_8b && python -m scripts.run_featuremap -n vgg -f featuremaps/distiller_vgg11_8b.h5 -o outputs/distiller_vgg11_8b -l $LIMIT -b 8
+    run_network distiller_alexnet_8b            $LIMIT
+    run_network distiller_densenet121_8b        $LIMIT
+    run_network distiller_googlenet_8b          $LIMIT
+    run_network distiller_mobilenet_v2_8b       $LIMIT
+    run_network distiller_resnet18_8b           $LIMIT
+    run_network distiller_shufflenet_v2_x1_0_8b $LIMIT
+    run_network distiller_squeezenet1_0_8b      $LIMIT
+    run_network distiller_vgg11_8b              $LIMIT
 }
 
 function run_sym {
     LIMIT=50000
     # distiller 8-bit (symmetric)
-    mkdir -p outputs/distiller_sym_alexnet_8b && python -m scripts.run_featuremap -n alexnet -f featuremaps/distiller_sym_alexnet_8b.h5 -o outputs/distiller_sym_alexnet_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_sym_densenet121_8b && python -m scripts.run_featuremap -n densenet -f featuremaps/distiller_sym_densenet121_8b.h5 -o outputs/distiller_sym_densenet121_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_sym_googlenet_8b && python -m scripts.run_featuremap -n googlenet -f featuremaps/distiller_sym_googlenet_8b.h5 -o outputs/distiller_sym_googlenet_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_sym_mobilenet_v2_8b && python -m scripts.run_featuremap -n mobilenet -f featuremaps/distiller_sym_mobilenet_v2_8b.h5 -o outputs/distiller_sym_mobilenet_v2_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_sym_resnet18_8b && python -m scripts.run_featuremap -n resnet -f featuremaps/distiller_sym_resnet18_8b.h5 -o outputs/distiller_sym_resnet18_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_sym_shufflenet_v2_x1_0_8b && python -m scripts.run_featuremap -n shufflenet -f featuremaps/distiller_sym_shufflenet_v2_x1_0_8b.h5 -o outputs/distiller_sym_shufflenet_v2_x1_0_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_sym_squeezenet1_0_8b && python -m scripts.run_featuremap -n squeezenet -f featuremaps/distiller_sym_squeezenet1_0_8b.h5 -o outputs/distiller_sym_squeezenet1_0_8b -l $LIMIT -b 8
-    mkdir -p outputs/distiller_sym_vgg11_8b && python -m scripts.run_featuremap -n vgg -f featuremaps/distiller_sym_vgg11_8b.h5 -o outputs/distiller_sym_vgg11_8b -l $LIMIT -b 8
-
+    run_network distiller_sym_alexnet_8b            $LIMIT
+    run_network distiller_sym_densenet121_8b        $LIMIT
+    run_network distiller_sym_googlenet_8b          $LIMIT
+    run_network distiller_sym_mobilenet_v2_8b       $LIMIT
+    run_network distiller_sym_resnet18_8b           $LIMIT
+    run_network distiller_sym_shufflenet_v2_x1_0_8b $LIMIT
+    run_network distiller_sym_squeezenet1_0_8b      $LIMIT
+    run_network distiller_sym_vgg11_8b              $LIMIT
 }
 
 function run_multi {
-    LIMIT=10000
-    mkdir -p outputs/distiller_alexnet_8b_multi  && python -m scripts.run_featuremap_multi -n alexnet -f featuremaps/distiller_alexnet_8b.h5  -o outputs/distiller_alexnet_8b_multi  -l $LIMIT -b 8
-    #mkdir -p outputs/distiller_mobilenet_v2_8b_multi && python -m scripts.run_featuremap_multi -n mobilenet_v2 -f featuremaps/distiller_mobilenet_v2_8b.h5 -o outputs/distiller_mobilenet_v2_8b_multi -l $LIMIT -b 8
-
+    LIMIT=50000
+    # distiller 8-bit
+    run_multi_network distiller_alexnet_8b            $LIMIT
+    #run_multi_network distiller_densenet121_8b        $LIMIT
+    run_multi_network distiller_googlenet_8b          $LIMIT
+    #run_multi_network distiller_mobilenet_v2_8b       $LIMIT
+    run_multi_network distiller_resnet18_8b           $LIMIT
+    #run_multi_network distiller_shufflenet_v2_x1_0_8b $LIMIT
+    #run_multi_network distiller_squeezenet1_0_8b      $LIMIT
+    run_multi_network distiller_vgg11_8b              $LIMIT
 }
 
-#run_single
-run_asym
+#run_network distiller_alexnet_8b 10000
+#run_asym
 #run_sym
-#run_multi
+run_multi
 
 #mkdir -p outputs && python -m scripts.run_graphs
