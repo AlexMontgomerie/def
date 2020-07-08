@@ -17,7 +17,7 @@ function run_multi_network {
 }
 
 function run_asym {
-    LIMIT=50000
+    LIMIT=100000
     # distiller 8-bit
     run_network distiller_alexnet_8b            $LIMIT
     run_network distiller_densenet121_8b        $LIMIT
@@ -30,7 +30,7 @@ function run_asym {
 }
 
 function run_sym {
-    LIMIT=50000
+    LIMIT=100000
     # distiller 8-bit (symmetric)
     run_network distiller_sym_alexnet_8b            $LIMIT
     run_network distiller_sym_densenet121_8b        $LIMIT
@@ -43,21 +43,21 @@ function run_sym {
 }
 
 function run_multi {
-    LIMIT=50000
+    LIMIT=100000
     # distiller 8-bit
     run_multi_network distiller_alexnet_8b            $LIMIT
-    #run_multi_network distiller_densenet121_8b        $LIMIT
+    run_multi_network distiller_densenet121_8b        $LIMIT
     run_multi_network distiller_googlenet_8b          $LIMIT
-    #run_multi_network distiller_mobilenet_v2_8b       $LIMIT
+    run_multi_network distiller_mobilenet_v2_8b       $LIMIT
     run_multi_network distiller_resnet18_8b           $LIMIT
-    #run_multi_network distiller_shufflenet_v2_x1_0_8b $LIMIT
-    #run_multi_network distiller_squeezenet1_0_8b      $LIMIT
+    run_multi_network distiller_shufflenet_v2_x1_0_8b $LIMIT
+    run_multi_network distiller_squeezenet1_0_8b      $LIMIT
     run_multi_network distiller_vgg11_8b              $LIMIT
 }
 
 #run_network distiller_alexnet_8b 10000
-#run_asym
-#run_sym
+run_asym
+run_sym
 run_multi
 
 #mkdir -p outputs && python -m scripts.run_graphs

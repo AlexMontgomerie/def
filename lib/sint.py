@@ -26,12 +26,15 @@ def stream_int_to_sint(stream_in):
         val  = np.uint64( np.uint64(stream_in_val) & val_mask )
         # adjust for twos complement
         if sign:
+            if np.uint(val & val_mask) == np.uint(0):
+                pass
             val = np.uint64( ~val & val_mask )
-            if val != val_mask:
-                val += 1
-        # set all zeros to regular zero
-        if val == 0:
-            sign = 0
+            val += 1
+            #if val != val_mask:
+            #    val += 1
+        ## set all zeros to regular zero
+        #if val == 0:
+        #    sign = 0
         # set sign and val
         bitfield = set_sign(bitfield,sign,stream_in.bitwidth)
         bitfield = set_val(bitfield,val,stream_in.bitwidth)

@@ -111,15 +111,15 @@ if __name__ == "__main__":
         "baseline"  : run_baseline,
         "bi"        : run_bi,
         "deaf"      : run_deaf,
-        "deaf_rle"  : run_deaf_rle,
-        "deaf_bi"   : run_deaf_bi,
+        #"deaf_rle"  : run_deaf_rle,
+        #"deaf_bi"   : run_deaf_bi,
         "apbm"      : run_apbm,
         "abe"       : run_abe,
         "awr"       : run_awr,
         "huffman"   : run_huffman,
-        "huffman_bi": run_huffman_bi,
+        #"huffman_bi": run_huffman_bi,
         "rle"       : run_rle,
-        "rle_bi"    : run_rle_bi,
+        #"rle_bi"    : run_rle_bi,
         "rle_deaf"  : run_rle_deaf
     }
 
