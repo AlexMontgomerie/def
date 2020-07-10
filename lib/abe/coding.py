@@ -32,12 +32,14 @@ def encoder(stream_in, window_size=32): # TODO: add spatial and temporal basis a
                 if i == j:
                     continue
                 ## get the xor of the two busses
-                combined_transitions[j] = np.array( [window_transitions[w,i]*(2*window_transitions[w,j]-window_transitions[w,i]) for w in range(window_size-1)] )
+                #combined_transitions[j] = np.array( [window_transitions[w,i]*(2*window_transitions[w,j]-window_transitions[w,i]) for w in range(window_size-1)] )
+                combined_transitions[j] = window_transitions[:,i]*(2*window_transitions[:,j]-window_transitions[:,i])
                 ## add to cluster
                 if np.sum(combined_transitions) > 0:
                     clusters[i].append(j)
             ## find the savings
-            savings_cache[i] = np.sum([0.5*(np.sign(combined_transitions[j])+1)*combined_transitions[j] for j in range(bitwidth)])
+            #savings_cache[i] = np.sum([0.5*(np.sign(combined_transitions[j])+1)*combined_transitions[j] for j in range(bitwidth)])
+            savings_cache[i] = np.sum( 0.5*(np.sign(combined_transitions)+1)*combined_transitions )
         ## find basis line
         basis = np.argmax(savings_cache)
         for cluster in clusters[basis]:
