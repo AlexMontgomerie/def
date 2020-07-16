@@ -56,8 +56,11 @@ function run_multi {
 }
 
 #run_network distiller_alexnet_8b 10000
+# generate 
 run_asym
 run_sym
-run_multi
+#run_multi
 
-#mkdir -p outputs && python -m scripts.run_graphs
+#mkdir -p outputs/distiller_mobilenet_v2_8b && python -m scripts.run_featuremap -f featuremaps/distiller_mobilenet_v2_8b.h5  -o outputs/distiller_mobilenet_v2_8b -l 100000 -b 8 --save_bin
+#mkdir -p outputs/caffe_alexnet_8b && python -m scripts.run_featuremap -f featuremaps/caffe_alexnet_8b.h5  -o outputs/caffe_alexnet_8b -l 200000 -b 8 --save_bin
+

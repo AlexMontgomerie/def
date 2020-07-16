@@ -1,5 +1,4 @@
 import numpy as np
-import lib.quantise
 
 def to_bin(val, bitwidth=8):
     bits = bin(val).lstrip('0b')

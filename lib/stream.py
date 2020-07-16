@@ -24,14 +24,16 @@ class stream():
         # get datatype
         if self.bitwidth <= 64:
             dtype = np.uint64
-        elif self.bitwidth <= 32:
+        if self.bitwidth <= 32:
             dtype = np.uint32
-        elif self.bitwidth <= 16:
+        if self.bitwidth <= 16:
             dtype = np.uint16
-        elif self.bitwidth <= 8:
+        if self.bitwidth <= 8:
             dtype = np.uint8
         # save as binary file
-        self.arr.astype(dtype).tofile(output_path)
+        with open(output_path,'ab') as f:
+            np.save(f,self.arr.astype(dtype))
+        #self.arr.astype(dtype).tofile(output_path)
 
     # main queue functions
     def queue_to_array(self):
@@ -66,7 +68,7 @@ class stream():
             assert a.arr[i] == b.arr[i], "ERROR (value) : {} != {}".format(a.arr[i],b.arr[i])
 
 
-class multi_stream: # TODO:
+class multi_stream:
 
     def __init__(self, stream_in, bitwidth=8, memory_bus_width=32):
 
@@ -89,6 +91,7 @@ class multi_stream: # TODO:
         for i in range(stream_dim):
             channel_out = np.uint64(0)
             for j in range(self.n_channels):
+                # TODO: add side channels
                 channel_out = np.bitwise_or( channel_out, np.uint64( np.uint64(self.streams[j].arr[i]) << np.uint64(j*self.streams[j].bitwidth) ) )
             stream_out.push(channel_out)
         # return stream out
