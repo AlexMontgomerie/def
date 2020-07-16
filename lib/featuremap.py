@@ -24,7 +24,7 @@ def get_dimensions(filepath):
 def load_layer(filepath, layer):
     return dd.io.load(filepath)[layer]
 
-def to_stream(filepath, layer, restricted_range=False, limit=None, bitwidth=8, single_batch=False):
+def to_stream(filepath, layer, restricted_range=False, sample_range=[0,-1], bitwidth=8, single_batch=False):
     # convert each feature map into stream
     featuremap = load_layer(filepath,layer)
     # re-order dimensions
@@ -33,12 +33,17 @@ def to_stream(filepath, layer, restricted_range=False, limit=None, bitwidth=8, s
         featuremap=featuremap[0]
     # flatten feature map
     featuremap = featuremap.reshape(-1)
+    # apply restricted range
+    if restricted_range:
+        featuremap = np.clip(featuremap,-((2**(bitwidth-1))-1),((2**(bitwidth-1))-1))    
+    return featuremap
+    """
     # select only portition of the featuremap
-    if limit != None:
-        featuremap = featuremap[:limit]
+    featuremap = featuremap[sample_range[0]:sample_range[-1]]
     # apply restricted range
     if restricted_range:
         featuremap = np.clip(featuremap,-((2**(bitwidth-1))-1),((2**(bitwidth-1))-1))    
     # return stream
+    #return stream(featuremap, bitwidth=bitwidth)
     return stream(featuremap, bitwidth=bitwidth)
-
+    """
