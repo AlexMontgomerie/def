@@ -165,6 +165,45 @@ def plot_per_encoding_scheme(metric_path, output_path, metric="total_transitions
     if show_plot:
         plt.show()
 
+def plot_per_encoding_scheme_violin(metric_paths, output_path, metric="total_transitions", encoding_scheme_filter=[], show_plot=True):
+    # load the metrics
+    metrics = {}
+    for network in metric_paths:
+        with open(metric_paths[network],"r") as f:
+                metrics[network] = json.load(f)
+    # get all encoding schemes
+    encoding_schemes = encoding_scheme_filter
+    # empty 
+    vals = { encoding_scheme: { network: 0 for network in metrics } for encoding_scheme in encoding_schemes }
+    #vals = { encoding_scheme: [] for encoding_scheme in encoding_schemes }
+    for network in metrics:
+        # get all the layers
+        layers = list(metrics[network].keys())
+        total_samples = _get_total_samples(metrics[network])
+        for layer in layers:
+            for encoding_scheme in encoding_schemes:
+                vals[encoding_scheme][network] += metrics[network][layer][encoding_scheme][metric]*(
+                        metrics[network][layer][encoding_scheme]["total_samples"]/total_samples[encoding_scheme])
+                #vals[encoding_scheme].append(metrics[network][layer][encoding_scheme][metric])
+    # plot switching activity for each layer
+    vals = [ [ vals[encoding_scheme][network] for network in vals[encoding_scheme] ] for encoding_scheme in encoding_schemes ]
+    #vals = [ vals[encoding_scheme] for encoding_scheme in encoding_schemes ]
+    #plt.bar(encoding_schemes, vals)
+    fig, ax = plt.subplots()
+    ax.violinplot(vals, showmeans=True, showmedians=False)
+    #ax.boxplot(vals, sym='')
+    ax.set_xticks(np.arange(1,len(encoding_schemes)+1))
+    ax.set_xticklabels(encoding_schemes)
+    ax.yaxis.grid(True)
+    #plt.ylim(bottom=0)
+    #plt.ylim([0,1])
+    plt.xticks(rotation=45)
+    #plt.title("{} per encoding scheme".format(metric))
+    plt.ylabel("average switching activity")
+    plt.savefig(output_path,bbox_inches='tight')
+    if show_plot:
+        plt.show()
+
 def plot_transitions_per_samples(metric_path, output_path, encoding_scheme_filter=[], show_plot=True):
     # load the metrics
     with open(metric_path,"r") as f:
@@ -225,7 +264,7 @@ def plot_sa_cr(metric_paths, output_path, encoding_scheme_filter=[], show_plot=T
         for network in metrics:
             x.append(encoded[encoding_scheme][network][0])
             y.append(encoded[encoding_scheme][network][1])
-        plt.plot(x, y, label= encoding_scheme)
+        plt.scatter(x, y, label= encoding_scheme)
         #plt.text(encoded[network][0], encoded[network][1], network )
     #plt.xlim([0,1])
     #plt.ylim([0,1])

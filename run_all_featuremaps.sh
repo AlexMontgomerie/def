@@ -5,7 +5,7 @@ function run_network {
     network=$1
     limit=$2
     # run script
-    mkdir -p outputs/${network} && python -m scripts.run_featuremap -f featuremaps/${network}.h5  -o outputs/${network}  -l $LIMIT -b 8
+    mkdir -p outputs/${network} && python -m scripts.run_featuremap -f featuremaps/${network}.h5  -o outputs/${network}  -l $limit -b 8
 }
 
 function run_multi_network {
@@ -13,7 +13,7 @@ function run_multi_network {
     network=$1
     limit=$2
     # run script
-    mkdir -p outputs/${network}_multi && python -m scripts.run_featuremap_multi -f featuremaps/${network}.h5  -o outputs/${network}_multi  -l $LIMIT -b 8
+    mkdir -p outputs/${network}_multi && python -m scripts.run_featuremap_multi -f featuremaps/${network}.h5  -o outputs/${network}_multi  -l $limit -b 8
 }
 
 function run_asym {
@@ -55,9 +55,9 @@ function run_multi {
     run_multi_network distiller_vgg11_8b              $LIMIT
 }
 
-#run_network distiller_alexnet_8b 10000
-run_asym
-run_sym
-run_multi
+run_network caffe_alexnet_8b 10000
+#run_asym
+#run_sym
+#run_multi
 
 #mkdir -p outputs && python -m scripts.run_graphs

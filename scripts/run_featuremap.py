@@ -108,19 +108,19 @@ if __name__ == "__main__":
    
     # encoders to run
     encoders = {
-        "baseline"  : run_baseline,
-        "bi"        : run_bi,
-        "deaf"      : run_deaf,
+        #"baseline"  : run_baseline,
+        #"bi"        : run_bi,
+        #"deaf"      : run_deaf,
         #"deaf_rle"  : run_deaf_rle,
         #"deaf_bi"   : run_deaf_bi,
-        "apbm"      : run_apbm,
+        #"apbm"      : run_apbm,
         "abe"       : run_abe,
-        "awr"       : run_awr,
-        "huffman"   : run_huffman,
+        #"awr"       : run_awr,
+        #"huffman"   : run_huffman,
         #"huffman_bi": run_huffman_bi,
-        "rle"       : run_rle,
+        #"rle"       : run_rle,
         #"rle_bi"    : run_rle_bi,
-        "rle_deaf"  : run_rle_deaf
+        #"rle_deaf"  : run_rle_deaf
     }
 
     # list of metrics for each layer

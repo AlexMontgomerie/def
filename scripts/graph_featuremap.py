@@ -5,8 +5,8 @@ import lib.graph
 if __name__ == "__main__":
   
     # plot switching activity per layer
-    lib.graph.plot_per_layer("outputs/caffe_alexnet_8b/output_metrics.json", "outputs/sa_per_layer.png", 
-            metric="average_sa", encoding_scheme_filter=["abe","bi","deaf","apbm","awr","baseline"], show_plot=True)
+    #lib.graph.plot_per_layer("outputs/caffe_alexnet_8b/output_metrics.json", "outputs/sa_per_layer.png", 
+    #        metric="average_sa", encoding_scheme_filter=["abe","bi","deaf","apbm","awr","baseline"], show_plot=True)
 
     """
     # plot bitwise transitions
@@ -14,14 +14,17 @@ if __name__ == "__main__":
             metric="average_sa_per_line", encoding_scheme_filter=["baseline","dsam"], show_plot=True)
     """
 
-    # 
+    #
+    """
     lib.graph.plot_per_encoding_scheme("outputs/distiller_densenet121_8b/output_metrics.json", "outputs/sa_per_encoding_scheme.png",
     #lib.graph.plot_per_encoding_scheme("outputs/caffe_alexnet_8b/output_metrics.json", "outputs/sa_per_encoding_scheme.png",
-            metric="average_sa", encoding_scheme_filter=[], show_plot=True)
+            metric="average_sa", encoding_scheme_filter=["abe","bi","deaf","apbm","awr","baseline"], show_plot=True)
+    """
 
     lib.graph.plot_transitions_per_samples("outputs/distiller_densenet121_8b/output_metrics.json","outputs/sa_per_encoding_scheme.png", 
-            encoding_scheme_filter=["rle","rle_deaf","huffman","huffman_bi","baseline"], show_plot=True)
-
+            encoding_scheme_filter=["baseline","abe","bi","deaf","awr","huffman","rle_deaf"], show_plot=True)
+            #encoding_scheme_filter=["rle","rle_deaf","huffman","baseline"], show_plot=True)
+    """
     metric_paths = {
             "alexnet"   : "outputs/distiller_sym_alexnet_8b/output_metrics.json",
             "mobilenet" : "outputs/distiller_sym_mobilenet_v2_8b/output_metrics.json",
@@ -32,7 +35,33 @@ if __name__ == "__main__":
             "squeezenet": "outputs/distiller_sym_squeezenet1_0_8b/output_metrics.json",
             "vgg"       : "outputs/distiller_sym_vgg11_8b/output_metrics.json",
     }
-    lib.graph.plot_sa_cr(metric_paths, "outputs/sa_cr.png", encoding_scheme_filter=["rle","rle_deaf","huffman"], show_plot=True)
+    """
+    metric_paths = {
+            "alexnet"   : "outputs/distiller_alexnet_8b_multi/output_metrics.json",
+            "mobilenet" : "outputs/distiller_mobilenet_v2_8b_multi/output_metrics.json",
+            "densenet"  : "outputs/distiller_densenet121_8b_multi/output_metrics.json",
+            "resnet"    : "outputs/distiller_resnet18_8b_multi/output_metrics.json",
+            "googlenet" : "outputs/distiller_googlenet_8b_multi/output_metrics.json",
+            "shufflenet": "outputs/distiller_shufflenet_v2_x1_0_8b_multi/output_metrics.json",
+            "squeezenet": "outputs/distiller_squeezenet1_0_8b_multi/output_metrics.json",
+            "vgg"       : "outputs/distiller_vgg11_8b_multi/output_metrics.json",
+    }
+
+    lib.graph.plot_per_encoding_scheme_violin(metric_paths, "outputs/sa_per_encoding_scheme.png",
+            metric="average_sa", encoding_scheme_filter=["baseline","abe","bi","deaf","awr"], show_plot=True)
+    
+ 
+    metric_paths = {
+            "alexnet"   : "outputs/distiller_sym_alexnet_8b/output_metrics.json",
+            "mobilenet" : "outputs/distiller_sym_mobilenet_v2_8b/output_metrics.json",
+            "densenet"  : "outputs/distiller_sym_densenet121_8b/output_metrics.json",
+            "resnet"    : "outputs/distiller_sym_resnet18_8b/output_metrics.json",
+            "googlenet" : "outputs/distiller_sym_googlenet_8b/output_metrics.json",
+            "shufflenet": "outputs/distiller_sym_shufflenet_v2_x1_0_8b/output_metrics.json",
+            "squeezenet": "outputs/distiller_sym_squeezenet1_0_8b/output_metrics.json",
+            "vgg"       : "outputs/distiller_sym_vgg11_8b/output_metrics.json",
+    }
+    lib.graph.plot_sa_cr(metric_paths, "outputs/sa_cr.png", encoding_scheme_filter=["baseline","rle","rle_deaf","huffman"], show_plot=True)
 
     """
     # plot transitions per layer
