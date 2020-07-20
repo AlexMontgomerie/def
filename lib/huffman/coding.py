@@ -23,14 +23,15 @@ def encoder(stream_in, code_table):
     for i in range(stream_in.arr.shape[0]):
         stream_list.append(stream_in.arr[i])
     # encode using code table
+    #encoded = code_table.encode(stream_list)
     encoded = code_table.encode(stream_list)
+    encoded = bin(int.from_bytes(encoded,byteorder='big',signed=False)).lstrip('0b')
     # iterate over bytes of encoded stream
     encoded_index = 0
-    for i in range(math.ceil(len(encoded)/int(stream_in.bitwidth/8))):
+    for i in range(math.floor(len(encoded)/stream_in.bitwidth)):
         stream_val = 0
-        for j in range(int(stream_in.bitwidth/8)):
-            if encoded_index < len(encoded):
-                stream_val |= ( encoded[encoded_index] << j*8 )
+        for j in range(stream_in.bitwidth):
+            stream_val |= ( int(encoded[encoded_index]) << j )
             encoded_index += 1
         stream_out.push(stream_val)
     # return stream out
