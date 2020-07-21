@@ -51,8 +51,8 @@ function run_mobilenet {
 }
 
 #run_network distiller_alexnet_8b 10000
-run_mobilenet
-run_asym
+##run_mobilenet
+#run_asym
 
 #mkdir -p outputs/distiller_mobilenet_v2_8b && python -m scripts.run_featuremap -f featuremaps/distiller_mobilenet_v2_8b.h5  -o outputs/distiller_mobilenet_v2_8b -l 100000 -b 8 --save_bin
-#mkdir -p outputs/distiller_alexnet_8b && python -m scripts.run_featuremap -f featuremaps/distiller_alexnet_8b.h5  -o outputs/distiller_alexnet_8b -l 200000 -b 8
+mkdir -p outputs/distiller_alexnet_8b_test && python -m scripts.run_featuremap -f featuremaps/distiller_alexnet_8b.h5  -o outputs/distiller_alexnet_8b_test -l 200000 -b 8
