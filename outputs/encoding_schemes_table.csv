@@ -1,0 +1,7 @@
+Encoding Scheme Compression Ratio Avg. Switching Activity Bit Width Storage (bits)
+baseline 1.00 0.2353 0 8
+abe 0.97 0.2160 255 9
+bi 1.00 0.2010 0 9
+deaf 1.00 0.1565 1655 8
+apbm 1.00 0.2806 2047 8
+awr 1.00 0.2205 3 10

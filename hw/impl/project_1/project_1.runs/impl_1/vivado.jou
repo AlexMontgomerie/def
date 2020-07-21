@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Fri Jul 17 11:52:35 2020
+# Process ID: 15322
+# Current directory: /home/alex/DSAM2/hw/impl/project_1/project_1.runs/impl_1
+# Command line: vivado -log deaf_encoder.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source deaf_encoder.tcl -notrace
+# Log file: /home/alex/DSAM2/hw/impl/project_1/project_1.runs/impl_1/deaf_encoder.vdi
+# Journal file: /home/alex/DSAM2/hw/impl/project_1/project_1.runs/impl_1/vivado.jou
+#-----------------------------------------------------------
+source deaf_encoder.tcl -notrace

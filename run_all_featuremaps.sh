@@ -3,63 +3,53 @@
 function run_network {
     # get arguments
     network=$1
-    limit=$2
+    bitwidth=$2
+    limit=$3
     # run script
-    mkdir -p outputs/${network} && python -m scripts.run_featuremap -f featuremaps/${network}.h5  -o outputs/${network}  -l $limit -b 8
-}
-
-function run_multi_network {
-    # get arguments
-    network=$1
-    limit=$2
-    # run script
-    mkdir -p outputs/${network}_multi && python -m scripts.run_featuremap_multi -f featuremaps/${network}.h5  -o outputs/${network}_multi  -l $limit -b 8
+    mkdir -p outputs/${network} && python -m scripts.run_featuremap -f featuremaps/${network}.h5  -o outputs/${network}  -l $LIMIT -b ${bitwidth}
 }
 
 function run_asym {
-    LIMIT=100000
+    LIMIT=200000
+    BITWIDTH=8
     # distiller 8-bit
-    run_network distiller_alexnet_8b            $LIMIT
-    run_network distiller_densenet121_8b        $LIMIT
-    run_network distiller_googlenet_8b          $LIMIT
-    run_network distiller_mobilenet_v2_8b       $LIMIT
-    run_network distiller_resnet18_8b           $LIMIT
-    run_network distiller_shufflenet_v2_x1_0_8b $LIMIT
-    run_network distiller_squeezenet1_0_8b      $LIMIT
-    run_network distiller_vgg11_8b              $LIMIT
+    run_network distiller_alexnet_8b            $BITWIDTH   $LIMIT
+    run_network distiller_densenet121_8b        $BITWIDTH   $LIMIT
+    run_network distiller_googlenet_8b          $BITWIDTH   $LIMIT
+    run_network distiller_mobilenet_v2_8b       $BITWIDTH   $LIMIT
+    run_network distiller_resnet18_8b           $BITWIDTH   $LIMIT
+    run_network distiller_shufflenet_v2_x1_0_8b $BITWIDTH   $LIMIT
+    run_network distiller_squeezenet1_0_8b      $BITWIDTH   $LIMIT
+    run_network distiller_vgg11_8b              $BITWIDTH   $LIMIT
 }
 
 function run_sym {
-    LIMIT=100000
+    LIMIT=200000
+    BITWIDTH=8
     # distiller 8-bit (symmetric)
-    run_network distiller_sym_alexnet_8b            $LIMIT
-    run_network distiller_sym_densenet121_8b        $LIMIT
-    run_network distiller_sym_googlenet_8b          $LIMIT
-    run_network distiller_sym_mobilenet_v2_8b       $LIMIT
-    run_network distiller_sym_resnet18_8b           $LIMIT
-    run_network distiller_sym_shufflenet_v2_x1_0_8b $LIMIT
-    run_network distiller_sym_squeezenet1_0_8b      $LIMIT
-    run_network distiller_sym_vgg11_8b              $LIMIT
+    run_network distiller_sym_alexnet_8b            $BITWIDTH   $LIMIT
+    run_network distiller_sym_densenet121_8b        $BITWIDTH   $LIMIT
+    run_network distiller_sym_googlenet_8b          $BITWIDTH   $LIMIT
+    run_network distiller_sym_mobilenet_v2_8b       $BITWIDTH   $LIMIT
+    run_network distiller_sym_resnet18_8b           $BITWIDTH   $LIMIT
+    run_network distiller_sym_shufflenet_v2_x1_0_8b $BITWIDTH   $LIMIT
+    run_network distiller_sym_squeezenet1_0_8b      $BITWIDTH   $LIMIT
+    run_network distiller_sym_vgg11_8b              $BITWIDTH   $LIMIT
 }
 
-function run_multi {
-    LIMIT=100000
+function run_mobilenet {
+    LIMIT=200000
     # distiller 8-bit
-    run_multi_network distiller_alexnet_8b            $LIMIT
-    run_multi_network distiller_densenet121_8b        $LIMIT
-    run_multi_network distiller_googlenet_8b          $LIMIT
-    run_multi_network distiller_mobilenet_v2_8b       $LIMIT
-    run_multi_network distiller_resnet18_8b           $LIMIT
-    run_multi_network distiller_shufflenet_v2_x1_0_8b $LIMIT
-    run_multi_network distiller_squeezenet1_0_8b      $LIMIT
-    run_multi_network distiller_vgg11_8b              $LIMIT
+    run_network distiller_mobilenet_v2_2b   2   $LIMIT
+    run_network distiller_mobilenet_v2_4b   4   $LIMIT
+    run_network distiller_mobilenet_v2_6b   6   $LIMIT
+    run_network distiller_mobilenet_v2_8b   8   $LIMIT
+    run_network distiller_mobilenet_v2_10b  10  $LIMIT
+    run_network distiller_mobilenet_v2_12b  12  $LIMIT
+    run_network distiller_mobilenet_v2_14b  14  $LIMIT
+    run_network distiller_mobilenet_v2_16b  16  $LIMIT
 }
 
-#run_network distiller_alexnet_8b 10000
-# generate 
+run_mobilenet
 run_asym
-run_sym
-#run_multi
 
-#mkdir -p outputs/distiller_mobilenet_v2_8b && python -m scripts.run_featuremap -f featuremaps/distiller_mobilenet_v2_8b.h5  -o outputs/distiller_mobilenet_v2_8b -l 100000 -b 8 --save_bin
-#mkdir -p outputs/caffe_alexnet_8b && python -m scripts.run_featuremap -f featuremaps/caffe_alexnet_8b.h5  -o outputs/caffe_alexnet_8b -l 200000 -b 8 --save_bin

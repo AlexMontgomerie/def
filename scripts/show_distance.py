@@ -4,6 +4,10 @@ from PIL import Image
 import random
 import os
 
+# update stylesheet
+plt.style.use('classic')
+plt.rcParams['figure.facecolor'] = 'white'
+
 batch_size=512
 input_path="/home/alex/imagenet/val"
 image_dim=113

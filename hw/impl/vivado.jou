@@ -1,0 +1,102 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Fri Jul 17 11:31:44 2020
+# Process ID: 7299
+# Current directory: /home/alex/DSAM2/hw/impl
+# Command line: vivado
+# Log file: /home/alex/DSAM2/hw/impl/vivado.log
+# Journal file: /home/alex/DSAM2/hw/impl/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project project_1 /home/alex/DSAM2/hw/impl/project_1 -part xc7z020clg484-1
+set_property board_part xilinx.com:zc702:part0:1.4 [current_project]
+set_property  ip_repo_paths  /home/alex/DSAM2/hw/impl [current_project]
+update_ip_catalog
+create_bd_design "design_1"
+update_compile_order -fileset sources_1
+add_files -norecurse /home/alex/DSAM2/hw/impl/deaf_encoder.v
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd] -no_script -reset -force -quiet
+remove_files  /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd
+remove_files  /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+open_run synth_1 -name synth_1
+report_utilization -name utilization_1
+launch_runs impl_1 -jobs 4
+wait_on_run impl_1
+open_run impl_1
+report_utilization -name utilization_1
+file mkdir /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/new
+close [ open /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/new/deaf_encoder_top.v w ]
+add_files /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/new/deaf_encoder_top.v
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top deaf_encoder_top [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+set_property -name {STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS} -value {-mode out_of_context} -objects [get_runs synth_1]
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top deaf_encoder [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/new/deaf_encoder_top.v] -no_script -reset -force -quiet
+remove_files  /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/new/deaf_encoder_top.v
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+launch_runs impl_1 -jobs 4
+wait_on_run impl_1
+report_utilization -name utilization_2
+refresh_design
+report_utilization -name utilization_1
+report_power -name {power_1}
+launch_simulation -mode post-implementation -type functional
+source deaf_encoder.tcl
+file mkdir /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1
+file mkdir /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1/new
+close [ open /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1/new/deaf_encoder.xdc w ]
+add_files -fileset constrs_1 /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1/new/deaf_encoder.xdc
+write_xdc -helpl
+write_xdc -help
+export_ip_user_files -of_objects  [get_files /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1/new/deaf_encoder.xdc] -no_script -reset -force -quiet
+remove_files  -fileset constrs_1 /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1/new/deaf_encoder.xdc
+pwd
+write_xdc -no_fixed_only -constrains all ./project_1/project_1.srcs/constrs_1/deaf_encoder.xdc
+write_xdc -no_fixed_only -constraints all ./project_1/project_1.srcs/constrs_1/deaf_encoder.xdc
+write_xdc -no_fixed_only -constraints all ./project_1/project_1.srcs/constrs_1/deaf_encoder.xdc
+write_xdc -no_fixed_only -constraints all ./project_1/project_1.srcs/deaf_encoder.xdc
+add_files -fileset constrs_1 -norecurse /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/deaf_encoder.xdc
+export_ip_user_files -of_objects  [get_files /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/deaf_encoder.xdc] -no_script -reset -force -quiet
+remove_files  -fileset constrs_1 /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/deaf_encoder.xdc
+close [ open /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1/new/deaf_encoder_ooc.xdc w ]
+add_files -fileset constrs_1 /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1/new/deaf_encoder_ooc.xdc
+set_property USED_IN {synthesis implementation out_of_context} [get_files /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/constrs_1/new/deaf_encoder_ooc.xdc]
+ipx::package_project -root_dir /home/alex/DSAM2/hw/impl -vendor user.org -library user -taxonomy /UserIP
+create_bd_design "design_1"
+update_compile_order -fileset sources_1
+update_ip_catalog -rebuild
+open_bd_design {/home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}
+startgroup
+create_bd_cell -type ip -vlnv user.org:user:deaf_encoder:1.0 deaf_encoder_0
+endgroup
+export_ip_user_files -of_objects  [get_files /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd] -no_script -reset -force -quiet
+remove_files  /home/alex/DSAM2/hw/impl/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd
+ipx::infer_bus_interface io_in_ready xilinx.com:interface:axis_rtl:1.0 [ipx::current_core]
+ipx::infer_bus_interface {io_in_ready io_in_valid io_in_bits} xilinx.com:interface:axis_rtl:1.0 [ipx::current_core]
+ipx::infer_bus_interface io_in_bits xilinx.com:signal:data_rtl:1.0 [ipx::current_core]
+ipx::add_memory_map clock [ipx::current_core]
+set_property slave_memory_map_ref clock [ipx::get_bus_interfaces clock -of_objects [ipx::current_core]]
+close_sim
+close_project
+open_project /home/alex/DSAM2/hw/impl/project_1/project_1.xpr
+update_compile_order -fileset sources_1
+open_run impl_1
+report_utilization -name utilization_1

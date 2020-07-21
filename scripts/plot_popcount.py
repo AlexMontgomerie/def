@@ -1,6 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# update stylesheet
+plt.style.use('classic')
+plt.rcParams['figure.facecolor'] = 'white'
+
 def int2sbint(x,n=8):
     if (x<0) and (x!=-2**(n-1)):
         return ( (-x) | ( 1 << (n-1) ) ) & ( (2**n)-1 )

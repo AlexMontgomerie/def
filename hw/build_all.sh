@@ -3,6 +3,8 @@
 bitwidth=$1
 channels=$2
 
+echo "bitwidth: ${bitwidth}, channels: ${channels}"
+
 cat <<EOF > _temphelper.scala
 package _temphelper
 object Elaborate extends App {

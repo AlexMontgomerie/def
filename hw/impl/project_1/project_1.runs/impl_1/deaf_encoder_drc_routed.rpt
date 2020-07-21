@@ -1,0 +1,47 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.1 (lin64) Build 2552052 Fri May 24 14:47:09 MDT 2019
+| Date         : Fri Jul 17 11:53:28 2020
+| Host         : esperanza running 64-bit Ubuntu 18.04.4 LTS
+| Command      : report_drc -file deaf_encoder_drc_routed.rpt -pb deaf_encoder_drc_routed.pb -rpx deaf_encoder_drc_routed.rpx
+| Design       : deaf_encoder
+| Device       : xc7z020clg484-1
+| Speed File   : -1
+| Design State : Fully Routed
+------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max violations: <unlimited>
+             Violations found: 2
++-----------+----------+--------------------+------------+
+| Rule      | Severity | Description        | Violations |
++-----------+----------+--------------------+------------+
+| RTSTAT-10 | Warning  | No routable loads  | 1          |
+| ZPS7-1    | Warning  | PS7 block required | 1          |
++-----------+----------+--------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+RTSTAT-10#1 Warning
+No routable loads  
+10 net(s) have no routable loads. The problem bus(es) and/or net(s) are io_in_ready, io_out_bits[7:0], io_out_valid.
+Related violations: <none>
+
+ZPS7-1#1 Warning
+PS7 block required  
+The PS7 cell must be used in this Zynq design in order to enable correct default configuration.
+Related violations: <none>
+
+
