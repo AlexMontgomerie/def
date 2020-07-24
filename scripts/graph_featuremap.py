@@ -42,28 +42,74 @@ if __name__ == "__main__":
     }
 
 
-    lib.graph.plot_bitwidths(mobilenet_paths, "outputs/bitwidths.png", 
-            metric="average_sa",encoding_schemes=["baseline","abe","bi","deaf","apbm","awr"], show_plot=True)
+    power_readings = {
+        "1" : {
+            "abe"       : "scripts/data/abe.dat",
+            "awr"       : "scripts/data/awr.dat",
+            "bi"        : "scripts/data/bi.dat",
+            "deaf"      : "scripts/data/deaf.dat",
+            "apbm"      : "scripts/data/apbm.dat",
+            "baseline"  : "scripts/data/base.dat",
+        },
+        "2" : {
+            "abe"       : "scripts/data/abe.dat",
+            "awr"       : "scripts/data/awr.dat",
+            "bi"        : "scripts/data/bi.dat",
+            "deaf"      : "scripts/data/deaf.dat",
+            "apbm"      : "scripts/data/apbm.dat",
+            "baseline"  : "scripts/data/base.dat",
+        },
+        "3" : {
+            "abe"       : "scripts/data/abe.dat",
+            "awr"       : "scripts/data/awr.dat",
+            "bi"        : "scripts/data/bi.dat",
+            "deaf"      : "scripts/data/deaf.dat",
+            "apbm"      : "scripts/data/apbm.dat",
+            "baseline"  : "scripts/data/base.dat",
+        },
+        "4" : {
+            "abe"       : "scripts/data/abe.dat",
+            "awr"       : "scripts/data/awr.dat",
+            "bi"        : "scripts/data/bi.dat",
+            "deaf"      : "scripts/data/deaf.dat",
+            "apbm"      : "scripts/data/apbm.dat",
+            "baseline"  : "scripts/data/base.dat",
+        }
+    }
+
+    lib.graph.plot_power_readings(power_readings, "outputs/dfgdfgdf.png", 
+            encoding_schemes=["baseline","apbm","abe","bi","deaf","awr"], show_plot=True)
+
+    #lib.graph.plot_bitwidths(mobilenet_paths, "outputs/bitwidths.png", 
+    #        metric="average_sa",encoding_schemes=["baseline","abe","bi","deaf","apbm","awr"], show_plot=True)
 
 
-    lib.graph.get_table_encoding_schemes(distiller_paths["googlenet"], "outputs/encoding_schemes_table.csv", 
-            encoding_schemes=["baseline","abe","bi","deaf","apbm","awr"], print_table=True)
+    lib.graph.get_table_encoding_schemes(mobilenet_paths, "outputs/encoding_schemes_table.csv", 
+            encoding_schemes=["baseline","abe","bi","apbm","awr","deaf"], print_table=True)
 
+
+    lib.graph.get_table_compression_schemes(mobilenet_paths, "outputs/encoding_schemes_table.csv", 
+            encoding_schemes=["baseline","deaf","rle","deaf_rle","huffman"], print_table=True)
 
     # plot switching activity per layer
-    lib.graph.plot_reduction_per_layer(distiller_paths["alexnet"], "outputs/sa_per_layer.png", 
-            metric="average_sa", encoding_scheme_filter=["abe","bi","deaf","awr"], show_plot=True)
+    lib.graph.plot_reduction_per_layer_2(mobilenet_paths, "outputs/sa_per_layer.png", 
+            metric="average_sa", encoding_schemes=["abe","bi","deaf","awr"], show_plot=True)
 
-    lib.graph.plot_reduction_per_network(distiller_paths,"outputs/reduction_per_network.png",
-            metric="average_sa", encoding_scheme_filter=["abe","bi","deaf","awr"], show_plot=True)
+    #lib.graph.plot_reduction_per_network(distiller_paths,"outputs/reduction_per_network.png",
+    #        metric="average_sa", encoding_scheme_filter=["abe","bi","deaf","awr"], show_plot=True)
     
+
+    lib.graph.plot_transitions_normalised(mobilenet_paths,"outputs/sa_per_encoding_scheme.png", 
+            bitwidths=["4","8","16"],encoding_schemes=["huffman","rle","deaf","deaf_rle"], show_plot=True)
+
+
     # plot total transitions per sample
-    lib.graph.plot_transitions_per_samples(distiller_paths["googlenet"],"outputs/sa_per_encoding_scheme.png", 
-            encoding_scheme_filter=["baseline","deaf","huffman","rle","deaf_rle"], show_plot=True)
+    #lib.graph.plot_transitions_per_samples(distiller_paths["densenet"],"outputs/sa_per_encoding_scheme.png", 
+    #        encoding_schemes=["baseline","deaf","huffman","rle","deaf_rle"], show_plot=True)
 
     # plot per encoding scheme
-    lib.graph.plot_per_encoding_scheme_violin_network(distiller_paths["densenet"], "outputs/sa_per_encoding_scheme.png",
-            metric="average_sa", encoding_scheme_filter=["baseline","abe","bi","deaf","awr","apbm"], show_plot=True)
+    #lib.graph.plot_per_encoding_scheme_violin_network(distiller_paths["densenet"], "outputs/sa_per_encoding_scheme.png",
+    #        metric="average_sa", encoding_scheme_filter=["baseline","abe","bi","deaf","awr","apbm"], show_plot=True)
     
     #lib.graph.plot_sa_cr(distiller_paths, "outputs/sa_cr.png", encoding_scheme_filter=["baseline","deaf","rle","huffman"], show_plot=True)
 
