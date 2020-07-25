@@ -1,0 +1,2296 @@
+{
+    "module.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 776260.0,
+            "total_samples": 799996,
+            "average_sa": 0.24258367583675838,
+            "variance_sa": 0.0349401347781078
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 771014.0,
+            "total_samples": 799996,
+            "average_sa": 0.19275542755427555,
+            "variance_sa": 0.02155948798910383
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 373853.0,
+            "total_samples": 799996,
+            "average_sa": 0.11683023080230803,
+            "variance_sa": 0.03809582569121987
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1345821.0,
+            "total_samples": 799996,
+            "average_sa": 0.4205732682326824,
+            "variance_sa": 0.027145127651791646
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 891084.0,
+            "total_samples": 824992,
+            "average_sa": 0.21602350579644797,
+            "variance_sa": 0.029361521301000847
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1106687.0,
+            "total_samples": 799984,
+            "average_sa": 0.23056555580556182,
+            "variance_sa": 0.043180491285423686
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 933156.0,
+            "total_samples": 556730,
+            "average_sa": 0.4190436136128265,
+            "variance_sa": 0.057385434740459075
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1395080.0,
+            "total_samples": 860416,
+            "average_sa": 0.40538820829302025,
+            "variance_sa": 0.04808084580051551
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 603738.0,
+            "total_samples": 550572,
+            "average_sa": 0.27428724212395456,
+            "variance_sa": 0.04832563600026592
+        }
+    },
+    "module.maxpool": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 917970.0,
+            "total_samples": 799996,
+            "average_sa": 0.28686849368493683,
+            "variance_sa": 0.04225980613720927
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 900394.0,
+            "total_samples": 799996,
+            "average_sa": 0.2251007510075101,
+            "variance_sa": 0.024674733151695563
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 297479.0,
+            "total_samples": 799996,
+            "average_sa": 0.09296311713117131,
+            "variance_sa": 0.03246036714667502
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1527222.0,
+            "total_samples": 799996,
+            "average_sa": 0.47726164761647616,
+            "variance_sa": 0.0310286906082093
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 1036328.0,
+            "total_samples": 824992,
+            "average_sa": 0.25123468462571574,
+            "variance_sa": 0.0348504930415776
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1264906.0,
+            "total_samples": 799984,
+            "average_sa": 0.2635286715501221,
+            "variance_sa": 0.04455202116939402
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1111377.0,
+            "total_samples": 620500,
+            "average_sa": 0.4477823999863474,
+            "variance_sa": 0.06443077287395133
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1423294.0,
+            "total_samples": 897397,
+            "average_sa": 0.3964855936604752,
+            "variance_sa": 0.052019487235610395
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 521210.0,
+            "total_samples": 464254,
+            "average_sa": 0.2809327172384244,
+            "variance_sa": 0.05559188702190737
+        }
+    },
+    "module.layer1.0.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 632545.0,
+            "total_samples": 799996,
+            "average_sa": 0.19767228922289223,
+            "variance_sa": 0.036122710163481626
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 629106.0,
+            "total_samples": 799996,
+            "average_sa": 0.1572780727807278,
+            "variance_sa": 0.022536297138689144
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 390630.0,
+            "total_samples": 799996,
+            "average_sa": 0.1220730957309573,
+            "variance_sa": 0.03936410970247639
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1205039.0,
+            "total_samples": 799996,
+            "average_sa": 0.3765784532845328,
+            "variance_sa": 0.02719733140133017
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 747547.0,
+            "total_samples": 824992,
+            "average_sa": 0.1812261511682594,
+            "variance_sa": 0.02799187897143479
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 919718.0,
+            "total_samples": 799984,
+            "average_sa": 0.1916127069843413,
+            "variance_sa": 0.04154889415554527
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 744079.0,
+            "total_samples": 517422,
+            "average_sa": 0.35889368804371363,
+            "variance_sa": 0.06351918883353194
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1224189.0,
+            "total_samples": 707303,
+            "average_sa": 0.4333547560906404,
+            "variance_sa": 0.04998281113167722
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 628663.0,
+            "total_samples": 579292,
+            "average_sa": 0.2709960582133974,
+            "variance_sa": 0.046286346899126876
+        }
+    },
+    "module.layer1.0.conv2": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1365231.0,
+            "total_samples": 799996,
+            "average_sa": 0.4266389538895389,
+            "variance_sa": 0.15355496836252738
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 720121.0,
+            "total_samples": 799996,
+            "average_sa": 0.1800320503205032,
+            "variance_sa": 0.020981924613144073
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 439497.0,
+            "total_samples": 799996,
+            "average_sa": 0.1373441859418594,
+            "variance_sa": 0.03961101771131499
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1120196.0,
+            "total_samples": 799996,
+            "average_sa": 0.3500647506475065,
+            "variance_sa": 0.16613294735874015
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 561133.0,
+            "total_samples": 824992,
+            "average_sa": 0.13603422110382213,
+            "variance_sa": 0.020782965867036065
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1347217.0,
+            "total_samples": 799984,
+            "average_sa": 0.28067722526396494,
+            "variance_sa": 0.08561211565956707
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1124888.0,
+            "total_samples": 701876,
+            "average_sa": 0.40031453789335103,
+            "variance_sa": 0.06355262487619406
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1494155.0,
+            "total_samples": 840431,
+            "average_sa": 0.44439824750390977,
+            "variance_sa": 0.10626253566647567
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 680193.0,
+            "total_samples": 640638,
+            "average_sa": 0.2652304738824681,
+            "variance_sa": 0.04133996071102884
+        }
+    },
+    "module.layer1.0.add": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 968485.0,
+            "total_samples": 799996,
+            "average_sa": 0.30265458904589043,
+            "variance_sa": 0.0460270871070613
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 949887.0,
+            "total_samples": 799996,
+            "average_sa": 0.2374741247412474,
+            "variance_sa": 0.027038853376113642
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 508283.0,
+            "total_samples": 799996,
+            "average_sa": 0.158840025900259,
+            "variance_sa": 0.04825827651031375
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1521940.0,
+            "total_samples": 799996,
+            "average_sa": 0.47561100611006113,
+            "variance_sa": 0.0366961904787337
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 1067259.0,
+            "total_samples": 824992,
+            "average_sa": 0.2587332179377155,
+            "variance_sa": 0.03622648987798416
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1342307.0,
+            "total_samples": 799984,
+            "average_sa": 0.27965428302374223,
+            "variance_sa": 0.04584572917273561
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1108129.0,
+            "total_samples": 627783,
+            "average_sa": 0.4412459961090179,
+            "variance_sa": 0.0648717826138273
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1473893.0,
+            "total_samples": 876732,
+            "average_sa": 0.4202867215622274,
+            "variance_sa": 0.047751432762897415
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 744408.0,
+            "total_samples": 668649,
+            "average_sa": 0.2780608640649879,
+            "variance_sa": 0.04544307711859219
+        }
+    },
+    "module.layer1.1.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 476248.0,
+            "total_samples": 799996,
+            "average_sa": 0.1488289882898829,
+            "variance_sa": 0.030534467615986372
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 474841.0,
+            "total_samples": 799996,
+            "average_sa": 0.11871143711437115,
+            "variance_sa": 0.01927828184895915
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 431101.0,
+            "total_samples": 799996,
+            "average_sa": 0.13472040970409704,
+            "variance_sa": 0.04352174915367777
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1077090.0,
+            "total_samples": 799996,
+            "average_sa": 0.3365939909399094,
+            "variance_sa": 0.021339374162693065
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 604182.0,
+            "total_samples": 824992,
+            "average_sa": 0.14647049411627805,
+            "variance_sa": 0.028163999020789712
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 731288.0,
+            "total_samples": 799984,
+            "average_sa": 0.1523554755535555,
+            "variance_sa": 0.038662387248323424
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 550342.0,
+            "total_samples": 478798,
+            "average_sa": 0.28698840829106387,
+            "variance_sa": 0.05914191401699383
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1026175.0,
+            "total_samples": 572177,
+            "average_sa": 0.44838601278116863,
+            "variance_sa": 0.05142021088348152
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 676458.0,
+            "total_samples": 626950,
+            "average_sa": 0.26957826819801933,
+            "variance_sa": 0.0455996806794607
+        }
+    },
+    "module.layer1.1.conv2": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 730774.0,
+            "total_samples": 799996,
+            "average_sa": 0.22836915869158692,
+            "variance_sa": 0.04357361797190832
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 703208.0,
+            "total_samples": 799996,
+            "average_sa": 0.1758037580375804,
+            "variance_sa": 0.023522466384475447
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 501629.0,
+            "total_samples": 799996,
+            "average_sa": 0.1567606301063011,
+            "variance_sa": 0.04225490275593901
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 651664.0,
+            "total_samples": 799996,
+            "average_sa": 0.2036470364703647,
+            "variance_sa": 0.018427056304127127
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 814906.0,
+            "total_samples": 824992,
+            "average_sa": 0.1975558432365077,
+            "variance_sa": 0.02834103695534341
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 959365.0,
+            "total_samples": 799984,
+            "average_sa": 0.19987270515096212,
+            "variance_sa": 0.044382805272941056
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1289563.0,
+            "total_samples": 753508,
+            "average_sa": 0.42742032934661656,
+            "variance_sa": 0.06612879895932244
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 875414.0,
+            "total_samples": 792542,
+            "average_sa": 0.27627383630691404,
+            "variance_sa": 0.042668129162953455
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 750724.0,
+            "total_samples": 714216,
+            "average_sa": 0.26265681762299337,
+            "variance_sa": 0.038597205083163735
+        }
+    },
+    "module.layer1.1.add": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 894232.0,
+            "total_samples": 799996,
+            "average_sa": 0.279450294502945,
+            "variance_sa": 0.04394145383483879
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 878056.0,
+            "total_samples": 799996,
+            "average_sa": 0.21951619516195162,
+            "variance_sa": 0.02587285250996291
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 651776.0,
+            "total_samples": 799996,
+            "average_sa": 0.20368203682036823,
+            "variance_sa": 0.05524213832864861
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1425062.0,
+            "total_samples": 799996,
+            "average_sa": 0.44533632836328363,
+            "variance_sa": 0.032143932088708624
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 1006042.0,
+            "total_samples": 824992,
+            "average_sa": 0.24389251722449296,
+            "variance_sa": 0.0346604704059988
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1265109.0,
+            "total_samples": 799984,
+            "average_sa": 0.2635709642741068,
+            "variance_sa": 0.04603002854974206
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1042186.0,
+            "total_samples": 613014,
+            "average_sa": 0.4250317119052412,
+            "variance_sa": 0.05814883172054881
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1488046.0,
+            "total_samples": 869179,
+            "average_sa": 0.4280071575538202,
+            "variance_sa": 0.051119060432466557
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 256.0,
+            "total_transitions": 886708.0,
+            "total_samples": 777342,
+            "average_sa": 0.2849765635622409,
+            "variance_sa": 0.044557569552646864
+        }
+    },
+    "module.layer2.0.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 579367.0,
+            "total_samples": 799996,
+            "average_sa": 0.1810539980399804,
+            "variance_sa": 0.03819660830529957
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 574615.0,
+            "total_samples": 799996,
+            "average_sa": 0.14365518655186554,
+            "variance_sa": 0.0236014734823595
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 683834.0,
+            "total_samples": 799996,
+            "average_sa": 0.21370026200262002,
+            "variance_sa": 0.061662274646357956
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1142996.0,
+            "total_samples": 799996,
+            "average_sa": 0.35718982189821896,
+            "variance_sa": 0.027827751534279153
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 690153.0,
+            "total_samples": 824992,
+            "average_sa": 0.16731225181457185,
+            "variance_sa": 0.03198350731218976
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 879514.0,
+            "total_samples": 799984,
+            "average_sa": 0.1832366642499396,
+            "variance_sa": 0.044200412840238984
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 676486.0,
+            "total_samples": 505363,
+            "average_sa": 0.33463739388445063,
+            "variance_sa": 0.06343987019809315
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1157964.0,
+            "total_samples": 629705,
+            "average_sa": 0.4597343984148469,
+            "variance_sa": 0.04997579652983366
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 919956.0,
+            "total_samples": 781966,
+            "average_sa": 0.2940826777320129,
+            "variance_sa": 0.04913928412179795
+        }
+    },
+    "module.layer2.0.conv2": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1411267.0,
+            "total_samples": 799996,
+            "average_sa": 0.44102534775347757,
+            "variance_sa": 0.15692324924265189
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 733089.0,
+            "total_samples": 799996,
+            "average_sa": 0.18327408274082743,
+            "variance_sa": 0.02173830973127079
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 663673.0,
+            "total_samples": 799996,
+            "average_sa": 0.20739988649886498,
+            "variance_sa": 0.04645457166295967
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 2041628.0,
+            "total_samples": 799996,
+            "average_sa": 0.6380151301513015,
+            "variance_sa": 0.17390443402988393
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 588729.0,
+            "total_samples": 824992,
+            "average_sa": 0.1427242578073863,
+            "variance_sa": 0.02300829051351181
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1341607.0,
+            "total_samples": 799984,
+            "average_sa": 0.27950844604448444,
+            "variance_sa": 0.08900382232541945
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1076132.0,
+            "total_samples": 804413,
+            "average_sa": 0.3344061785780409,
+            "variance_sa": 0.0630712467477644
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1886550.0,
+            "total_samples": 847350,
+            "average_sa": 0.5566708393413987,
+            "variance_sa": 0.10379688032901893
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 892796.0,
+            "total_samples": 824658,
+            "average_sa": 0.2706039620976208,
+            "variance_sa": 0.036098894226077635
+        }
+    },
+    "module.layer2.0.downsample.0": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 408681.0,
+            "total_samples": 799996,
+            "average_sa": 0.1277140896408964,
+            "variance_sa": 0.08275154973795398
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 217213.0,
+            "total_samples": 799996,
+            "average_sa": 0.05430379303793038,
+            "variance_sa": 0.012687967629833803
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 225623.0,
+            "total_samples": 799996,
+            "average_sa": 0.07050789257892578,
+            "variance_sa": 0.028560301561378322
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 226029.0,
+            "total_samples": 799996,
+            "average_sa": 0.07063476884768848,
+            "variance_sa": 0.05044098539474191
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 266545.0,
+            "total_samples": 824992,
+            "average_sa": 0.06461790959383652,
+            "variance_sa": 0.016299404348795583
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 507116.0,
+            "total_samples": 799984,
+            "average_sa": 0.10565180796186571,
+            "variance_sa": 0.05584024659756862
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1494914.0,
+            "total_samples": 625706,
+            "average_sa": 0.5973327483368269,
+            "variance_sa": 0.03516875198752178
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 651877.0,
+            "total_samples": 290709,
+            "average_sa": 0.5609667423173095,
+            "variance_sa": 0.09117017860985607
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 443233.0,
+            "total_samples": 374332,
+            "average_sa": 0.2962656551299578,
+            "variance_sa": 0.068671595302505
+        }
+    },
+    "module.layer2.0.add": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 669669.0,
+            "total_samples": 799996,
+            "average_sa": 0.20927365523655236,
+            "variance_sa": 0.03946744686256863
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 666543.0,
+            "total_samples": 799996,
+            "average_sa": 0.16663741637416374,
+            "variance_sa": 0.02473936853814683
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 648667.0,
+            "total_samples": 799996,
+            "average_sa": 0.20271046460464606,
+            "variance_sa": 0.057684628477035454
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1228259.0,
+            "total_samples": 799996,
+            "average_sa": 0.38383477584775844,
+            "variance_sa": 0.03281004606990602
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 782188.0,
+            "total_samples": 824992,
+            "average_sa": 0.189624091501937,
+            "variance_sa": 0.033961498673106744
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 965719.0,
+            "total_samples": 799984,
+            "average_sa": 0.20119648824553946,
+            "variance_sa": 0.0450170192561605
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 791114.0,
+            "total_samples": 519769,
+            "average_sa": 0.38050197435334426,
+            "variance_sa": 0.0680969349166458
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1266535.0,
+            "total_samples": 711647,
+            "average_sa": 0.4449393361725652,
+            "variance_sa": 0.046834693307195474
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 889556.0,
+            "total_samples": 779541,
+            "average_sa": 0.2852514988313095,
+            "variance_sa": 0.046367267754560876
+        }
+    },
+    "module.layer2.1.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 295975.0,
+            "total_samples": 799996,
+            "average_sa": 0.09249311243112432,
+            "variance_sa": 0.0234259251634263
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 294639.0,
+            "total_samples": 799996,
+            "average_sa": 0.07366048660486604,
+            "variance_sa": 0.014708192723633653
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 334681.0,
+            "total_samples": 799996,
+            "average_sa": 0.10458885838858388,
+            "variance_sa": 0.03859579539290765
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 961138.0,
+            "total_samples": 799996,
+            "average_sa": 0.30035862858628587,
+            "variance_sa": 0.014239669461496513
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 432356.0,
+            "total_samples": 824992,
+            "average_sa": 0.10481510034085345,
+            "variance_sa": 0.025784465448525865
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 498444.0,
+            "total_samples": 799984,
+            "average_sa": 0.10384509612740318,
+            "variance_sa": 0.0319668989562185
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 343222.0,
+            "total_samples": 446308,
+            "average_sa": 0.1922436403321398,
+            "variance_sa": 0.05062009273446691
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 702603.0,
+            "total_samples": 377625,
+            "average_sa": 0.46514378877104673,
+            "variance_sa": 0.05838840414904216
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 568181.0,
+            "total_samples": 507251,
+            "average_sa": 0.28001851299637076,
+            "variance_sa": 0.053242037901638554
+        }
+    },
+    "module.layer2.1.conv2": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1447455.0,
+            "total_samples": 799996,
+            "average_sa": 0.4523342108421084,
+            "variance_sa": 0.19370023292942917
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 589313.0,
+            "total_samples": 799996,
+            "average_sa": 0.14732972329723298,
+            "variance_sa": 0.018654883717558864
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 517194.0,
+            "total_samples": 799996,
+            "average_sa": 0.16162474124741247,
+            "variance_sa": 0.04244732583055313
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1218026.0,
+            "total_samples": 799996,
+            "average_sa": 0.3806369313693137,
+            "variance_sa": 0.20369703763288297
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 343109.0,
+            "total_samples": 824992,
+            "average_sa": 0.08317914927247427,
+            "variance_sa": 0.014647747866473436
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1241343.0,
+            "total_samples": 799984,
+            "average_sa": 0.25861959048976224,
+            "variance_sa": 0.10111697159128424
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1068362.0,
+            "total_samples": 693733,
+            "average_sa": 0.3850081359904876,
+            "variance_sa": 0.06926787865647469
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1537059.0,
+            "total_samples": 767773,
+            "average_sa": 0.5005274695128371,
+            "variance_sa": 0.11746513751033429
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 756576.0,
+            "total_samples": 716748,
+            "average_sa": 0.26383693104191125,
+            "variance_sa": 0.037656440856649126
+        }
+    },
+    "module.layer2.1.add": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 584667.0,
+            "total_samples": 799996,
+            "average_sa": 0.18271026460264606,
+            "variance_sa": 0.03137230290503024
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 583395.0,
+            "total_samples": 799996,
+            "average_sa": 0.14585020850208502,
+            "variance_sa": 0.019853382068406034
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 591309.0,
+            "total_samples": 799996,
+            "average_sa": 0.1847859103591036,
+            "variance_sa": 0.049588311113216564
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1171345.0,
+            "total_samples": 799996,
+            "average_sa": 0.36604897298972994,
+            "variance_sa": 0.02287203263250607
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 710535.0,
+            "total_samples": 824992,
+            "average_sa": 0.1722534145951214,
+            "variance_sa": 0.03009097041913124
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 881363.0,
+            "total_samples": 799984,
+            "average_sa": 0.183621882213722,
+            "variance_sa": 0.040232078374607017
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 664918.0,
+            "total_samples": 502646,
+            "average_sa": 0.3307016406831567,
+            "variance_sa": 0.055805256778012124
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1200562.0,
+            "total_samples": 705814,
+            "average_sa": 0.42525412113793193,
+            "variance_sa": 0.05066507008304065
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 512.0,
+            "total_transitions": 831658.0,
+            "total_samples": 761381,
+            "average_sa": 0.2730607408603609,
+            "variance_sa": 0.040976682973998535
+        }
+    },
+    "module.layer3.0.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 467179.0,
+            "total_samples": 799996,
+            "average_sa": 0.1459948974489745,
+            "variance_sa": 0.030885713930330662
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 466409.0,
+            "total_samples": 799996,
+            "average_sa": 0.11660341603416034,
+            "variance_sa": 0.01961949190612618
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 507797.0,
+            "total_samples": 799996,
+            "average_sa": 0.15868814938149384,
+            "variance_sa": 0.049345533537376814
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1073336.0,
+            "total_samples": 799996,
+            "average_sa": 0.3354208542085421,
+            "variance_sa": 0.021307788987242712
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 594207.0,
+            "total_samples": 824992,
+            "average_sa": 0.14405227712403088,
+            "variance_sa": 0.02866011392500813
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 737477.0,
+            "total_samples": 799984,
+            "average_sa": 0.1536448827887364,
+            "variance_sa": 0.03936177457940564
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 543596.0,
+            "total_samples": 479996,
+            "average_sa": 0.28307637967364363,
+            "variance_sa": 0.05927245454904807
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1002349.0,
+            "total_samples": 556024,
+            "average_sa": 0.4506705173022545,
+            "variance_sa": 0.053397254473227025
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 750248.0,
+            "total_samples": 676125,
+            "average_sa": 0.2773626198988167,
+            "variance_sa": 0.04576294741335539
+        }
+    },
+    "module.layer3.0.conv2": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 915502.0,
+            "total_samples": 799996,
+            "average_sa": 0.2860972359723597,
+            "variance_sa": 0.05856394071592667
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 830287.0,
+            "total_samples": 799996,
+            "average_sa": 0.2075738257382574,
+            "variance_sa": 0.025492285417409118
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 632627.0,
+            "total_samples": 799996,
+            "average_sa": 0.19769791447914478,
+            "variance_sa": 0.0456027575275434
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 2410171.0,
+            "total_samples": 799996,
+            "average_sa": 0.7531859693596936,
+            "variance_sa": 0.040386833075200954
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 930074.0,
+            "total_samples": 824992,
+            "average_sa": 0.22547576449596843,
+            "variance_sa": 0.03201967121383905
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1191735.0,
+            "total_samples": 799984,
+            "average_sa": 0.24828433210830272,
+            "variance_sa": 0.05410866419626689
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 1437412.0,
+            "total_samples": 936620,
+            "average_sa": 0.38367354885413424,
+            "variance_sa": 0.05062902721382104
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1728888.0,
+            "total_samples": 851598,
+            "average_sa": 0.5075512644687906,
+            "variance_sa": 0.09777371008890068
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 861977.0,
+            "total_samples": 797695,
+            "average_sa": 0.27008145811245254,
+            "variance_sa": 0.03618397750057978
+        }
+    },
+    "module.layer3.0.downsample.0": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 904668.0,
+            "total_samples": 799996,
+            "average_sa": 0.28271157711577116,
+            "variance_sa": 0.051597217882166674
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 854644.0,
+            "total_samples": 799996,
+            "average_sa": 0.21366313663136632,
+            "variance_sa": 0.026017860204102294
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 675685.0,
+            "total_samples": 799996,
+            "average_sa": 0.2111536740367404,
+            "variance_sa": 0.047144024516791554
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 967230.0,
+            "total_samples": 799996,
+            "average_sa": 0.3022623976239762,
+            "variance_sa": 0.03207188287429405
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 966146.0,
+            "total_samples": 824992,
+            "average_sa": 0.23422061896657892,
+            "variance_sa": 0.035237541431957606
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 1198242.0,
+            "total_samples": 799984,
+            "average_sa": 0.24963999099977502,
+            "variance_sa": 0.05134381867273265
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 2093516.0,
+            "total_samples": 1042359,
+            "average_sa": 0.5021111235303348,
+            "variance_sa": 0.06634686981577968
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1089348.0,
+            "total_samples": 859757,
+            "average_sa": 0.3167615150866483,
+            "variance_sa": 0.04970729105556015
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 903091.0,
+            "total_samples": 826709,
+            "average_sa": 0.2730857345831432,
+            "variance_sa": 0.03648271392272631
+        }
+    },
+    "module.layer3.0.add": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 562175.0,
+            "total_samples": 799996,
+            "average_sa": 0.17568144431444316,
+            "variance_sa": 0.034503791375111496
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 561453.0,
+            "total_samples": 799996,
+            "average_sa": 0.14036465364653647,
+            "variance_sa": 0.02195269469044854
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 480402.0,
+            "total_samples": 799996,
+            "average_sa": 0.15012712627126273,
+            "variance_sa": 0.04671973220090955
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1151248.0,
+            "total_samples": 799996,
+            "average_sa": 0.3597685976859769,
+            "variance_sa": 0.02711726634339639
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 700563.0,
+            "total_samples": 824992,
+            "average_sa": 0.16983592488618016,
+            "variance_sa": 0.033147717050452635
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 834342.0,
+            "total_samples": 799984,
+            "average_sa": 0.17382559563989103,
+            "variance_sa": 0.041256154386795356
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 689473.0,
+            "total_samples": 495379,
+            "average_sa": 0.34794786807349454,
+            "variance_sa": 0.06884275898698317
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1137705.0,
+            "total_samples": 639210,
+            "average_sa": 0.4449697248485403,
+            "variance_sa": 0.04929065033117605
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 724384.0,
+            "total_samples": 661729,
+            "average_sa": 0.27363360047195556,
+            "variance_sa": 0.04483436388429297
+        }
+    },
+    "module.layer3.1.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 203117.0,
+            "total_samples": 799996,
+            "average_sa": 0.06347469724697247,
+            "variance_sa": 0.016465392597221032
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 202757.0,
+            "total_samples": 799996,
+            "average_sa": 0.05068975689756898,
+            "variance_sa": 0.010457017431552931
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 205879.0,
+            "total_samples": 799996,
+            "average_sa": 0.06433783087830879,
+            "variance_sa": 0.025000716523158516
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 909080.0,
+            "total_samples": 799996,
+            "average_sa": 0.284090340903409,
+            "variance_sa": 0.009506058358497813
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 345291.0,
+            "total_samples": 824992,
+            "average_sa": 0.08370812666366056,
+            "variance_sa": 0.02322235655468983
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 360561.0,
+            "total_samples": 799984,
+            "average_sa": 0.07511875296882423,
+            "variance_sa": 0.02430953308194675
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 232007.0,
+            "total_samples": 429876,
+            "average_sa": 0.13492131134739316,
+            "variance_sa": 0.03880857440656755
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 565622.0,
+            "total_samples": 294270,
+            "average_sa": 0.4805382286165983,
+            "variance_sa": 0.060839823141742834
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 422394.0,
+            "total_samples": 360238,
+            "average_sa": 0.29315325666036907,
+            "variance_sa": 0.06839659461072145
+        }
+    },
+    "module.layer3.1.conv2": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 537561.0,
+            "total_samples": 799996,
+            "average_sa": 0.16798949239492397,
+            "variance_sa": 0.0352118633028855
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 503213.0,
+            "total_samples": 799996,
+            "average_sa": 0.12580450804508045,
+            "variance_sa": 0.016189053204695193
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 338770.0,
+            "total_samples": 799996,
+            "average_sa": 0.10586668366683669,
+            "variance_sa": 0.033164115358678255
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 518793.0,
+            "total_samples": 799996,
+            "average_sa": 0.16212443374433744,
+            "variance_sa": 0.019480211560486314
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 603255.0,
+            "total_samples": 824992,
+            "average_sa": 0.1462457635747429,
+            "variance_sa": 0.021576749769547675
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 731978.0,
+            "total_samples": 799984,
+            "average_sa": 0.15249922914739533,
+            "variance_sa": 0.0387038513787957
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 910134.0,
+            "total_samples": 645800,
+            "average_sa": 0.3523197556985066,
+            "variance_sa": 0.06029397519628332
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 732567.0,
+            "total_samples": 751140,
+            "average_sa": 0.2438214390884314,
+            "variance_sa": 0.04199246361468146
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 574047.0,
+            "total_samples": 543723,
+            "average_sa": 0.2639915754409007,
+            "variance_sa": 0.044167172134705696
+        }
+    },
+    "module.layer3.1.add": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 516517.0,
+            "total_samples": 799996,
+            "average_sa": 0.1614131766317663,
+            "variance_sa": 0.03328953841282993
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 515727.0,
+            "total_samples": 799996,
+            "average_sa": 0.1289330393303933,
+            "variance_sa": 0.021158849925132613
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 443130.0,
+            "total_samples": 799996,
+            "average_sa": 0.13847950979509793,
+            "variance_sa": 0.04501713318347446
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1111504.0,
+            "total_samples": 799996,
+            "average_sa": 0.34734847348473485,
+            "variance_sa": 0.02468553356367147
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 648695.0,
+            "total_samples": 824992,
+            "average_sa": 0.15726168138203223,
+            "variance_sa": 0.031816852668269904
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 786833.0,
+            "total_samples": 799984,
+            "average_sa": 0.16392763985766312,
+            "variance_sa": 0.04094556245183717
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 618222.0,
+            "total_samples": 486360,
+            "average_sa": 0.31777767856582706,
+            "variance_sa": 0.06672649652524787
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 1076285.0,
+            "total_samples": 594834,
+            "average_sa": 0.4523521907514043,
+            "variance_sa": 0.05077837117253678
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 1024.0,
+            "total_transitions": 685160.0,
+            "total_samples": 623674,
+            "average_sa": 0.274619579207695,
+            "variance_sa": 0.046453182425536824
+        }
+    },
+    "module.layer4.0.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 126637.0,
+            "total_samples": 401405,
+            "average_sa": 0.08901946949768216,
+            "variance_sa": 0.023788506829757666
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 125893.0,
+            "total_samples": 401405,
+            "average_sa": 0.0708734081176753,
+            "variance_sa": 0.014930173927187627
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 142173.0,
+            "total_samples": 401405,
+            "average_sa": 0.13310001461797455,
+            "variance_sa": 0.04610976538678729
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 468897.0,
+            "total_samples": 401405,
+            "average_sa": 0.29754472924055936,
+            "variance_sa": 0.014195918369780354
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 198378.0,
+            "total_samples": 413946,
+            "average_sa": 0.10382381804676011,
+            "variance_sa": 0.02717659516637197
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 217668.0,
+            "total_samples": 401396,
+            "average_sa": 0.10131822393524517,
+            "variance_sa": 0.032512836395874704
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 147725.0,
+            "total_samples": 220488,
+            "average_sa": 0.18710049361624756,
+            "variance_sa": 0.05309617316113924
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 315160.0,
+            "total_samples": 164323,
+            "average_sa": 0.4785335036221322,
+            "variance_sa": 0.057600399805235195
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 254818.0,
+            "total_samples": 220367,
+            "average_sa": 0.30388337900770507,
+            "variance_sa": 0.06067583426690193
+        }
+    },
+    "module.layer4.0.conv2": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 783656.0,
+            "total_samples": 401405,
+            "average_sa": 0.4851357712249479,
+            "variance_sa": 0.1538120737047881
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 417608.0,
+            "total_samples": 401405,
+            "average_sa": 0.2038483315131871,
+            "variance_sa": 0.0232260796568612
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 380520.0,
+            "total_samples": 401405,
+            "average_sa": 0.2355903265054462,
+            "variance_sa": 0.047915037112725004
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 821388.0,
+            "total_samples": 401405,
+            "average_sa": 0.4828485387746244,
+            "variance_sa": 0.18150269351700463
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 292105.0,
+            "total_samples": 413946,
+            "average_sa": 0.1366325574309627,
+            "variance_sa": 0.020621087561303195
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 741031.0,
+            "total_samples": 401396,
+            "average_sa": 0.3028886106646212,
+            "variance_sa": 0.0867709743984117
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 591840.0,
+            "total_samples": 384493,
+            "average_sa": 0.3912333496144358,
+            "variance_sa": 0.0650216285115228
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 882280.0,
+            "total_samples": 444738,
+            "average_sa": 0.4882706474258935,
+            "variance_sa": 0.11314271493073497
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 484005.0,
+            "total_samples": 430268,
+            "average_sa": 0.2824859760894182,
+            "variance_sa": 0.036306775001814624
+        }
+    },
+    "module.layer4.0.downsample.0": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 578818.0,
+            "total_samples": 401405,
+            "average_sa": 0.3485246789404831,
+            "variance_sa": 0.18818892768000361
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 232366.0,
+            "total_samples": 401405,
+            "average_sa": 0.11488669557155504,
+            "variance_sa": 0.021234600369435353
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 241890.0,
+            "total_samples": 401405,
+            "average_sa": 0.15299123000713175,
+            "variance_sa": 0.052816917732060764
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 391753.0,
+            "total_samples": 401405,
+            "average_sa": 0.2332084149433244,
+            "variance_sa": 0.15734023144147
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 149575.0,
+            "total_samples": 413946,
+            "average_sa": 0.07379500407598208,
+            "variance_sa": 0.01642676713275714
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 508734.0,
+            "total_samples": 401396,
+            "average_sa": 0.2093419647600163,
+            "variance_sa": 0.10007659310903894
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 619356.0,
+            "total_samples": 336683,
+            "average_sa": 0.4686533042468948,
+            "variance_sa": 0.06219911677287272
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 616782.0,
+            "total_samples": 276119,
+            "average_sa": 0.5552063654897124,
+            "variance_sa": 0.09410497611014725
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 364468.0,
+            "total_samples": 324181,
+            "average_sa": 0.28885686961110135,
+            "variance_sa": 0.051343365977570665
+        }
+    },
+    "module.layer4.0.add": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 155687.0,
+            "total_samples": 401405,
+            "average_sa": 0.10806842599009206,
+            "variance_sa": 0.026604209917817787
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 154741.0,
+            "total_samples": 401405,
+            "average_sa": 0.0860452393049298,
+            "variance_sa": 0.016685637503894173
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 168272.0,
+            "total_samples": 401405,
+            "average_sa": 0.1521552911119438,
+            "variance_sa": 0.052331998090018025
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 486522.0,
+            "total_samples": 401405,
+            "average_sa": 0.3097733620769114,
+            "variance_sa": 0.016661137284233796
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 223840.0,
+            "total_samples": 413946,
+            "average_sa": 0.11497795147049808,
+            "variance_sa": 0.027250849312018786
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 261784.0,
+            "total_samples": 401396,
+            "average_sa": 0.11974619948376669,
+            "variance_sa": 0.03623213054765775
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 179899.0,
+            "total_samples": 225084,
+            "average_sa": 0.2189199101568423,
+            "variance_sa": 0.05637082130789328
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 364756.0,
+            "total_samples": 195495,
+            "average_sa": 0.46496447221563164,
+            "variance_sa": 0.055005931394200486
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 284270.0,
+            "total_samples": 252744,
+            "average_sa": 0.30445433173017317,
+            "variance_sa": 0.05861561877265224
+        }
+    },
+    "module.layer4.1.conv1": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 118916.0,
+            "total_samples": 401405,
+            "average_sa": 0.09062831026603296,
+            "variance_sa": 0.02289150033733017
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 118284.0,
+            "total_samples": 401405,
+            "average_sa": 0.07210364943858068,
+            "variance_sa": 0.014313820257285084
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 116693.0,
+            "total_samples": 401405,
+            "average_sa": 0.12872167306310334,
+            "variance_sa": 0.047236911514281804
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 465822.0,
+            "total_samples": 401405,
+            "average_sa": 0.301383688327163,
+            "variance_sa": 0.014311847802763365
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 188529.0,
+            "total_samples": 413946,
+            "average_sa": 0.10365549989487602,
+            "variance_sa": 0.02596845031325567
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 204151.0,
+            "total_samples": 401396,
+            "average_sa": 0.1012201588004775,
+            "variance_sa": 0.030542078302268547
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 137157.0,
+            "total_samples": 219218,
+            "average_sa": 0.18788190913914232,
+            "variance_sa": 0.05022839186195029
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 307060.0,
+            "total_samples": 160471,
+            "average_sa": 0.4681968445300866,
+            "variance_sa": 0.05761303061470429
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 226475.0,
+            "total_samples": 193615,
+            "average_sa": 0.3174314040412513,
+            "variance_sa": 0.06892509020267983
+        }
+    },
+    "module.layer4.1.conv2": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 447819.0,
+            "total_samples": 401405,
+            "average_sa": 0.2619839694129516,
+            "variance_sa": 0.05221700101118756
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 420823.0,
+            "total_samples": 401405,
+            "average_sa": 0.19992926387300855,
+            "variance_sa": 0.027900348875110226
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 260567.0,
+            "total_samples": 401405,
+            "average_sa": 0.2055606194990352,
+            "variance_sa": 0.05837304481241637
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 1137621.0,
+            "total_samples": 401405,
+            "average_sa": 0.7073661318642585,
+            "variance_sa": 0.025251759982209465
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 468006.0,
+            "total_samples": 413946,
+            "average_sa": 0.21779496180755456,
+            "variance_sa": 0.03445440050386924
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 569506.0,
+            "total_samples": 401396,
+            "average_sa": 0.22071871152128453,
+            "variance_sa": 0.04994738732443292
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 780937.0,
+            "total_samples": 483905,
+            "average_sa": 0.4027071184984493,
+            "variance_sa": 0.0603094292823939
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 791181.0,
+            "total_samples": 407245,
+            "average_sa": 0.4891822794436076,
+            "variance_sa": 0.08458587686990156
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 377844.0,
+            "total_samples": 354286,
+            "average_sa": 0.31623390885674385,
+            "variance_sa": 0.0477276378769156
+        }
+    },
+    "module.layer4.1.add": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 280987.0,
+            "total_samples": 401405,
+            "average_sa": 0.15768774389972445,
+            "variance_sa": 0.030685396614728563
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 278859.0,
+            "total_samples": 401405,
+            "average_sa": 0.1253466896925963,
+            "variance_sa": 0.019051730660904827
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 202612.0,
+            "total_samples": 401405,
+            "average_sa": 0.1516327799598527,
+            "variance_sa": 0.05264190853489074
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 599362.0,
+            "total_samples": 401405,
+            "average_sa": 0.35873265204913785,
+            "variance_sa": 0.024252260327766745
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 340820.0,
+            "total_samples": 413946,
+            "average_sa": 0.1515110245090191,
+            "variance_sa": 0.028246363680502436
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 403137.0,
+            "total_samples": 401396,
+            "average_sa": 0.15327119754377797,
+            "variance_sa": 0.03740321420695174
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 376425.0,
+            "total_samples": 257318,
+            "average_sa": 0.3314143717242146,
+            "variance_sa": 0.055627520388796176
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 566321.0,
+            "total_samples": 345971,
+            "average_sa": 0.4165355193997057,
+            "variance_sa": 0.05682494686264172
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 320945.0,
+            "total_samples": 294197,
+            "average_sa": 0.29395937711615683,
+            "variance_sa": 0.05606162924111425
+        }
+    },
+    "module.avgpool": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 10326.0,
+            "total_samples": 8191,
+            "average_sa": 0.3152014652014652,
+            "variance_sa": 0.045168793355606536
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 10078.0,
+            "total_samples": 8191,
+            "average_sa": 0.2461050061050061,
+            "variance_sa": 0.02586944440717335
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 11610.0,
+            "total_samples": 8191,
+            "average_sa": 0.3543956043956044,
+            "variance_sa": 0.06382683250815119
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 16161.0,
+            "total_samples": 8191,
+            "average_sa": 0.49331501831501834,
+            "variance_sa": 0.032639987454547895
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 11151.0,
+            "total_samples": 8446,
+            "average_sa": 0.2640852575488455,
+            "variance_sa": 0.03376637757425279
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 14132.0,
+            "total_samples": 8188,
+            "average_sa": 0.2876918692235658,
+            "variance_sa": 0.04590621657911393
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 12118.0,
+            "total_samples": 6584,
+            "average_sa": 0.4602005164818472,
+            "variance_sa": 0.06147615605624244
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 14268.0,
+            "total_samples": 9223,
+            "average_sa": 0.3867924528301887,
+            "variance_sa": 0.050266896633562895
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 2048.0,
+            "total_transitions": 13033.0,
+            "total_samples": 9130,
+            "average_sa": 0.3569120385584401,
+            "variance_sa": 0.05315794176437315
+        }
+    },
+    "module.fc": {
+        "baseline": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 15440.0,
+            "total_samples": 15999,
+            "average_sa": 0.2412801600200025,
+            "variance_sa": 0.08302028893129079
+        },
+        "bi": {
+            "bitwidth": 5,
+            "resources": 0.0,
+            "total_transitions": 12755.0,
+            "total_samples": 15999,
+            "average_sa": 0.1594574321790224,
+            "variance_sa": 0.031397930398256904
+        },
+        "deaf": {
+            "bitwidth": 4,
+            "resources": 4000.0,
+            "total_transitions": 15680.0,
+            "total_samples": 15999,
+            "average_sa": 0.24503062882860357,
+            "variance_sa": 0.056919923427420534
+        },
+        "apbm": {
+            "bitwidth": 4,
+            "resources": 64.0,
+            "total_transitions": 41556.0,
+            "total_samples": 15999,
+            "average_sa": 0.6493936742092762,
+            "variance_sa": 0.015069016041994626
+        },
+        "abe": {
+            "bitwidth": 5,
+            "resources": 128.0,
+            "total_transitions": 17211.0,
+            "total_samples": 16498,
+            "average_sa": 0.20865611929441716,
+            "variance_sa": 0.0540585504130907
+        },
+        "awr": {
+            "bitwidth": 6,
+            "resources": 4.0,
+            "total_transitions": 17249.0,
+            "total_samples": 15996,
+            "average_sa": 0.17973324997395018,
+            "variance_sa": 0.0571457869250738
+        },
+        "huffman": {
+            "bitwidth": 4,
+            "resources": 99.0,
+            "total_transitions": 22534.0,
+            "total_samples": 15922,
+            "average_sa": 0.3538408391432699,
+            "variance_sa": 0.0902196867462087
+        },
+        "rle": {
+            "bitwidth": 4,
+            "resources": 0.0,
+            "total_transitions": 25068.0,
+            "total_samples": 13852,
+            "average_sa": 0.45245830625947586,
+            "variance_sa": 0.08093775140219947
+        },
+        "deaf_rle": {
+            "bitwidth": 4,
+            "resources": 4000.0,
+            "total_transitions": 19626.0,
+            "total_samples": 16202,
+            "average_sa": 0.30285167582248007,
+            "variance_sa": 0.04368917058064326
+        }
+    }
+}
