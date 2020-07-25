@@ -39,6 +39,9 @@ def average_switching_activity(stream_in, bitwidth=0):
     else:
         return np.average(_get_transitions(stream_in))
 
+def variance_switching_activity(stream_in):
+    return np.var(np.average(_get_transitions(stream_in),axis=1))
+
 def average_switching_activity_per_line(stream_in):
     return np.average(_get_transitions(stream_in),axis=0)
 

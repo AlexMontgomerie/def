@@ -234,20 +234,57 @@ def plot_reduction_per_network(metric_paths, output_path, metric="total_transiti
             # get average switching activity
             average_metric = _get_average_metric(metrics[network], metric)
             vals[encoding_scheme][network] = ((average_metric['baseline']-average_metric[encoding_scheme])*100)/average_metric['baseline']
+    # create plots
+    col_width=0.9/len(encoding_schemes)
+    fig, axs = plt.subplots(nrows=len(bitwidths), ncols=1, sharey=True, sharex=True, squeeze=False)
+    for bitwidth in bitwidths:
+        for encoding_scheme in encoding_schemes:
+            #position = x+(col_width*(1-len(metric_paths.keys()))/2) + col_width * encoding_schemes.index(encoding_scheme)
+            plt.bar(x+col_width*encoding_schemes.index(encoding_scheme),vals[encoding_scheme],width=col_width, label=encoding_scheme)
+    #plt.xticks(x+0.9/2,metric_paths.keys())
+    #plt.xticks(rotation=45)
+    #plt.legend()
+    #plt.grid(True)
+    if show_plot:
+        plt.show()
+
+def plot_reduction_per_network_2(metric_paths, output_path, metric="total_transitions", bitwidths=["4","8","16"], encoding_schemes=[], show_plot=True):
+    # load metrics for each network
+    metrics = {}
+    for bitwidth in bitwidths:
+        metrics[bitwidth] = {}
+        for network in metric_paths:
+            with open(metric_paths[network][bitwidth],"r") as f:
+                metrics[bitwidth][network] = json.load(f)
+    # outputs
+    vals = { bitwidth : { encoding_scheme: [] for encoding_scheme in encoding_schemes } for bitwidth in bitwidths }
+    # iterate over bitwidths
+    for bitwidth in bitwidths:
+        # iterate over encoding schemes
+        for encoding_scheme in encoding_schemes:
+            # iterate over networks
+            for network in metrics[bitwidth]:
+                # get average switching activity
+                average_metric = _get_average_metric(metrics[bitwidth][network], metric)
+                vals[bitwidth][encoding_scheme].append( ((average_metric['baseline']-average_metric[encoding_scheme])*100)/average_metric['baseline'] )
     # flatten values
-    vals = { encoding_scheme: [ vals[encoding_scheme][network] for network in metrics ] for encoding_scheme in encoding_schemes }
+    #vals = { encoding_scheme: [ vals[encoding_scheme][network] for network in metrics ] for encoding_scheme in encoding_schemes }
     # create plots
     col_width=0.9/len(encoding_schemes)
     x = np.arange(0,len(metric_paths.keys()))
-    for encoding_scheme in encoding_schemes:
-        #position = x+(col_width*(1-len(metric_paths.keys()))/2) + col_width * encoding_schemes.index(encoding_scheme)
-        plt.bar(x+col_width*encoding_schemes.index(encoding_scheme),vals[encoding_scheme],width=col_width, label=encoding_scheme)
-    plt.xticks(x+0.9/2,metric_paths.keys())
-    plt.xticks(rotation=45)
-    plt.legend()
-    plt.grid(True)
+    fig, axs = plt.subplots(nrows=len(bitwidths), ncols=1, sharey=True, sharex=True, squeeze=False)
+    for bitwidth in bitwidths:
+        for encoding_scheme in encoding_schemes:
+            ax =axs[bitwidths.index(bitwidth),0]
+            #position = x+(col_width*(1-len(metric_paths.keys()))/2) + col_width * encoding_schemes.index(encoding_scheme)
+            ax.bar(x+col_width*encoding_schemes.index(encoding_scheme),vals[bitwidth][encoding_scheme],width=col_width, label=encoding_scheme)
+    #plt.xticks(x+0.9/2,metric_paths.keys())
+    #plt.xticks(rotation=45)
+    #plt.legend()
+    #plt.grid(True)
     if show_plot:
         plt.show()
+
 
 def get_table(metric_path, output_path, metric="average_sa", print_table=False):
     # load the metrics

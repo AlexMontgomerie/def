@@ -41,6 +41,55 @@ if __name__ == "__main__":
             "16"    : "outputs/distiller_mobilenet_v2_16b/output_metrics.json",
     }
 
+    network_paths = {
+            "alexnet"   : {
+                "4"     : "outputs/distiller_alexnet_4b/output_metrics.json",
+                "8"     : "outputs/distiller_alexnet_8b/output_metrics.json",
+                "16"    : "outputs/distiller_alexnet_16b/output_metrics.json"
+            },
+            "mobilenet" : {
+                "2"     : "outputs/distiller_mobilenet_v2_2b/output_metrics.json",
+                "4"     : "outputs/distiller_mobilenet_v2_4b/output_metrics.json",
+                "6"     : "outputs/distiller_mobilenet_v2_6b/output_metrics.json",
+                "8"     : "outputs/distiller_mobilenet_v2_8b/output_metrics.json",
+                "10"    : "outputs/distiller_mobilenet_v2_10b/output_metrics.json",
+                "12"    : "outputs/distiller_mobilenet_v2_12b/output_metrics.json",
+                "14"    : "outputs/distiller_mobilenet_v2_14b/output_metrics.json",
+                "16"    : "outputs/distiller_mobilenet_v2_16b/output_metrics.json"
+            }
+    }
+    """
+            "densenet"  : {
+                "4"     : "outputs/distiller_densenet121_4b/output_metrics.json",
+                "8"     : "outputs/distiller_densenet121_8b/output_metrics.json",
+                "16"    : "outputs/distiller_densenet121_16b/output_metrics.json",
+            },
+            "resnet"    : {
+                "4"     : "outputs/distiller_resnet18_4b/output_metrics.json",
+                "8"     : "outputs/distiller_resnet18_8b/output_metrics.json",
+                "16"    : "outputs/distiller_resnet18_16b/output_metrics.json",
+            },
+            "googlenet" : {
+                "4"     : "outputs/distiller_googlenet_4b/output_metrics.json",
+                "8"     : "outputs/distiller_googlenet_8b/output_metrics.json",
+                "16"    : "outputs/distiller_googlenet_16b/output_metrics.json",
+            },
+            "shufflenet": {
+                "4"     : "outputs/distiller_shufflenet_v2_x1_0_4b/output_metrics.json",
+                "8"     : "outputs/distiller_shufflenet_v2_x1_0_8b/output_metrics.json",
+                "16"    : "outputs/distiller_shufflenet_v2_x1_0_16b/output_metrics.json",
+            },
+            "squeezenet": {
+                "4"     : "outputs/distiller_squeezenet1_0_4b/output_metrics.json",
+                "8"     : "outputs/distiller_squeezenet1_0_8b/output_metrics.json",
+                "16"    : "outputs/distiller_squeezenet1_0_16b/output_metrics.json",
+            },
+            "vgg"       : {
+                "4"     : "outputs/distiller_vgg11_4b/output_metrics.json",
+                "8"     : "outputs/distiller_vgg11_8b/output_metrics.json",
+                "16"    : "outputs/distiller_vgg11_16b/output_metrics.json",
+            }
+    """
 
     power_readings = {
         "1" : {
@@ -84,22 +133,21 @@ if __name__ == "__main__":
     #        metric="average_sa",encoding_schemes=["baseline","abe","bi","deaf","apbm","awr"], show_plot=True)
 
 
-    lib.graph.get_table_encoding_schemes(mobilenet_paths, "outputs/encoding_schemes_table.csv", 
+    lib.graph.get_table_encoding_schemes(network_paths["mobilenet"], "outputs/encoding_schemes_table.csv", 
             encoding_schemes=["baseline","abe","bi","apbm","awr","deaf"], print_table=True)
 
 
-    lib.graph.get_table_compression_schemes(mobilenet_paths, "outputs/encoding_schemes_table.csv", 
+    lib.graph.get_table_compression_schemes(network_paths["alexnet"], "outputs/encoding_schemes_table.csv", 
             encoding_schemes=["baseline","deaf","rle","deaf_rle","huffman"], print_table=True)
 
+    lib.graph.plot_reduction_per_network_2(network_paths,"outputs/reduction_per_network.png",
+            metric="average_sa", encoding_schemes=["abe","bi","deaf","awr"], show_plot=True)
+    
     # plot switching activity per layer
-    lib.graph.plot_reduction_per_layer_2(mobilenet_paths, "outputs/sa_per_layer.png", 
+    lib.graph.plot_reduction_per_layer_2(network_paths["alexnet"], "outputs/sa_per_layer.png", 
             metric="average_sa", encoding_schemes=["abe","bi","deaf","awr"], show_plot=True)
 
-    #lib.graph.plot_reduction_per_network(distiller_paths,"outputs/reduction_per_network.png",
-    #        metric="average_sa", encoding_scheme_filter=["abe","bi","deaf","awr"], show_plot=True)
-    
-
-    lib.graph.plot_transitions_normalised(mobilenet_paths,"outputs/sa_per_encoding_scheme.png", 
+    lib.graph.plot_transitions_normalised(network_paths["alexnet"],"outputs/sa_per_encoding_scheme.png", 
             bitwidths=["4","8","16"],encoding_schemes=["huffman","rle","deaf","deaf_rle"], show_plot=True)
 
 

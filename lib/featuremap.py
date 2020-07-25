@@ -1,6 +1,7 @@
 import deepdish as dd
 import numpy as np
 from lib.stream import stream
+import pickle
 
 def get_layers(filepath):
     # load file
@@ -24,7 +25,7 @@ def get_dimensions(filepath):
 def load_layer(filepath, layer):
     return dd.io.load(filepath)[layer]
 
-def to_stream(filepath, layer, restricted_range=False, sample_range=[0,-1], bitwidth=8, single_batch=False):
+def load(filepath, layer, restricted_range=False, sample_range=[0,-1], bitwidth=8, single_batch=False):
     # convert each feature map into stream
     featuremap = load_layer(filepath,layer)
     # re-order dimensions
@@ -37,13 +38,16 @@ def to_stream(filepath, layer, restricted_range=False, sample_range=[0,-1], bitw
     if restricted_range:
         featuremap = np.clip(featuremap,-((2**(bitwidth-1))-1),((2**(bitwidth-1))-1))    
     return featuremap
+
+def from_dat(filepath):
     """
-    # select only portition of the featuremap
-    featuremap = featuremap[sample_range[0]:sample_range[-1]]
-    # apply restricted range
-    if restricted_range:
-        featuremap = np.clip(featuremap,-((2**(bitwidth-1))-1),((2**(bitwidth-1))-1))    
-    # return stream
-    #return stream(featuremap, bitwidth=bitwidth)
-    return stream(featuremap, bitwidth=bitwidth)
+    with open(filepath,"r") as f:
+        data = f.readlines()
+    return np.array([ int(x) for x in data ])
     """
+    return np.array(np.loadtxt(filepath).reshape(-1), np.uint32)
+
+if __name__ == "__main__":
+    # testing to binary function
+    to_file("featuremaps/caffe_alexnet_8b.h5","conv1","src/test.txt")
+

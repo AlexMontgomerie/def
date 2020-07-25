@@ -27,7 +27,7 @@ AWR_N = 4
 
 SAMPLES_PERCENTAGE=0.001
 
-MAX_ITER=6
+MAX_ITER=4
 
 if __name__ == "__main__":
 
@@ -118,15 +118,15 @@ if __name__ == "__main__":
     # encoders to run
     encoders = {
         "baseline"  : run_baseline,
-        #"bi"        : run_bi,
+        "bi"        : run_bi,
         "deaf"      : run_deaf,
-        #"apbm"      : run_apbm,
-        #"abe"       : run_abe,
-        #"awr"       : run_awr,
+        "apbm"      : run_apbm,
+        "abe"       : run_abe,
+        "awr"       : run_awr,
         "huffman"   : run_huffman,
         "rle"       : run_rle,
         "deaf_rle"  : run_deaf_rle,
-        "deaf_huffman"  : run_deaf_huffman,
+        #"deaf_huffman"  : run_deaf_huffman,
     }
 
     # list of metrics for each layer
@@ -150,7 +150,8 @@ if __name__ == "__main__":
                 "resources"         : 0,
                 "total_transitions" : 0,
                 "total_samples"     : 0,
-                "average_sa"        : 0
+                "average_sa"        : 0,
+                "variance_sa"       : 0
             }
 
             # get folded dimension
@@ -181,6 +182,7 @@ if __name__ == "__main__":
                 metrics[layer][encoder]["total_transitions"]    += lib.analysis.total_transitions(stream_out).astype(float)
                 metrics[layer][encoder]["total_samples"]        += lib.analysis.total_samples(stream_out)
                 metrics[layer][encoder]["average_sa"]           += lib.analysis.average_switching_activity(stream_out).astype(float)/n_sections
+                metrics[layer][encoder]["variance_sa"]          += lib.analysis.variance_switching_activity(stream_out).astype(float)/n_sections
 
     # save output 
     with open(os.path.join(args.output_path,"output_metrics.json"),"w") as f:
