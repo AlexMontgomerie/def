@@ -3,9 +3,11 @@ import json
 import argparse
 from tqdm import tqdm
 import math
+from scipy import stats
 
 import lib.featuremap
 import lib.apbm.coding
+import lib.huffman.coding
 
 if __name__ == "__main__":
 
@@ -35,8 +37,8 @@ if __name__ == "__main__":
         #"def",    
         #"apbm",    
         #"abe",     
-        "awr",     
-        #"huffman", 
+        #"awr",     
+        "huffman", 
         #"rle",     
         #"deaf_rle",
     ] 
@@ -106,5 +108,27 @@ if __name__ == "__main__":
                 "resources"     : args.bitwidth*args.bitwidth,
             }
             with open(os.path.join(args.output_path,"awr","{}_config.json".format(layer)),"w") as f:
+                json.dump(config,f)
+        ## RLE 
+        if "rle" in encoding_schemes:
+            rle_zero = int(stats.mode(featuremap).mode[0])
+            config = {
+                "bitwidth"      : args.bitwidth,
+                "sc_width"      : 0,
+                "rle_zero"      : rle_zero,
+                "resources"     : args.bitwidth*args.bitwidth,
+            }
+            with open(os.path.join(args.output_path,"rle","{}_config.json".format(layer)),"w") as f:
+                json.dump(config,f)
+        ## HUFFMAN 
+        if "huffman" in encoding_schemes:
+            frequencies_table = lib.huffman.coding.get_frequencies_table(featuremap, bitwidth=args.bitwidth)
+            config = {
+                "bitwidth"      : args.bitwidth,
+                "sc_width"      : 0,
+                "frequencies_table" : frequencies_table,
+                "resources"     : args.bitwidth*args.bitwidth,
+            }
+            with open(os.path.join(args.output_path,"huffman","{}_config.json".format(layer)),"w") as f:
                 json.dump(config,f)
 

@@ -10,6 +10,11 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <cassert>
+#include <stdexcept>
 
 #include "json.hpp"
 
