@@ -48,19 +48,21 @@ function run_encoder {
 }
 
 # generate all files
-generate_all_dat_files
+#generate_all_dat_files
 
 # compile all encoding schemes
 g++ src/bi.cpp      -o outputs/bi_encoder
 #g++ src/abe.cpp     -o outputs/abe_encoder
 g++ src/def.cpp src/decorr.cpp -o outputs/def_encoder
 g++ src/apbm.cpp src/decorr.cpp -o outputs/apbm_encoder
+g++ src/awr.cpp -o outputs/awr_encoder
 
 # run each encoding scheme
-time run_encoder bi     alexnet 8
+#time run_encoder bi     alexnet 8
 #time run_encoder abe    alexnet 8
-time run_encoder def    alexnet 8
-time run_encoder apbm   alexnet 8
+#time run_encoder def    alexnet 8
+#time run_encoder apbm   alexnet 8
+time run_encoder awr    alexnet 8
 
 # get output metrics 
-evaluate_coding_schemes 
+#evaluate_coding_schemes 

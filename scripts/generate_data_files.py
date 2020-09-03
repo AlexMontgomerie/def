@@ -2,9 +2,9 @@ import os
 import json
 import argparse
 from tqdm import tqdm
+import math
 
 import lib.featuremap
-
 import lib.apbm.coding
 
 if __name__ == "__main__":
@@ -30,12 +30,12 @@ if __name__ == "__main__":
 
     # encoding schemes
     encoding_schemes = [
-        #"baseline",
-        "bi",      
-        "def",    
+        "baseline",
+        #"bi",      
+        #"def",    
         #"apbm",    
-        "abe",     
-        #"awr",     
+        #"abe",     
+        "awr",     
         #"huffman", 
         #"rle",     
         #"deaf_rle",
@@ -57,39 +57,54 @@ if __name__ == "__main__":
 
         # generate config files
         ## BI
-        config = {
-            "bitwidth"  : args.bitwidth,
-            "sc_width"  : 1,
-            "resources" : 0,
-        }
-        with open(os.path.join(args.output_path,"bi","{}_config.json".format(layer)),"w") as f:
-            json.dump(config,f)
+        if "bi" in encoding_schemes:
+            config = {
+                "bitwidth"  : args.bitwidth,
+                "sc_width"  : 1,
+                "resources" : 0,
+            }
+            with open(os.path.join(args.output_path,"bi","{}_config.json".format(layer)),"w") as f:
+                json.dump(config,f)
         ## ABE
-        config = {
-            "bitwidth"      : args.bitwidth,
-            "sc_width"      : 1,
-            "window_size"   : args.bitwidth,
-            "resources"     : args.bitwidth*args.bitwidth,
-        }
-        with open(os.path.join(args.output_path,"abe","{}_config.json".format(layer)),"w") as f:
-            json.dump(config,f)
+        if "abe" in encoding_schemes:
+            config = {
+                "bitwidth"      : args.bitwidth,
+                "sc_width"      : 1,
+                "window_size"   : args.bitwidth,
+                "resources"     : args.bitwidth*args.bitwidth,
+            }
+            with open(os.path.join(args.output_path,"abe","{}_config.json".format(layer)),"w") as f:
+                json.dump(config,f)
         ## DEF
-        config = {
-            "bitwidth"      : args.bitwidth,
-            "sc_width"      : 0,
-            "channels"      : layer_dimensions[layer][1], 
-            "resources"     : args.bitwidth*args.bitwidth,
-        }
-        with open(os.path.join(args.output_path,"def","{}_config.json".format(layer)),"w") as f:
-            json.dump(config,f)
+        if "def" in encoding_schemes:
+            config = {
+                "bitwidth"      : args.bitwidth,
+                "sc_width"      : 0,
+                "channels"      : layer_dimensions[layer][1], 
+                "resources"     : args.bitwidth*args.bitwidth,
+            }
+            with open(os.path.join(args.output_path,"def","{}_config.json".format(layer)),"w") as f:
+                json.dump(config,f)
         ## APBM
-        code_table = lib.apbm.coding.get_code_table(featuremap, bitwidth=args.bitwidth)
-        config = {
-            "bitwidth"      : args.bitwidth,
-            "sc_width"      : 0,
-            "code_table"    : code_table,
-            "resources"     : args.bitwidth*args.bitwidth,
-        }
-        with open(os.path.join(args.output_path,"apbm","{}_config.json".format(layer)),"w") as f:
-            json.dump(config,f)
+        if "apbm" in encoding_schemes:
+            code_table = lib.apbm.coding.get_code_table(featuremap, bitwidth=args.bitwidth)
+            config = {
+                "bitwidth"      : args.bitwidth,
+                "sc_width"      : 0,
+                "code_table"    : code_table,
+                "resources"     : args.bitwidth*args.bitwidth,
+            }
+            with open(os.path.join(args.output_path,"apbm","{}_config.json".format(layer)),"w") as f:
+                json.dump(config,f)
         ## AWR
+        if "awr" in encoding_schemes:
+            N = 4
+            config = {
+                "bitwidth"      : args.bitwidth,
+                "sc_width"      : int(math.log(4,2)),
+                "N"             : N,
+                "resources"     : args.bitwidth*args.bitwidth,
+            }
+            with open(os.path.join(args.output_path,"awr","{}_config.json".format(layer)),"w") as f:
+                json.dump(config,f)
+
