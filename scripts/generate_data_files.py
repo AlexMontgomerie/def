@@ -5,6 +5,8 @@ from tqdm import tqdm
 
 import lib.featuremap
 
+import lib.apbm.coding
+
 if __name__ == "__main__":
 
     # setup argument parser
@@ -23,11 +25,14 @@ if __name__ == "__main__":
     # get all the layers
     layers = lib.featuremap.get_layers( args.featuremap_path )
 
+    # get dimensions for all layers
+    layer_dimensions = lib.featuremap.get_dimensions( args.featuremap_path )
+
     # encoding schemes
     encoding_schemes = [
         #"baseline",
         "bi",      
-        #"deaf",    
+        "def",    
         #"apbm",    
         "abe",     
         #"awr",     
@@ -44,6 +49,10 @@ if __name__ == "__main__":
         
         # save featuremap to .dat file 
         with open(os.path.join(args.output_path,"{}.dat".format(layer)),"w") as f:
+            f.write( "\n".join([str(x) for x in featuremap]) )
+
+        ## Baseline
+        with open(os.path.join(args.output_path,"baseline","{}.dat".format(layer)),"w") as f:
             f.write( "\n".join([str(x) for x in featuremap]) )
 
         # generate config files
@@ -64,4 +73,23 @@ if __name__ == "__main__":
         }
         with open(os.path.join(args.output_path,"abe","{}_config.json".format(layer)),"w") as f:
             json.dump(config,f)
-        ## DEAF
+        ## DEF
+        config = {
+            "bitwidth"      : args.bitwidth,
+            "sc_width"      : 0,
+            "channels"      : layer_dimensions[layer][1], 
+            "resources"     : args.bitwidth*args.bitwidth,
+        }
+        with open(os.path.join(args.output_path,"def","{}_config.json".format(layer)),"w") as f:
+            json.dump(config,f)
+        ## APBM
+        code_table = lib.apbm.coding.get_code_table(featuremap, bitwidth=args.bitwidth)
+        config = {
+            "bitwidth"      : args.bitwidth,
+            "sc_width"      : 0,
+            "code_table"    : code_table,
+            "resources"     : args.bitwidth*args.bitwidth,
+        }
+        with open(os.path.join(args.output_path,"apbm","{}_config.json".format(layer)),"w") as f:
+            json.dump(config,f)
+        ## AWR

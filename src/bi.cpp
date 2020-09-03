@@ -2,6 +2,7 @@
 
 using namespace std;
 using namespace nlohmann;
+
 int hamming_distance(auto a, auto b) {
     return __builtin_popcount(a^b);
 }

@@ -13,4 +13,6 @@
 
 #include "json.hpp"
 
+void decorrelator(std::istream &in, std::ostream &out, int bitwidth);
+
 #endif

@@ -2,6 +2,7 @@
 #include <vector>
 
 using namespace std;
+using namespace nlohmann;
 
 void encoder(istream &in, ostream &out, int bitwidth, int window_size) { 
    
@@ -85,18 +86,24 @@ void encoder(istream &in, ostream &out, int bitwidth, int window_size) {
 int main(int argc, char * argv[]) {
 
     // parameters    
-    int opt, bitwidth, window_size;
+    int opt;
+    string config_path;
 
-    while((opt=getopt(argc,argv,"b:w:")) != -1) {
+    while((opt=getopt(argc,argv,"c:")) != -1) {
         switch (opt) {
-            case 'b':
-                bitwidth = atoi(optarg);
-                break;
-            case 'w':
-                window_size = atoi(optarg);
+            case 'c':
+                config_path = optarg;
                 break;
         }
     }
+
+    // load config
+    ifstream config_file(config_path);
+    json config;
+    config_file >> config;
+
+    int bitwidth    = (int) config["bitwidth"];
+    int window_size = (int) config["window_size"];
 
     // run encoder
     encoder(cin, cout, bitwidth, window_size);

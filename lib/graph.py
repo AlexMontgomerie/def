@@ -19,8 +19,8 @@ mpl.rcParams['figure.figsize'] = [8.0, 6.0]
 mpl.rcParams['figure.dpi'] = 80
 mpl.rcParams['savefig.dpi'] = 100
 
-mpl.rcParams['font.size'] = 12
-mpl.rcParams['legend.fontsize'] = 'large'
+mpl.rcParams['font.size'] = 20 
+mpl.rcParams['legend.fontsize'] = 'x-small'
 mpl.rcParams['figure.titlesize'] = 'medium'
 
 mpl.rcParams['legend.fancybox'] = False
@@ -143,38 +143,9 @@ def plot_per_layer(metric_path, output_path, metric="total_transitions", encodin
     if show_plot:
         plt.show()
 
-
-def plot_reduction_per_layer(metric_path, output_path, metric="total_transitions", encoding_schemes=[], show_plot=True):
-    # load the metrics
-    with open(metric_path,"r") as f:
-        metrics = json.load(f)
-    # get all the layers
-    layers = list(metrics.keys())
-    # transitions
-    vals = {encoding_scheme: [] for encoding_scheme in encoding_schemes}
-    # iterate over layers
-    for layer in layers:
-        # iterate over encoding schemes
-        for encoding_scheme in encoding_schemes:
-            # append switching activity
-            vals[encoding_scheme].append(((metrics[layer]["baseline"][metric]-metrics[layer][encoding_scheme][metric])*100)/metrics[layer]["baseline"][metric])
-    # plot switching activity for each layer
-    col_width=0.9/len(encoding_schemes)
-    x = np.arange(0,len(metrics.keys()))
-    for encoding_scheme in encoding_schemes:
-        plt.bar(x+col_width*encoding_schemes.index(encoding_scheme),vals[encoding_scheme],width=col_width, label=encoding_scheme)
-    plt.xticks(x+0.9*0.5,metrics.keys())
-    plt.xticks(rotation=45)
-    plt.legend()
-    #plt.ylim(bottom=0)
-    plt.title("{} per Layer".format(metric))
-    plt.ylabel(metric)
-    plt.grid(True)
-    plt.savefig(output_path,bbox_inches='tight')
-    if show_plot:
-        plt.show()
-
-def plot_reduction_per_layer_2(metric_paths, output_path, bitwidths=["4","8","16"], metric="total_transitions", encoding_schemes=[], show_plot=True):
+def plot_reduction_per_layer(metric_paths, output_path, bitwidths=["4","8","16"], metric="total_transitions", encoding_schemes=[], show_plot=True):
+    # remove box around bar plot
+    #mpl.rcParams['patch.force_edgecolor'] = False
     # load the metrics
     metrics = {}
     for bitwidth in bitwidths:
@@ -193,7 +164,8 @@ def plot_reduction_per_layer_2(metric_paths, output_path, bitwidths=["4","8","16
                 val = ((metrics[bitwidth][layer]["baseline"][metric]-metrics[bitwidth][layer][encoding_scheme][metric])*100)/metrics[bitwidth][layer]["baseline"][metric]
                 vals[bitwidth][encoding_scheme].append(val)
     # plot graph
-    col_width=0.3
+    col_width=0.9
+    colors='bgrcmyk'
     fig, axs = plt.subplots(nrows=len(encoding_schemes), ncols=len(bitwidths), sharey=True, sharex=True, squeeze=False)
     for idx, bitwidth in enumerate(bitwidths):
         axs[0,idx].set_title("Bitwidth = {}".format(bitwidth))
@@ -204,51 +176,20 @@ def plot_reduction_per_layer_2(metric_paths, output_path, bitwidths=["4","8","16
             #ax.axhline(y=baseline[bitwidth],color="g",ls="--",lw=2)
             layers = list(metrics[bitwidth].keys())
             x = np.arange(0,len(layers))
-            ax.bar(x,vals[bitwidth][encoding_scheme],width=col_width,alpha=1.0,color="r",label=encoding_scheme)
+            ax.bar(x,vals[bitwidth][encoding_scheme],width=col_width,alpha=1.0,color=colors[idy],
+                    label=encoding_scheme.replace("deaf","def").replace("apbm","pbm").upper())
             ax.grid(True)
+            ax.set_xlim([0,len(vals[bitwidth][encoding_scheme])])
+            ax.set_xticks([])
             if idx == 0 :
-                ax.set_ylabel(encoding_scheme)
+                ax.set_ylabel(encoding_scheme.replace("deaf","def").replace("apbm","pbm").upper())
     fig.add_subplot(111,frameon=False)
     plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
-    plt.ylabel("Switching Activity Reduction (%)")
+    plt.ylabel("Average Activity Reduction (%)\n")
     if show_plot:
         plt.show()
 
-def plot_reduction_per_network(metric_paths, output_path, metric="total_transitions", encoding_scheme_filter=[], show_plot=True):
-    # load metrics for each network
-    metrics = {}
-    for network in metric_paths:
-        print(network)
-        with open(metric_paths[network],"r") as f:
-            metrics[network] = json.load(f)
-    # get all encoding schemes
-    encoding_schemes = encoding_scheme_filter
-    if not encoding_schemes:
-        encoding_schemes = list(metrics[layers[0]].keys())
-    # outputs
-    vals = { encoding_scheme: { network: 0 for network in metrics } for encoding_scheme in encoding_schemes }
-    # iterate over encoding schemes
-    for encoding_scheme in encoding_schemes:
-        # iterate over networks
-        for network in metrics:
-            # get average switching activity
-            average_metric = _get_average_metric(metrics[network], metric)
-            vals[encoding_scheme][network] = ((average_metric['baseline']-average_metric[encoding_scheme])*100)/average_metric['baseline']
-    # create plots
-    col_width=0.9/len(encoding_schemes)
-    fig, axs = plt.subplots(nrows=len(bitwidths), ncols=1, sharey=True, sharex=True, squeeze=False)
-    for bitwidth in bitwidths:
-        for encoding_scheme in encoding_schemes:
-            #position = x+(col_width*(1-len(metric_paths.keys()))/2) + col_width * encoding_schemes.index(encoding_scheme)
-            plt.bar(x+col_width*encoding_schemes.index(encoding_scheme),vals[encoding_scheme],width=col_width, label=encoding_scheme)
-    #plt.xticks(x+0.9/2,metric_paths.keys())
-    #plt.xticks(rotation=45)
-    #plt.legend()
-    #plt.grid(True)
-    if show_plot:
-        plt.show()
-
-def plot_reduction_per_network_2(metric_paths, output_path, metric="total_transitions", bitwidths=["4","8","16"], encoding_schemes=[], show_plot=True):
+def plot_reduction_per_network(metric_paths, output_path, metric="total_transitions", bitwidths=["4","8","16"], encoding_schemes=[], show_plot=True):
     # load metrics for each network
     metrics = {}
     for bitwidth in bitwidths:
@@ -273,15 +214,23 @@ def plot_reduction_per_network_2(metric_paths, output_path, metric="total_transi
     col_width=0.9/len(encoding_schemes)
     x = np.arange(0,len(metric_paths.keys()))
     fig, axs = plt.subplots(nrows=len(bitwidths), ncols=1, sharey=True, sharex=True, squeeze=False)
+    plt.xticks(rotation=45)
+    plt.xticks(x+0.9/2,metric_paths.keys())
     for bitwidth in bitwidths:
+        ax =axs[bitwidths.index(bitwidth),0]
+        ax.set_ylabel("Bitwidth = {}".format(bitwidth))
+        ax.yaxis.grid(True)
+        ax.set_xlim([0,len(metric_paths.keys())])
         for encoding_scheme in encoding_schemes:
-            ax =axs[bitwidths.index(bitwidth),0]
+            print(encoding_scheme,vals[bitwidth][encoding_scheme])
             #position = x+(col_width*(1-len(metric_paths.keys()))/2) + col_width * encoding_schemes.index(encoding_scheme)
-            ax.bar(x+col_width*encoding_schemes.index(encoding_scheme),vals[bitwidth][encoding_scheme],width=col_width, label=encoding_scheme)
-    #plt.xticks(x+0.9/2,metric_paths.keys())
-    #plt.xticks(rotation=45)
-    #plt.legend()
-    #plt.grid(True)
+            ax.bar(x+col_width/2+col_width*encoding_schemes.index(encoding_scheme),vals[bitwidth][encoding_scheme],width=col_width, 
+                    label=encoding_scheme.replace("deaf","def").replace("apbm","pbm").upper())
+        if bitwidths.index(bitwidth) == 0:
+            ax.legend(ncol=len(encoding_schemes))
+    fig.add_subplot(111,frameon=False)
+    plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+    plt.ylabel("Switching Activity Reduction (%)\n")
     if show_plot:
         plt.show()
 
@@ -314,111 +263,6 @@ def get_table(metric_path, output_path, metric="average_sa", print_table=False):
     with open(output_path,"w") as f:
         f.write(table_out)
 
-def plot_per_encoding_scheme(metric_path, output_path, metric="total_transitions", encoding_scheme_filter=[], show_plot=True):
-    # load the metrics
-    with open(metric_path,"r") as f:
-        metrics = json.load(f)
-    # get all the layers
-    layers = list(metrics.keys())
-    # get all encoding schemes
-    encoding_schemes = encoding_scheme_filter
-    if not encoding_schemes:
-        encoding_schemes = list(metrics[layers[0]].keys())
-    vals = {}
-    total_samples = _get_total_samples(metrics)
-    for encoding_scheme in encoding_schemes:
-        vals[encoding_scheme] = 0
-    for layer in layers:
-        for encoding_scheme in encoding_schemes:
-            vals[encoding_scheme] += metrics[layer][encoding_scheme][metric]*(
-                    metrics[layer][encoding_scheme]["total_samples"]/total_samples[encoding_scheme])
-    # plot switching activity for each layer
-    vals = [ vals[encoding_scheme] for encoding_scheme in encoding_schemes ]
-    plt.bar(encoding_schemes, vals)
-    plt.grid(True)
-    plt.ylim(bottom=0)
-    plt.xticks(rotation=45)
-    plt.title("{} per encoding scheme".format(metric))
-    plt.ylabel(metric)
-    plt.savefig(output_path,bbox_inches='tight')
-    if show_plot:
-        plt.show()
-
-def plot_per_encoding_scheme_violin(metric_paths, output_path, metric="total_transitions", encoding_scheme_filter=[], show_plot=True):
-    # load the metrics
-    metrics = {}
-    for network in metric_paths:
-        with open(metric_paths[network],"r") as f:
-                metrics[network] = json.load(f)
-    # get all encoding schemes
-    encoding_schemes = encoding_scheme_filter
-    # empty 
-    vals = { encoding_scheme: { network: 0 for network in metrics } for encoding_scheme in encoding_schemes }
-    #vals = { encoding_scheme: [] for encoding_scheme in encoding_schemes }
-    for network in metrics:
-        # get all the layers
-        layers = list(metrics[network].keys())
-        total_samples = _get_total_samples(metrics[network])
-        for layer in layers:
-            for encoding_scheme in encoding_schemes:
-                vals[encoding_scheme][network] += metrics[network][layer][encoding_scheme][metric]*(
-                        metrics[network][layer][encoding_scheme]["total_samples"]/total_samples[encoding_scheme])
-                #vals[encoding_scheme].append(metrics[network][layer][encoding_scheme][metric])
-    # plot switching activity for each layer
-    vals = [ [ vals[encoding_scheme][network] for network in vals[encoding_scheme] ] for encoding_scheme in encoding_schemes ]
-    #vals = [ vals[encoding_scheme] for encoding_scheme in encoding_schemes ]
-    #plt.bar(encoding_schemes, vals)
-    fig, ax = plt.subplots()
-    ax.violinplot(vals, showmeans=True, showmedians=False)
-    #ax.boxplot(vals, sym='')
-    ax.set_xticks(np.arange(1,len(encoding_schemes)+1))
-    ax.set_xticklabels(encoding_schemes)
-    ax.yaxis.grid(True)
-    #plt.ylim(bottom=0)
-    #plt.ylim([0,1])
-    plt.xticks(rotation=45)
-    #plt.title("{} per encoding scheme".format(metric))
-    plt.ylabel("average switching activity")
-    plt.savefig(output_path,bbox_inches='tight')
-    if show_plot:
-        plt.show()
-
-def plot_per_encoding_scheme_violin_network(metric_path, output_path, metric="total_transitions", encoding_scheme_filter=[], show_plot=True):
-    # load the metrics
-    with open(metric_path,"r") as f:
-        metrics = json.load(f)
-    # get all encoding schemes
-    encoding_schemes = encoding_scheme_filter
-    # empty 
-    vals = { encoding_scheme: [] for encoding_scheme in encoding_schemes }
-    # get all the layers
-    layers = list(metrics.keys())
-    total_samples = _get_total_samples(metrics)
-    for layer in layers:
-        for encoding_scheme in encoding_schemes:
-            vals[encoding_scheme].append(metrics[layer][encoding_scheme][metric])
-    # plot switching activity for each layer
-    plt.style.use('classic')
-    plt.rcParams['figure.facecolor'] = 'white'
-    vals = [ vals[encoding_scheme] for encoding_scheme in encoding_schemes ]
-    #vals = [ vals[encoding_scheme] for encoding_scheme in encoding_schemes ]
-    #plt.bar(encoding_schemes, vals)
-    fig, ax = plt.subplots()
-    ax.violinplot(vals, showmeans=True, showmedians=False)
-    #ax.boxplot(vals, sym='')
-    ax.set_xticks(np.arange(1,len(encoding_schemes)+1))
-    ax.set_xticklabels(encoding_schemes)
-    ax.yaxis.grid(True)
-    #plt.ylim(bottom=0)
-    #plt.ylim([0,1])
-    plt.xticks(rotation=45)
-    #plt.title("{} per encoding scheme".format(metric))
-    plt.ylabel("average switching activity")
-    plt.savefig(output_path,bbox_inches='tight')
-    if show_plot:
-        plt.show()
-
-
 def plot_transitions_per_samples(metric_path, output_path, encoding_schemes=[], show_plot=True):
     # load the metrics
     with open(metric_path,"r") as f:
@@ -441,7 +285,8 @@ def plot_transitions_per_samples(metric_path, output_path, encoding_schemes=[], 
     # plot graph
     for encoding_scheme in encoding_schemes:
         tr_ratio = tr[encoding_scheme]/cr[encoding_scheme]
-        plt.plot([cr[encoding_scheme],1.0],[tr[encoding_scheme],tr_ratio],ms=5,marker="x",label=encoding_scheme)
+        plt.plot([cr[encoding_scheme],1.0],[tr[encoding_scheme],tr_ratio],ms=5,marker="x",
+                label=encoding_scheme.replace("deaf","def").replace("apbm","pbm").upper())
     plt.ylabel("Transition Ratio")
     plt.xlabel("Compression Ratio")
     plt.legend()
@@ -484,13 +329,14 @@ def plot_transitions_normalised(metric_paths, output_path, encoding_schemes=[], 
         y2 = [ sa_norm[bitwidth][encoding_scheme]  for encoding_scheme in encoding_schemes ]
         # plot bar graph
         ax.axhline(y=baseline[bitwidth],color="g",ls="--",lw=2)
-        ax.bar(x-col_width/2,y1,width=col_width,alpha=0.5,color="r",label="compressed ($a_{avg}$)")
-        ax.bar(x+col_width/2,y2,width=col_width,alpha=0.5,color="b",label="normalised ($a_{avg}\cdot cr$)")
+        ax.bar(x-col_width/2,y1,width=col_width,alpha=0.75,color="r",label="compressed")
+        ax.bar(x+col_width/2,y2,width=col_width,alpha=0.75,color="b",label="normalised")
         ax.grid(True)
         ax.set_title("Bus Width = {}".format(bitwidth))
         # change axes
         plt.sca(ax)
-        plt.xticks(np.arange(0,len(encoding_schemes)),encoding_schemes)
+        tmp = [ x.replace("deaf","def").replace("_","+").upper() for x in encoding_schemes ]
+        plt.xticks(np.arange(0,len(encoding_schemes)),tmp)
         plt.xticks(rotation=45)
     axs[0,0].set_ylabel("Switching Activity")
     axs[0,len(bitwidths)-1].legend()
@@ -515,23 +361,23 @@ def get_table_encoding_schemes(metric_paths, output_path, encoding_schemes=[], p
     table_out=""
     # iterate over layers
     for encoding_scheme in encoding_schemes:
-        table_out += "{} ".format(encoding_scheme)
+        table_out += "{} & ".format(encoding_scheme)
         # transition ratio
         for bitwidth in ["4", "8", "16"]:
             transitions = _get_average_metric(metrics[bitwidth],"total_transitions")
             t_ratio = transitions[encoding_scheme]/transitions["baseline"]
-            table_out += "{:.4f} ".format(t_ratio)
+            table_out += "{:.4f} & ".format(t_ratio)
         # average switching activity
         for bitwidth in ["4", "8", "16"]:
-            table_out += "{:.4f} ".format(_get_average_metric(metrics[bitwidth],"average_sa")[encoding_scheme])
+            table_out += "{:.4f} & ".format(_get_average_metric(metrics[bitwidth],"average_sa")[encoding_scheme])
         # memory usage
         for bitwidth in ["4", "8", "16"]:
             storage = int(_get_average_metric(metrics[bitwidth],"resources")[encoding_scheme]/8)
-            table_out += "{} ".format(storage)
+            table_out += "{} & ".format(storage)
         # required bus width
         for bitwidth in ["4", "8", "16"]:
-            table_out += "{} ".format(int(_get_average_metric(metrics[bitwidth],"bitwidth")[encoding_scheme]))
-        table_out += "\n"
+            table_out += "{} & ".format(int(_get_average_metric(metrics[bitwidth],"bitwidth")[encoding_scheme]))
+        table_out += "\\\\ \n"
     if print_table:
         print(table_out)
     # save to csv file
@@ -548,25 +394,25 @@ def get_table_compression_schemes(metric_paths, output_path, encoding_schemes=[]
     table_out=""
     # iterate over layers
     for encoding_scheme in encoding_schemes:
-        table_out += "{} ".format(encoding_scheme)
+        table_out += "{} & ".format(encoding_scheme)
         # transition ratio
         for bitwidth in ["4", "8", "16"]:
             transitions = _get_average_metric(metrics[bitwidth],"total_transitions")
             t_ratio = transitions[encoding_scheme]/transitions["baseline"]
-            table_out += "{:.4f} ".format(t_ratio)
+            table_out += "{:.4f} & ".format(t_ratio)
         # average switching activity
         for bitwidth in ["4", "8", "16"]:
-            table_out += "{:.4f} ".format(_get_average_metric(metrics[bitwidth],"average_sa")[encoding_scheme])
+            table_out += "{:.4f} & ".format(_get_average_metric(metrics[bitwidth],"average_sa")[encoding_scheme])
         # compression ratio
         for bitwidth in ["4", "8", "16"]:
             samples = _get_total_samples(metrics[bitwidth])
             cr = samples["baseline"]/samples[encoding_scheme]
-            table_out += "{:.2f} ".format(cr)
+            table_out += "{:.2f} & ".format(cr)
         # memory usage
         for bitwidth in ["4", "8", "16"]:
             storage = int(_get_average_metric(metrics[bitwidth],"resources")[encoding_scheme]/8)
-            table_out += "{} ".format(storage)
-        table_out += "\n"
+            table_out += "{} & ".format(storage)
+        table_out += "\\\\ \n"
     if print_table:
         print(table_out)
     # save to csv file
@@ -591,7 +437,8 @@ def plot_bitwidths(metric_paths, output_path, metric="average_sa", encoding_sche
     # plot metric for each encoding scheme
     vals = { encoding_scheme: [ vals[encoding_scheme][bitwidth] for bitwidth in metrics ] for encoding_scheme in encoding_schemes }
     for encoding_scheme in encoding_schemes:
-        plt.plot(list(metrics.keys()), vals[encoding_scheme],label=encoding_scheme)
+        plt.plot(list(metrics.keys()), vals[encoding_scheme],
+                label=encoding_scheme.replace("deaf","def").replace("apbm","pbm").upper())
     plt.legend()
     plt.title("{} bitwise".format(metric))
     plt.ylabel(metric)
@@ -627,6 +474,111 @@ def plot_power_readings(power_readings, output_path, encoding_schemes=[], show_p
             ax.plot(blocks[block_index][encoding_scheme], label=encoding_scheme)
             ax.grid(True)
     axs[0,0].legend()
+    if show_plot:
+        plt.show()
+
+def get_power_readings_table(power_readings, output_path, encoding_schemes=[], print_table=False):
+    # function to read power data
+    def _read_dat(filename):
+        dat = []
+        with open(filename,"r") as f:
+            lines = f.readlines()
+            for line in lines:
+                dat.append(float(line))
+        return dat
+    # load power data for each block and encoding scheme
+    blocks = {}
+    for block_index in power_readings:
+        blocks[block_index] = {}
+        for encoding_scheme in encoding_schemes:
+            blocks[block_index][encoding_scheme] = np.average(_read_dat(
+                    power_readings[block_index][encoding_scheme]))
+    table_out = ""
+    # iterate over encoding schemes
+    for encoding_scheme in encoding_schemes:
+        table_out += "\\textit{{{}}} & ".format(encoding_scheme)
+        for block_index in power_readings:
+            table_out += "{:.1f} & ".format(blocks[block_index][encoding_scheme]*1000)
+        avg = np.average([ blocks[block_index][encoding_scheme] for block_index in blocks ])
+        table_out += "{:.1f} \\\\ \n".format(avg*1000)
+    # print table in console
+    if print_table:
+        print(table_out)
+
+def plot_power_readings_reduction(power_readings, output_path, encoding_schemes=[], show_plot=False):
+    # function to read power data
+    def _read_dat(filename):
+        dat = []
+        with open(filename,"r") as f:
+            lines = f.readlines()
+            for line in lines:
+                dat.append(float(line))
+        return dat
+    # load power data for each block and encoding scheme
+    blocks = {}
+    for encoding_scheme in encoding_schemes:
+        blocks[encoding_scheme] = []
+        for block_index in power_readings:
+            base = np.average(_read_dat(power_readings[block_index]["baseline"]))
+            enc  = np.average(_read_dat(power_readings[block_index][encoding_scheme]))
+            blocks[encoding_scheme].append((base-enc)/base *100)
+    # get reduction instead
+
+    # create subplots
+    fig, axs = plt.subplots(nrows=len(encoding_schemes), ncols=1, sharey=True, squeeze=False, sharex=True)
+    x = np.arange(0,len(power_readings.keys()))
+    col_width = 0.7
+    colors='bgrcmyk'
+    # plot for each encoding scheme
+    for idx, encoding_scheme in enumerate(encoding_schemes):
+        ax = axs[idx,0]
+        ax.set_ylabel(encoding_scheme)
+        ax.yaxis.grid(True)
+        ax.bar(x,blocks[encoding_scheme], color=colors[idx], width=col_width,
+                label=encoding_scheme.replace("deaf","def").replace("apbm","pbm").upper())
+        ax.set_xticks([])
+    fig.add_subplot(111,frameon=False)
+    plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+    plt.ylabel("Power Reduction (%)\n\n")
+    if show_plot:
+        plt.show()
+
+def plot_power_readings_average_reduction(power_readings, output_path, encoding_schemes=[], show_plot=False):
+    # function to read power data
+    def _read_dat(filename):
+        dat = []
+        with open(filename,"r") as f:
+            lines = f.readlines()
+            for line in lines:
+                dat.append(float(line))
+        return dat
+    # load power data for each block and encoding scheme
+    vals = {}
+    for encoding_scheme in encoding_schemes:
+        vals[encoding_scheme] = []
+        for block_index in power_readings:
+            vals[encoding_scheme].extend(_read_dat(power_readings[block_index][encoding_scheme]))
+    # add baseline
+    vals["baseline"] = []
+    for block_index in power_readings:
+        vals["baseline"].extend(_read_dat(power_readings[block_index]["baseline"]))
+    # get average reduction
+    reduction = {}
+    for encoding_scheme in encoding_schemes:
+        base = np.average(vals["baseline"])
+        enc  = np.average(vals[encoding_scheme])
+        reduction[encoding_scheme] = ((base-enc)/base *100)
+    # flatten
+    reduction = [ reduction[encoding_scheme] for encoding_scheme in encoding_schemes ]
+    # create plot
+    colors='bgrcmyk'
+    encoding_schemes = [ encoding_scheme.replace("deaf","def").replace("apbm","pbm").upper() for encoding_scheme in encoding_schemes ]
+    plt.bar(encoding_schemes,reduction,color=colors[:len(encoding_schemes)])
+    plt.ylabel("Memory Power Reduction (%)")
+    plt.ylim(bottom=0)
+    plt.xticks(rotation=45)
+    plt.gca().yaxis.grid(True)
+    #plt.grid(True)
     if show_plot:
         plt.show()
 

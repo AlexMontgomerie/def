@@ -37,6 +37,9 @@ def load(filepath, layer, restricted_range=False, sample_range=[0,-1], bitwidth=
     # apply restricted range
     if restricted_range:
         featuremap = np.clip(featuremap,-((2**(bitwidth-1))-1),((2**(bitwidth-1))-1))    
+    # apply mask
+    featuremap = np.bitwise_and( featuremap, ((2**bitwidth)-1) )
+    # return featuremap
     return featuremap
 
 def from_dat(filepath):
