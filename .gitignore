@@ -4,3 +4,4 @@ __pycache__/
 featuremaps/
 **.bin
 **.dat
+outputs/

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p outputs
+
 function run_encoder {
 
     encoder=$1
@@ -43,16 +45,20 @@ function run_network {
     mkdir -p outputs/distiller_${network}_${bitwidth}b/def
     mkdir -p outputs/distiller_${network}_${bitwidth}b/apbm
     mkdir -p outputs/distiller_${network}_${bitwidth}b/awr
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/huffman
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/rle
 
     # generate data files
     python -m scripts.generate_data_files -f featuremaps/distiller_${network}_${bitwidth}b.h5 -o outputs/distiller_${network}_${bitwidth}b -b ${bitwidth}
 
     # run encoders
-    time run_encoder bi     $network $bitwidth
-    time run_encoder abe    $network $bitwidth
-    time run_encoder def    $network $bitwidth
-    time run_encoder apbm   $network $bitwidth
-    time run_encoder awr    $network $bitwidth
+    time run_encoder bi         $network $bitwidth
+    time run_encoder abe        $network $bitwidth
+    time run_encoder def        $network $bitwidth
+    time run_encoder apbm       $network $bitwidth
+    time run_encoder awr        $network $bitwidth
+    time run_encoder huffman    $network $bitwidth
+    time run_encoder rle        $network $bitwidth
 
     # evaluate coding schemes
     python -m scripts.evaluate_coding_schemes -f featuremaps/distiller_${network}_${bitwidth}b.h5 -o outputs/distiller_${network}_${bitwidth}b -b ${bitwidth}
@@ -65,6 +71,8 @@ g++ src/abe.cpp     -o outputs/abe_encoder
 g++ src/def.cpp src/decorr.cpp -o outputs/def_encoder
 g++ src/apbm.cpp src/decorr.cpp -o outputs/apbm_encoder
 g++ src/awr.cpp -o outputs/awr_encoder
+g++ src/huffman.cpp -o outputs/huffman_encoder
+g++ src/rle.cpp -o outputs/rle_encoder
 
 # run each encoding scheme
 run_network alexnet 8

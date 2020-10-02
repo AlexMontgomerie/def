@@ -34,8 +34,8 @@ if __name__ == "__main__":
         "apbm",    
         "abe",     
         "awr",     
-        #"huffman", 
-        #"rle",     
+        "huffman", 
+        "rle",     
         #"deaf_rle",
     ] 
 
@@ -57,21 +57,6 @@ if __name__ == "__main__":
             # load featuremap from .dat file 
             featuremap = lib.featuremap.from_dat( os.path.join(args.output_path,encoding_scheme,"{}.dat".format(layer)) )
     
-            # convert to stream
-            # featuremap = lib.stream.stream(featuremap)
-
-            """ 
-            if args.save_bin:
-                # clean binary file
-                with open(os.path.join(args.output_path,"{}{}.bin".format(encoder,layers.index(layer))),"w") as f:
-                    f.write("")
-            # save to binary file
-            if args.save_bin:
-                featremap.to_bin(os.path.join(args.output_path,"{}{}.bin".format(encoder,layers.index(layer))))
-            """
-
-            bitwidth = args.bitwidth
-
             # transitions in stream
             transitions = np.bitwise_xor(featuremap[1:],featuremap[:-1])
             transitions = np.array([ bin(x).count('1') for x in transitions ])
@@ -81,8 +66,8 @@ if __name__ == "__main__":
             #metrics[layer][encoder]["resources"]            += int(resources[0])/n_sections
             metrics[layer][encoding_scheme]["total_transitions"]    = np.sum(transitions).astype(float)
             metrics[layer][encoding_scheme]["total_samples"]        = featuremap.shape[0]
-            metrics[layer][encoding_scheme]["average_sa"]           = np.average(transitions/bitwidth).astype(float)
-            metrics[layer][encoding_scheme]["variance_sa"]          = np.var(transitions/bitwidth).astype(float)
+            metrics[layer][encoding_scheme]["average_sa"]           = np.average(transitions/args.bitwidth).astype(float)
+            metrics[layer][encoding_scheme]["variance_sa"]          = np.var(transitions/args.bitwidth).astype(float)
 
     # save output 
     with open(os.path.join(args.output_path,"output_metrics.json"),"w") as f:

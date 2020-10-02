@@ -1,6 +1,6 @@
-package deaf.test
+package DEF.test
 
-import deaf._
+import DEF._
 
 import org.scalatest._
 
@@ -8,7 +8,7 @@ import chisel3._
 import chiseltest._
 import chisel3.util._
 
-class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
+class DEFTest extends FlatSpec with ChiselScalatestTester with Matchers {
 
   behavior of "int_to_sint"
   it should "function correctly" in {
@@ -195,9 +195,9 @@ class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
     }
   }
 
-  behavior of "deaf_encoder"
+  behavior of "def_encoder"
   it should "function correctly" in {
-    test(new deaf_encoder(8,3)) { c =>
+    test(new def_encoder(8,3)) { c =>
      
       val stream_in_file  = io.Source.fromFile("data/stream_baseline.csv")
       val stream_out_file = io.Source.fromFile("data/stream_encoded.csv")
@@ -224,9 +224,9 @@ class DEAFTest extends FlatSpec with ChiselScalatestTester with Matchers {
     }
   }
 
-  behavior of "deaf_decoder"
+  behavior of "def_decoder"
   it should "function correctly" in {
-    test(new deaf_decoder(8,3)) { c =>
+    test(new def_decoder(8,3)) { c =>
      
       val stream_in_file  = io.Source.fromFile("data/stream_encoded.csv")
       val stream_out_file = io.Source.fromFile("data/stream_baseline.csv")

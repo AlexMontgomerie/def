@@ -1,6 +1,6 @@
 // See README.md for license details.
 
-package deaf
+package DEF
 
 import chisel3._
 import chisel3.util._
@@ -203,7 +203,7 @@ class decorrelator(val width:Int) extends Module {
 
 }
 
-class deaf_encoder(val width:Int, val depth:Int) extends Module {
+class def_encoder(val width:Int, val depth:Int) extends Module {
   val io = IO(new Bundle {
     val in  = Flipped(Decoupled(UInt(width.W)))
     val out = Decoupled(UInt(width.W))
@@ -237,7 +237,7 @@ class deaf_encoder(val width:Int, val depth:Int) extends Module {
 
 }
 
-class deaf_decoder(val width:Int, val depth:Int) extends Module {
+class def_decoder(val width:Int, val depth:Int) extends Module {
   val io = IO(new Bundle {
     val in  = Flipped(Decoupled(UInt(width.W)))
     val out = Decoupled(UInt(width.W))
