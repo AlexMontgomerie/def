@@ -1,22 +1,5 @@
 #!/bin/bash
 
-# block commenting
-alias BEGINCOMMENT="if [ ]; then"
-alias ENDCOMMENT="fi"
-
-function generate_all_dat_files {
-
-    python -m scripts.generate_data_files -f featuremaps/caffe_alexnet_8b.h5 -o outputs/caffe_alexnet_8b -b 8 
- 
-}
-
-function evaluate_coding_schemes {
-
-    python -m scripts.evaluate_coding_schemes -f featuremaps/caffe_alexnet_8b.h5 -o outputs/caffe_alexnet_8b -b 8 
- 
-}
-
-
 function run_encoder {
 
     encoder=$1
@@ -24,10 +7,10 @@ function run_encoder {
     bitwidth=$3
 
     # make output directory
-    mkdir -p outputs/caffe_${network}_${bitwidth}b/${encoder}
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/${encoder}
 
     # iterate over layers
-    for layer_path in outputs/caffe_${network}_${bitwidth}b/*.dat; do
+    for layer_path in outputs/distiller_${network}_${bitwidth}b/*.dat; do
 
 
         # strip layer name
@@ -37,9 +20,10 @@ function run_encoder {
         echo "${encoder}: running layer ${layer} of ${network}"
 
         # assign all paths
-        config_path=outputs/caffe_${network}_${bitwidth}b/${encoder}/${layer}_config.json
-        input_path=outputs/caffe_${network}_${bitwidth}b/${layer}.dat
-        output_path=outputs/caffe_${network}_${bitwidth}b/${encoder}/${layer}.dat
+        mkdir -p outputs/distiller_${network}_${bitwidth}b/${encoder}
+        config_path=outputs/distiller_${network}_${bitwidth}b/${encoder}/${layer}_config.json
+        input_path=outputs/distiller_${network}_${bitwidth}b/${layer}.dat
+        output_path=outputs/distiller_${network}_${bitwidth}b/${encoder}/${layer}.dat
 
         # run for layer 
         ./outputs/${encoder}_encoder -c ${config_path} < ${input_path} > ${output_path}
@@ -47,22 +31,48 @@ function run_encoder {
     done
 }
 
-# generate all files
-#generate_all_dat_files
+function run_network {
+
+    network=$1
+    bitwidth=$2
+
+    # create output folders 
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/baseline
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/bi
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/abe
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/def
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/apbm
+    mkdir -p outputs/distiller_${network}_${bitwidth}b/awr
+
+    # generate data files
+    python -m scripts.generate_data_files -f featuremaps/distiller_${network}_${bitwidth}b.h5 -o outputs/distiller_${network}_${bitwidth}b -b ${bitwidth}
+
+    # run encoders
+    time run_encoder bi     $network $bitwidth
+    time run_encoder abe    $network $bitwidth
+    time run_encoder def    $network $bitwidth
+    time run_encoder apbm   $network $bitwidth
+    time run_encoder awr    $network $bitwidth
+
+    # evaluate coding schemes
+    python -m scripts.evaluate_coding_schemes -f featuremaps/distiller_${network}_${bitwidth}b.h5 -o outputs/distiller_${network}_${bitwidth}b -b ${bitwidth}
+
+}
 
 # compile all encoding schemes
 g++ src/bi.cpp      -o outputs/bi_encoder
-#g++ src/abe.cpp     -o outputs/abe_encoder
+g++ src/abe.cpp     -o outputs/abe_encoder
 g++ src/def.cpp src/decorr.cpp -o outputs/def_encoder
 g++ src/apbm.cpp src/decorr.cpp -o outputs/apbm_encoder
 g++ src/awr.cpp -o outputs/awr_encoder
 
 # run each encoding scheme
-#time run_encoder bi     alexnet 8
-#time run_encoder abe    alexnet 8
-#time run_encoder def    alexnet 8
-#time run_encoder apbm   alexnet 8
-time run_encoder awr    alexnet 8
+run_network alexnet 8
+run_network densenet121 8 
+run_network googlenet 8 
+run_network mobilenet_v2 8 
+run_network resnet18 8 
+run_network shufflenet_v2_x1_0 8 
+run_network squeezenet1_0 8 
+run_network vgg11 8 
 
-# get output metrics 
-#evaluate_coding_schemes 

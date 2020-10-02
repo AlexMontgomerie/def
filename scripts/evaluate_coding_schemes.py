@@ -29,11 +29,11 @@ if __name__ == "__main__":
     # encoding schemes
     encoding_schemes = [
         "baseline",
-        #"bi",      
+        "bi",      
         "def",    
         "apbm",    
-        #"abe",     
-        #"awr",     
+        "abe",     
+        "awr",     
         #"huffman", 
         #"rle",     
         #"deaf_rle",

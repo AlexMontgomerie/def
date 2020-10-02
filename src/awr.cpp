@@ -89,7 +89,6 @@ int main(int argc, char * argv[]) {
     int bitwidth = (int)config["bitwidth"];
     int N = (int)config["N"];
     
-    printf("starting\n");
     // run encoder
     encoder(cin, cout, bitwidth, N);
 
