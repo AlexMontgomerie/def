@@ -76,7 +76,7 @@ g++ src/rle.cpp -o outputs/rle_encoder
 
 # run each encoding scheme
 run_network alexnet 8
-run_network densenet121 8 
+#run_network densenet121 8 
 run_network googlenet 8 
 run_network mobilenet_v2 8 
 run_network resnet18 8 

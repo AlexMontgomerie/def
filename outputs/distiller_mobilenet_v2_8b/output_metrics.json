@@ -19,10 +19,10 @@
             "variance_sa": 0.027441438991017985
         },
         "apbm": {
-            "total_transitions": 47280364.0,
+            "total_transitions": 77168238.0,
             "total_samples": 25690112,
-            "average_sa": 0.23005138047087456,
-            "variance_sa": 0.04501829270334105
+            "average_sa": 0.37547637493664393,
+            "variance_sa": 0.05147157224968703
         },
         "abe": {
             "total_transitions": 70342485.0,
@@ -35,6 +35,18 @@
             "total_samples": 25690112,
             "average_sa": 0.3918323134142939,
             "variance_sa": 0.05964275480180435
+        },
+        "huffman": {
+            "total_transitions": 64820063.0,
+            "total_samples": 16725255,
+            "average_sa": 0.4844475231885865,
+            "variance_sa": 0.031104463359135463
+        },
+        "rle": {
+            "total_transitions": 86714823.0,
+            "total_samples": 27102436,
+            "average_sa": 0.39994018526379643,
+            "variance_sa": 0.029959718099419348
         }
     },
     "module.features.1.conv.0.0": {
@@ -57,10 +69,10 @@
             "variance_sa": 0.03387676448022186
         },
         "apbm": {
-            "total_transitions": 43362244.0,
+            "total_transitions": 72915966.0,
             "total_samples": 25690112,
-            "average_sa": 0.210987040889002,
-            "variance_sa": 0.03857406796594373
+            "average_sa": 0.35478615682119863,
+            "variance_sa": 0.04238525697667682
         },
         "abe": {
             "total_transitions": 68529913.0,
@@ -73,6 +85,18 @@
             "total_samples": 25690112,
             "average_sa": 0.3839701198644101,
             "variance_sa": 0.05007887099745475
+        },
+        "huffman": {
+            "total_transitions": 62304169.0,
+            "total_samples": 15968974,
+            "average_sa": 0.48769705634795674,
+            "variance_sa": 0.03204689928630961
+        },
+        "rle": {
+            "total_transitions": 83604344.0,
+            "total_samples": 27865761,
+            "average_sa": 0.375031687633856,
+            "variance_sa": 0.024406468171685305
         }
     },
     "module.features.1.conv.1": {
@@ -95,10 +119,10 @@
             "variance_sa": 0.02598017890103373
         },
         "apbm": {
-            "total_transitions": 27238287.0,
+            "total_transitions": 43725704.0,
             "total_samples": 12845056,
-            "average_sa": 0.2650658852764741,
-            "variance_sa": 0.02013541853197907
+            "average_sa": 0.4255110624283041,
+            "variance_sa": 0.08920890408346317
         },
         "abe": {
             "total_transitions": 35275585.0,
@@ -111,6 +135,18 @@
             "total_samples": 12845056,
             "average_sa": 0.45919758615280354,
             "variance_sa": 0.07186391591786537
+        },
+        "huffman": {
+            "total_transitions": 34639923.0,
+            "total_samples": 8728491,
+            "average_sa": 0.4960755382660689,
+            "variance_sa": 0.03186820081823742
+        },
+        "rle": {
+            "total_transitions": 47878460.0,
+            "total_samples": 13504069,
+            "average_sa": 0.44318552750178686,
+            "variance_sa": 0.0852806118212564
         }
     },
     "module.features.2.conv.0.0": {
@@ -133,10 +169,10 @@
             "variance_sa": 0.02690804539459599
         },
         "apbm": {
-            "total_transitions": 121520167.0,
+            "total_transitions": 203936760.0,
             "total_samples": 77070336,
-            "average_sa": 0.1970929654710856,
-            "variance_sa": 0.024614876619565202
+            "average_sa": 0.3307640352153653,
+            "variance_sa": 0.025266658750173816
         },
         "abe": {
             "total_transitions": 185616692.0,
@@ -149,6 +185,18 @@
             "total_samples": 77070336,
             "average_sa": 0.3335579928386194,
             "variance_sa": 0.034534314486931436
+        },
+        "huffman": {
+            "total_transitions": 171488527.0,
+            "total_samples": 43095690,
+            "average_sa": 0.4974062689889933,
+            "variance_sa": 0.03125206948052204
+        },
+        "rle": {
+            "total_transitions": 213163069.0,
+            "total_samples": 86982791,
+            "average_sa": 0.3063293741785013,
+            "variance_sa": 0.018094529245758478
         }
     },
     "module.features.2.conv.1.0": {
@@ -171,10 +219,10 @@
             "variance_sa": 0.032318440601872035
         },
         "apbm": {
-            "total_transitions": 31251031.0,
+            "total_transitions": 50623919.0,
             "total_samples": 19267584,
-            "average_sa": 0.2027435862090227,
-            "variance_sa": 0.03236285057997842
+            "average_sa": 0.32842676089678713,
+            "variance_sa": 0.032656101273371194
         },
         "abe": {
             "total_transitions": 48240745.0,
@@ -187,6 +235,18 @@
             "total_samples": 19267584,
             "average_sa": 0.35114734551811716,
             "variance_sa": 0.04333061361382236
+        },
+        "huffman": {
+            "total_transitions": 45481518.0,
+            "total_samples": 11504913,
+            "average_sa": 0.4941532581909362,
+            "variance_sa": 0.03104458168422203
+        },
+        "rle": {
+            "total_transitions": 58345479.0,
+            "total_samples": 21565027,
+            "average_sa": 0.33819504205559503,
+            "variance_sa": 0.020497092438244494
         }
     },
     "module.features.2.conv.2": {
@@ -209,10 +269,10 @@
             "variance_sa": 0.023217887804278914
         },
         "apbm": {
-            "total_transitions": 12685512.0,
+            "total_transitions": 22421219.0,
             "total_samples": 4816896,
-            "average_sa": 0.3291931835757267,
-            "variance_sa": 0.02154718364817784
+            "average_sa": 0.5818379630446584,
+            "variance_sa": 0.05671212298227918
         },
         "abe": {
             "total_transitions": 15880233.0,
@@ -225,6 +285,18 @@
             "total_samples": 4816896,
             "average_sa": 0.4866704588744409,
             "variance_sa": 0.046701803008566994
+        },
+        "huffman": {
+            "total_transitions": 14925807.0,
+            "total_samples": 3747978,
+            "average_sa": 0.49779544404888293,
+            "variance_sa": 0.03127089132507598
+        },
+        "rle": {
+            "total_transitions": 18523827.0,
+            "total_samples": 4931905,
+            "average_sa": 0.46948974980048275,
+            "variance_sa": 0.05282024374923389
         }
     },
     "module.features.3.conv.0.0": {
@@ -247,10 +319,10 @@
             "variance_sa": 0.03567495726272838
         },
         "apbm": {
-            "total_transitions": 61102700.0,
+            "total_transitions": 90634738.0,
             "total_samples": 28901376,
-            "average_sa": 0.264272461085329,
-            "variance_sa": 0.040953933169448974
+            "average_sa": 0.3920001124513972,
+            "variance_sa": 0.04070506706859566
         },
         "abe": {
             "total_transitions": 84598429.0,
@@ -263,6 +335,18 @@
             "total_samples": 28901376,
             "average_sa": 0.40546953215893705,
             "variance_sa": 0.04524305760590662
+        },
+        "huffman": {
+            "total_transitions": 80153206.0,
+            "total_samples": 20157279,
+            "average_sa": 0.4970487954772465,
+            "variance_sa": 0.03106146080376277
+        },
+        "rle": {
+            "total_transitions": 100124563.0,
+            "total_samples": 32319801,
+            "average_sa": 0.38724157869169984,
+            "variance_sa": 0.024811413139404614
         }
     },
     "module.features.3.conv.1.0": {
@@ -285,10 +369,10 @@
             "variance_sa": 0.03930180254943129
         },
         "apbm": {
-            "total_transitions": 42484583.0,
+            "total_transitions": 71078101.0,
             "total_samples": 28901376,
-            "average_sa": 0.18374810454519896,
-            "variance_sa": 0.03552763288233181
+            "average_sa": 0.30741660647633545,
+            "variance_sa": 0.034985767419360485
         },
         "abe": {
             "total_transitions": 68441676.0,
@@ -301,6 +385,18 @@
             "total_samples": 28901376,
             "average_sa": 0.3290583622751513,
             "variance_sa": 0.051117534133148866
+        },
+        "huffman": {
+            "total_transitions": 63456863.0,
+            "total_samples": 16060797,
+            "average_sa": 0.49388012119698177,
+            "variance_sa": 0.031061103974701285
+        },
+        "rle": {
+            "total_transitions": 85743243.0,
+            "total_samples": 30838721,
+            "average_sa": 0.34754702448739766,
+            "variance_sa": 0.02101178384855993
         }
     },
     "module.features.3.conv.2": {
@@ -323,10 +419,10 @@
             "variance_sa": 0.02306072157953713
         },
         "apbm": {
-            "total_transitions": 12712841.0,
+            "total_transitions": 21663265.0,
             "total_samples": 4816896,
-            "average_sa": 0.329902380060184,
-            "variance_sa": 0.022018505224146206
+            "average_sa": 0.5621688089526552,
+            "variance_sa": 0.06350811809070624
         },
         "abe": {
             "total_transitions": 15621108.0,
@@ -339,6 +435,18 @@
             "total_samples": 4816896,
             "average_sa": 0.4941483050803474,
             "variance_sa": 0.04914275602339256
+        },
+        "huffman": {
+            "total_transitions": 15029119.0,
+            "total_samples": 3776847,
+            "average_sa": 0.49740971037738896,
+            "variance_sa": 0.031219961575832234
+        },
+        "rle": {
+            "total_transitions": 19052349.0,
+            "total_samples": 4936946,
+            "average_sa": 0.48239217268979095,
+            "variance_sa": 0.053741353358347926
         }
     },
     "module.features.3.residual_eltwiseadd": {
@@ -361,10 +469,10 @@
             "variance_sa": 0.023447566228498983
         },
         "apbm": {
-            "total_transitions": 12846806.0,
+            "total_transitions": 21709259.0,
             "total_samples": 4816896,
-            "average_sa": 0.333378815606319,
-            "variance_sa": 0.022575630447514636
+            "average_sa": 0.5633623682891157,
+            "variance_sa": 0.06041990771436264
         },
         "abe": {
             "total_transitions": 15937751.0,
@@ -377,6 +485,18 @@
             "total_samples": 4816896,
             "average_sa": 0.49449528690162436,
             "variance_sa": 0.04673974203646766
+        },
+        "huffman": {
+            "total_transitions": 15220957.0,
+            "total_samples": 3819620,
+            "average_sa": 0.49811764602699904,
+            "variance_sa": 0.03139228689699902
+        },
+        "rle": {
+            "total_transitions": 18339051.0,
+            "total_samples": 4953570,
+            "average_sa": 0.4627736839842142,
+            "variance_sa": 0.05059366496549289
         }
     },
     "module.features.4.conv.0.0": {
@@ -399,10 +519,10 @@
             "variance_sa": 0.03925040462327074
         },
         "apbm": {
-            "total_transitions": 46300887.0,
+            "total_transitions": 75549915.0,
             "total_samples": 28901376,
-            "average_sa": 0.20025382442876852,
-            "variance_sa": 0.037560017381550743
+            "average_sa": 0.326757442336221,
+            "variance_sa": 0.03779496058094596
         },
         "abe": {
             "total_transitions": 70907653.0,
@@ -415,6 +535,18 @@
             "total_samples": 28901376,
             "average_sa": 0.3414704360951685,
             "variance_sa": 0.05098386008739171
+        },
+        "huffman": {
+            "total_transitions": 65336234.0,
+            "total_samples": 16660565,
+            "average_sa": 0.490201247088634,
+            "variance_sa": 0.0313119941732254
+        },
+        "rle": {
+            "total_transitions": 87945151.0,
+            "total_samples": 30679190,
+            "average_sa": 0.35832576522801823,
+            "variance_sa": 0.021291881871581552
         }
     },
     "module.features.4.conv.1.0": {
@@ -437,10 +569,10 @@
             "variance_sa": 0.037580847905461706
         },
         "apbm": {
-            "total_transitions": 14945673.0,
+            "total_transitions": 22109394.0,
             "total_samples": 7225344,
-            "average_sa": 0.25856338238890525,
-            "variance_sa": 0.04041736084434791
+            "average_sa": 0.38249730843227786,
+            "variance_sa": 0.0404426224805391
         },
         "abe": {
             "total_transitions": 20897020.0,
@@ -453,6 +585,18 @@
             "total_samples": 7225344,
             "average_sa": 0.4037884602848612,
             "variance_sa": 0.043593536062683395
+        },
+        "huffman": {
+            "total_transitions": 20083729.0,
+            "total_samples": 5022926,
+            "average_sa": 0.49980163450579096,
+            "variance_sa": 0.03108588481384463
+        },
+        "rle": {
+            "total_transitions": 24520560.0,
+            "total_samples": 8056069,
+            "average_sa": 0.3804672453112362,
+            "variance_sa": 0.024799812906729377
         }
     },
     "module.features.4.conv.2": {
@@ -475,10 +619,10 @@
             "variance_sa": 0.023199525935591457
         },
         "apbm": {
-            "total_transitions": 4699419.0,
+            "total_transitions": 6065271.0,
             "total_samples": 1605632,
-            "average_sa": 0.3658545300881709,
-            "variance_sa": 0.02377800729647547
+            "average_sa": 0.47218749202027116,
+            "variance_sa": 0.054043163021790054
         },
         "abe": {
             "total_transitions": 5538382.0,
@@ -491,6 +635,18 @@
             "total_samples": 1605632,
             "average_sa": 0.5129479469442232,
             "variance_sa": 0.04184804613482779
+        },
+        "huffman": {
+            "total_transitions": 5391807.0,
+            "total_samples": 1354543,
+            "average_sa": 0.4975673511784795,
+            "variance_sa": 0.0313502873982881
+        },
+        "rle": {
+            "total_transitions": 6402995.0,
+            "total_samples": 1635622,
+            "average_sa": 0.48933975230203086,
+            "variance_sa": 0.04422379081927127
         }
     },
     "module.features.5.conv.0.0": {
@@ -513,10 +669,10 @@
             "variance_sa": 0.03498530228090514
         },
         "apbm": {
-            "total_transitions": 22778697.0,
+            "total_transitions": 33137480.0,
             "total_samples": 9633792,
-            "average_sa": 0.2955572863268468,
-            "variance_sa": 0.041018727124380656
+            "average_sa": 0.429964175058396,
+            "variance_sa": 0.04230008594599335
         },
         "abe": {
             "total_transitions": 30190578.0,
@@ -529,6 +685,18 @@
             "total_samples": 9633792,
             "average_sa": 0.4372831915286516,
             "variance_sa": 0.041497534511451016
+        },
+        "huffman": {
+            "total_transitions": 28719994.0,
+            "total_samples": 7254792,
+            "average_sa": 0.49484530291775464,
+            "variance_sa": 0.031308907094530776
+        },
+        "rle": {
+            "total_transitions": 34379354.0,
+            "total_samples": 10658655,
+            "average_sa": 0.4031859229129682,
+            "variance_sa": 0.02680479083426431
         }
     },
     "module.features.5.conv.1.0": {
@@ -551,10 +719,10 @@
             "variance_sa": 0.045335699373939733
         },
         "apbm": {
-            "total_transitions": 12401339.0,
+            "total_transitions": 22028795.0,
             "total_samples": 9633792,
-            "average_sa": 0.16090938395902507,
-            "variance_sa": 0.03926247798300492
+            "average_sa": 0.28582718630703113,
+            "variance_sa": 0.03935743445149997
         },
         "abe": {
             "total_transitions": 20739603.0,
@@ -567,6 +735,18 @@
             "total_samples": 9633792,
             "average_sa": 0.29832464187774055,
             "variance_sa": 0.06276908406422138
+        },
+        "huffman": {
+            "total_transitions": 19041925.0,
+            "total_samples": 4760270,
+            "average_sa": 0.5000222939081804,
+            "variance_sa": 0.031224439629159394
+        },
+        "rle": {
+            "total_transitions": 27237906.0,
+            "total_samples": 9228085,
+            "average_sa": 0.3689539724605888,
+            "variance_sa": 0.022649015356165626
         }
     },
     "module.features.5.conv.2": {
@@ -589,10 +769,10 @@
             "variance_sa": 0.022685582457548318
         },
         "apbm": {
-            "total_transitions": 4331967.0,
+            "total_transitions": 5640115.0,
             "total_samples": 1605632,
-            "average_sa": 0.337248019625929,
-            "variance_sa": 0.022050780438120837
+            "average_sa": 0.4390886666986375,
+            "variance_sa": 0.06049022157200303
         },
         "abe": {
             "total_transitions": 5236863.0,
@@ -605,6 +785,18 @@
             "total_samples": 1605632,
             "average_sa": 0.4995666034101235,
             "variance_sa": 0.046705349974650465
+        },
+        "huffman": {
+            "total_transitions": 5080888.0,
+            "total_samples": 1275677,
+            "average_sa": 0.49786230986551444,
+            "variance_sa": 0.031237076866699114
+        },
+        "rle": {
+            "total_transitions": 6167186.0,
+            "total_samples": 1641893,
+            "average_sa": 0.46951824480538307,
+            "variance_sa": 0.05267946246553283
         }
     },
     "module.features.5.residual_eltwiseadd": {
@@ -627,10 +819,10 @@
             "variance_sa": 0.023890654396540742
         },
         "apbm": {
-            "total_transitions": 4382329.0,
+            "total_transitions": 6265569.0,
             "total_samples": 1605632,
-            "average_sa": 0.34116875234720806,
-            "variance_sa": 0.025436857666472884
+            "average_sa": 0.48778089424033294,
+            "variance_sa": 0.05957737762097048
         },
         "abe": {
             "total_transitions": 5485531.0,
@@ -643,6 +835,18 @@
             "total_samples": 1605632,
             "average_sa": 0.5131684988643094,
             "variance_sa": 0.04439364869770061
+        },
+        "huffman": {
+            "total_transitions": 5221461.0,
+            "total_samples": 1312358,
+            "average_sa": 0.4973361859615943,
+            "variance_sa": 0.031346760648282804
+        },
+        "rle": {
+            "total_transitions": 6514032.0,
+            "total_samples": 1655178,
+            "average_sa": 0.4919437619058264,
+            "variance_sa": 0.04638535959787578
         }
     },
     "module.features.6.conv.0.0": {
@@ -665,10 +869,10 @@
             "variance_sa": 0.038479826195907195
         },
         "apbm": {
-            "total_transitions": 20343278.0,
+            "total_transitions": 30240960.0,
             "total_samples": 9633792,
-            "average_sa": 0.2639573299856723,
-            "variance_sa": 0.04198741577904969
+            "average_sa": 0.3923813584911693,
+            "variance_sa": 0.042423369900837817
         },
         "abe": {
             "total_transitions": 28345247.0,
@@ -681,6 +885,18 @@
             "total_samples": 9633792,
             "average_sa": 0.40806064819135063,
             "variance_sa": 0.04536236706702064
+        },
+        "huffman": {
+            "total_transitions": 26685650.0,
+            "total_samples": 6696112,
+            "average_sa": 0.4981557578719947,
+            "variance_sa": 0.03112578704159782
+        },
+        "rle": {
+            "total_transitions": 33679093.0,
+            "total_samples": 10855225,
+            "average_sa": 0.387821257764925,
+            "variance_sa": 0.025120306330828804
         }
     },
     "module.features.6.conv.1.0": {
@@ -703,10 +919,10 @@
             "variance_sa": 0.044650973122195875
         },
         "apbm": {
-            "total_transitions": 11070664.0,
+            "total_transitions": 20745094.0,
             "total_samples": 9633792,
-            "average_sa": 0.14364366011261817,
-            "variance_sa": 0.03704568447098087
+            "average_sa": 0.26917095772578004,
+            "variance_sa": 0.037487963978934495
         },
         "abe": {
             "total_transitions": 19424529.0,
@@ -719,6 +935,18 @@
             "total_samples": 9633792,
             "average_sa": 0.27719984531530734,
             "variance_sa": 0.06413467984806916
+        },
+        "huffman": {
+            "total_transitions": 17626805.0,
+            "total_samples": 4402200,
+            "average_sa": 0.5005113637525246,
+            "variance_sa": 0.03126208673921203
+        },
+        "rle": {
+            "total_transitions": 26149308.0,
+            "total_samples": 8840363,
+            "average_sa": 0.3697431734130344,
+            "variance_sa": 0.022703176316834564
         }
     },
     "module.features.6.conv.2": {
@@ -741,10 +969,10 @@
             "variance_sa": 0.023074705877861486
         },
         "apbm": {
-            "total_transitions": 4256495.0,
+            "total_transitions": 5568142.0,
             "total_samples": 1605632,
-            "average_sa": 0.3313724479659399,
-            "variance_sa": 0.022214082586162132
+            "average_sa": 0.4334854957334531,
+            "variance_sa": 0.060481027771615896
         },
         "abe": {
             "total_transitions": 5239393.0,
@@ -757,6 +985,18 @@
             "total_samples": 1605632,
             "average_sa": 0.4964476582726666,
             "variance_sa": 0.04722827089840241
+        },
+        "huffman": {
+            "total_transitions": 5042247.0,
+            "total_samples": 1264038,
+            "average_sa": 0.4986253369165618,
+            "variance_sa": 0.03123934621855186
+        },
+        "rle": {
+            "total_transitions": 6350551.0,
+            "total_samples": 1650384,
+            "average_sa": 0.4809907003404664,
+            "variance_sa": 0.0535594920968459
         }
     },
     "module.features.6.residual_eltwiseadd": {
@@ -779,10 +1019,10 @@
             "variance_sa": 0.023501619946529963
         },
         "apbm": {
-            "total_transitions": 4623261.0,
+            "total_transitions": 5889288.0,
             "total_samples": 1605632,
-            "average_sa": 0.35992555263320153,
-            "variance_sa": 0.02313100383957086
+            "average_sa": 0.4584870371835123,
+            "variance_sa": 0.05608243299360088
         },
         "abe": {
             "total_transitions": 5447405.0,
@@ -795,6 +1035,18 @@
             "total_samples": 1605632,
             "average_sa": 0.5097488931142958,
             "variance_sa": 0.04337282895788029
+        },
+        "huffman": {
+            "total_transitions": 5322924.0,
+            "total_samples": 1334452,
+            "average_sa": 0.498606168379356,
+            "variance_sa": 0.03130351074950342
+        },
+        "rle": {
+            "total_transitions": 6274537.0,
+            "total_samples": 1633759,
+            "average_sa": 0.48006934013483027,
+            "variance_sa": 0.047872511393855684
         }
     },
     "module.features.7.conv.0.0": {
@@ -817,10 +1069,10 @@
             "variance_sa": 0.041383315319524265
         },
         "apbm": {
-            "total_transitions": 16767644.0,
+            "total_transitions": 26619415.0,
             "total_samples": 9633792,
-            "average_sa": 0.21756289917437485,
-            "variance_sa": 0.0408909218478503
+            "average_sa": 0.34539122501204356,
+            "variance_sa": 0.04154702078140931
         },
         "abe": {
             "total_transitions": 25062995.0,
@@ -833,6 +1085,18 @@
             "total_samples": 9633792,
             "average_sa": 0.36168670516103163,
             "variance_sa": 0.051879972675055036
+        },
+        "huffman": {
+            "total_transitions": 23032528.0,
+            "total_samples": 5892003,
+            "average_sa": 0.48863968477946884,
+            "variance_sa": 0.031060824665489498
+        },
+        "rle": {
+            "total_transitions": 31250597.0,
+            "total_samples": 10462445,
+            "average_sa": 0.37336635923690487,
+            "variance_sa": 0.022965654572801746
         }
     },
     "module.features.7.conv.1.0": {
@@ -855,10 +1119,10 @@
             "variance_sa": 0.0338986928688124
         },
         "apbm": {
-            "total_transitions": 5856099.0,
+            "total_transitions": 8242151.0,
             "total_samples": 2408448,
-            "average_sa": 0.30393543017554464,
-            "variance_sa": 0.03723174136094872
+            "average_sa": 0.4277731147913988,
+            "variance_sa": 0.037235393240382574
         },
         "abe": {
             "total_transitions": 7616427.0,
@@ -871,6 +1135,18 @@
             "total_samples": 2408448,
             "average_sa": 0.4405743099183831,
             "variance_sa": 0.03603000520351597
+        },
+        "huffman": {
+            "total_transitions": 7373174.0,
+            "total_samples": 1859161,
+            "average_sa": 0.4957328847436477,
+            "variance_sa": 0.031172255431427386
+        },
+        "rle": {
+            "total_transitions": 8410311.0,
+            "total_samples": 2678190,
+            "average_sa": 0.3925372238479062,
+            "variance_sa": 0.026073530628462547
         }
     },
     "module.features.7.conv.2": {
@@ -893,10 +1169,10 @@
             "variance_sa": 0.023563508170561343
         },
         "apbm": {
-            "total_transitions": 2307784.0,
+            "total_transitions": 3030502.0,
             "total_samples": 802816,
-            "average_sa": 0.35932686858117996,
-            "variance_sa": 0.026135528097732685
+            "average_sa": 0.4718555956229019,
+            "variance_sa": 0.052374951538275386
         },
         "abe": {
             "total_transitions": 2786238.0,
@@ -909,6 +1185,18 @@
             "total_samples": 802816,
             "average_sa": 0.5173917714541956,
             "variance_sa": 0.04224560320876195
+        },
+        "huffman": {
+            "total_transitions": 2702366.0,
+            "total_samples": 678729,
+            "average_sa": 0.4976894278709586,
+            "variance_sa": 0.03135364268935218
+        },
+        "rle": {
+            "total_transitions": 3220362.0,
+            "total_samples": 825710,
+            "average_sa": 0.4875146692115503,
+            "variance_sa": 0.04740108725176687
         }
     },
     "module.features.8.conv.0.0": {
@@ -931,10 +1219,10 @@
             "variance_sa": 0.03642396636473991
         },
         "apbm": {
-            "total_transitions": 11598007.0,
+            "total_transitions": 16648912.0,
             "total_samples": 4816896,
-            "average_sa": 0.30097207329617937,
-            "variance_sa": 0.042648957785731266
+            "average_sa": 0.43204470929924776,
+            "variance_sa": 0.04388229229647012
         },
         "abe": {
             "total_transitions": 15293716.0,
@@ -947,6 +1235,18 @@
             "total_samples": 4816896,
             "average_sa": 0.4439857781828335,
             "variance_sa": 0.042231444607103555
+        },
+        "huffman": {
+            "total_transitions": 14567644.0,
+            "total_samples": 3664240,
+            "average_sa": 0.49695325550544056,
+            "variance_sa": 0.0313050042299268
+        },
+        "rle": {
+            "total_transitions": 17682169.0,
+            "total_samples": 5386975,
+            "average_sa": 0.41029920044165796,
+            "variance_sa": 0.02758495126915707
         }
     },
     "module.features.8.conv.1.0": {
@@ -969,10 +1269,10 @@
             "variance_sa": 0.04585833825544039
         },
         "apbm": {
-            "total_transitions": 6340344.0,
+            "total_transitions": 11149504.0,
             "total_samples": 4816896,
-            "average_sa": 0.16453399959932696,
-            "variance_sa": 0.03948797261629129
+            "average_sa": 0.2893332738205836,
+            "variance_sa": 0.03945496803968915
         },
         "abe": {
             "total_transitions": 10569276.0,
@@ -985,6 +1285,18 @@
             "total_samples": 4816896,
             "average_sa": 0.30229886161105857,
             "variance_sa": 0.06251984877567553
+        },
+        "huffman": {
+            "total_transitions": 9657965.0,
+            "total_samples": 2409278,
+            "average_sa": 0.5010821192415816,
+            "variance_sa": 0.03144141142959996
+        },
+        "rle": {
+            "total_transitions": 13958821.0,
+            "total_samples": 4703349,
+            "average_sa": 0.37098097461637963,
+            "variance_sa": 0.02233584076503623
         }
     },
     "module.features.8.conv.2": {
@@ -1007,10 +1319,10 @@
             "variance_sa": 0.022851325007422898
         },
         "apbm": {
-            "total_transitions": 2283583.0,
+            "total_transitions": 3016702.0,
             "total_samples": 802816,
-            "average_sa": 0.35555872149872636,
-            "variance_sa": 0.02284138828431425
+            "average_sa": 0.46970690632337464,
+            "variance_sa": 0.059326516115241854
         },
         "abe": {
             "total_transitions": 2714502.0,
@@ -1023,6 +1335,18 @@
             "total_samples": 802816,
             "average_sa": 0.510243019873819,
             "variance_sa": 0.04425881938780743
+        },
+        "huffman": {
+            "total_transitions": 2649357.0,
+            "total_samples": 663326,
+            "average_sa": 0.4992569630271737,
+            "variance_sa": 0.03116650872596693
+        },
+        "rle": {
+            "total_transitions": 3201349.0,
+            "total_samples": 817625,
+            "average_sa": 0.4894286677005567,
+            "variance_sa": 0.04752649125476538
         }
     },
     "module.features.8.residual_eltwiseadd": {
@@ -1045,10 +1369,10 @@
             "variance_sa": 0.023943519729522418
         },
         "apbm": {
-            "total_transitions": 2396839.0,
+            "total_transitions": 3196314.0,
             "total_samples": 802816,
-            "average_sa": 0.3731929211586729,
-            "variance_sa": 0.02509595564404122
+            "average_sa": 0.49767287606733807,
+            "variance_sa": 0.05145943006883627
         },
         "abe": {
             "total_transitions": 2832085.0,
@@ -1061,6 +1385,18 @@
             "total_samples": 802816,
             "average_sa": 0.5220438394897953,
             "variance_sa": 0.040940740447138066
+        },
+        "huffman": {
+            "total_transitions": 2748076.0,
+            "total_samples": 691351,
+            "average_sa": 0.49686772257177986,
+            "variance_sa": 0.031345056126750835
+        },
+        "rle": {
+            "total_transitions": 3318766.0,
+            "total_samples": 821641,
+            "average_sa": 0.5048996519156809,
+            "variance_sa": 0.04381689392714625
         }
     },
     "module.features.9.conv.0.0": {
@@ -1083,10 +1419,10 @@
             "variance_sa": 0.042725286689830784
         },
         "apbm": {
-            "total_transitions": 9818656.0,
+            "total_transitions": 14602559.0,
             "total_samples": 4816896,
-            "average_sa": 0.25479733313680286,
-            "variance_sa": 0.046847155590176166
+            "average_sa": 0.37894117995098503,
+            "variance_sa": 0.04679251201334378
         },
         "abe": {
             "total_transitions": 13935067.0,
@@ -1099,6 +1435,18 @@
             "total_samples": 4816896,
             "average_sa": 0.40240564720634353,
             "variance_sa": 0.05233517368794311
+        },
+        "huffman": {
+            "total_transitions": 13038867.0,
+            "total_samples": 3274806,
+            "average_sa": 0.49769631321559604,
+            "variance_sa": 0.030908065159280518
+        },
+        "rle": {
+            "total_transitions": 17100492.0,
+            "total_samples": 5367477,
+            "average_sa": 0.39824332703117815,
+            "variance_sa": 0.026223898626886087
         }
     },
     "module.features.9.conv.1.0": {
@@ -1121,10 +1469,10 @@
             "variance_sa": 0.043898210883029164
         },
         "apbm": {
-            "total_transitions": 6259422.0,
+            "total_transitions": 11045554.0,
             "total_samples": 4816896,
-            "average_sa": 0.1624340472441272,
-            "variance_sa": 0.03888568909876257
+            "average_sa": 0.28663573733701897,
+            "variance_sa": 0.03859922301903352
         },
         "abe": {
             "total_transitions": 10456755.0,
@@ -1137,6 +1485,18 @@
             "total_samples": 4816896,
             "average_sa": 0.2986301860430838,
             "variance_sa": 0.061980906346320266
+        },
+        "huffman": {
+            "total_transitions": 9500764.0,
+            "total_samples": 2375709,
+            "average_sa": 0.4998911903314717,
+            "variance_sa": 0.031498256255693316
+        },
+        "rle": {
+            "total_transitions": 13780335.0,
+            "total_samples": 4673847,
+            "average_sa": 0.36854912956053754,
+            "variance_sa": 0.022100981068305155
         }
     },
     "module.features.9.conv.2": {
@@ -1159,10 +1519,10 @@
             "variance_sa": 0.023056457941740178
         },
         "apbm": {
-            "total_transitions": 2302037.0,
+            "total_transitions": 2838490.0,
             "total_samples": 802816,
-            "average_sa": 0.35843204847941307,
-            "variance_sa": 0.022838899281683422
+            "average_sa": 0.44195891955182703,
+            "variance_sa": 0.0523100786671485
         },
         "abe": {
             "total_transitions": 2733800.0,
@@ -1175,6 +1535,18 @@
             "total_samples": 802816,
             "average_sa": 0.5068940229068963,
             "variance_sa": 0.04208770519169288
+        },
+        "huffman": {
+            "total_transitions": 2653587.0,
+            "total_samples": 664641,
+            "average_sa": 0.4990647192465094,
+            "variance_sa": 0.03126828505822945
+        },
+        "rle": {
+            "total_transitions": 3107228.0,
+            "total_samples": 816867,
+            "average_sa": 0.47548006649805474,
+            "variance_sa": 0.04382171830131598
         }
     },
     "module.features.9.residual_eltwiseadd": {
@@ -1197,10 +1569,10 @@
             "variance_sa": 0.02411814452769484
         },
         "apbm": {
-            "total_transitions": 2293979.0,
+            "total_transitions": 3200226.0,
             "total_samples": 802816,
-            "average_sa": 0.35717740077103693,
-            "variance_sa": 0.025000337617735326
+            "average_sa": 0.4982819827731171,
+            "variance_sa": 0.053043516158442265
         },
         "abe": {
             "total_transitions": 2811350.0,
@@ -1213,6 +1585,18 @@
             "total_samples": 802816,
             "average_sa": 0.5201039467374177,
             "variance_sa": 0.04226303983563432
+        },
+        "huffman": {
+            "total_transitions": 2672905.0,
+            "total_samples": 674088,
+            "average_sa": 0.4956528237453029,
+            "variance_sa": 0.0313030744078771
+        },
+        "rle": {
+            "total_transitions": 3305336.0,
+            "total_samples": 822573,
+            "average_sa": 0.502286729915436,
+            "variance_sa": 0.04383306860801128
         }
     },
     "module.features.10.conv.0.0": {
@@ -1235,10 +1619,10 @@
             "variance_sa": 0.04519538972076868
         },
         "apbm": {
-            "total_transitions": 7985084.0,
+            "total_transitions": 12813882.0,
             "total_samples": 4816896,
-            "average_sa": 0.2072155403013767,
-            "variance_sa": 0.04435863908669697
+            "average_sa": 0.3325244270427319,
+            "variance_sa": 0.044778002212961535
         },
         "abe": {
             "total_transitions": 12178939.0,
@@ -1251,6 +1635,18 @@
             "total_samples": 4816896,
             "average_sa": 0.35164159173077264,
             "variance_sa": 0.05942483123331274
+        },
+        "huffman": {
+            "total_transitions": 11128872.0,
+            "total_samples": 2816644,
+            "average_sa": 0.49388900190759,
+            "variance_sa": 0.031149382241673643
+        },
+        "rle": {
+            "total_transitions": 15623151.0,
+            "total_samples": 5093204,
+            "average_sa": 0.38343138394444515,
+            "variance_sa": 0.024229539729148788
         }
     },
     "module.features.10.conv.1.0": {
@@ -1273,10 +1669,10 @@
             "variance_sa": 0.035216881680433285
         },
         "apbm": {
-            "total_transitions": 5432088.0,
+            "total_transitions": 10264590.0,
             "total_samples": 4816896,
-            "average_sa": 0.1409644594702604,
-            "variance_sa": 0.031027343633323722
+            "average_sa": 0.2663694662225355,
+            "variance_sa": 0.031076473815259204
         },
         "abe": {
             "total_transitions": 9587751.0,
@@ -1289,6 +1685,18 @@
             "total_samples": 4816896,
             "average_sa": 0.26825792341331917,
             "variance_sa": 0.053721827969787694
+        },
+        "huffman": {
+            "total_transitions": 8512842.0,
+            "total_samples": 2133109,
+            "average_sa": 0.4988520271828712,
+            "variance_sa": 0.03137039423299901
+        },
+        "rle": {
+            "total_transitions": 12456829.0,
+            "total_samples": 4573291,
+            "average_sa": 0.3404777796728395,
+            "variance_sa": 0.0185566325149882
         }
     },
     "module.features.10.conv.2": {
@@ -1311,10 +1719,10 @@
             "variance_sa": 0.020855390483330353
         },
         "apbm": {
-            "total_transitions": 2094148.0,
+            "total_transitions": 2427521.0,
             "total_samples": 802816,
-            "average_sa": 0.3260632897990197,
-            "variance_sa": 0.021009543573856128
+            "average_sa": 0.3779701737012886,
+            "variance_sa": 0.03237048556742123
         },
         "abe": {
             "total_transitions": 2510867.0,
@@ -1327,6 +1735,18 @@
             "total_samples": 802816,
             "average_sa": 0.4629654714971693,
             "variance_sa": 0.03756862994945276
+        },
+        "huffman": {
+            "total_transitions": 2454841.0,
+            "total_samples": 616562,
+            "average_sa": 0.4976881849484479,
+            "variance_sa": 0.03128239001756662
+        },
+        "rle": {
+            "total_transitions": 2698704.0,
+            "total_samples": 822838,
+            "average_sa": 0.40996941070953297,
+            "variance_sa": 0.03435061583286551
         }
     },
     "module.features.10.residual_eltwiseadd": {
@@ -1349,10 +1769,10 @@
             "variance_sa": 0.02349118633334351
         },
         "apbm": {
-            "total_transitions": 2363936.0,
+            "total_transitions": 3036647.0,
             "total_samples": 802816,
-            "average_sa": 0.3680698542005319,
-            "variance_sa": 0.023293570302717857
+            "average_sa": 0.47281238516968416,
+            "variance_sa": 0.05527395228222475
         },
         "abe": {
             "total_transitions": 2770701.0,
@@ -1365,6 +1785,18 @@
             "total_samples": 802816,
             "average_sa": 0.5161581435324452,
             "variance_sa": 0.042479341831053403
+        },
+        "huffman": {
+            "total_transitions": 2695795.0,
+            "total_samples": 677030,
+            "average_sa": 0.4977251712999,
+            "variance_sa": 0.031227585309415478
+        },
+        "rle": {
+            "total_transitions": 3220511.0,
+            "total_samples": 815588,
+            "average_sa": 0.4935879004937548,
+            "variance_sa": 0.044957245823093864
         }
     },
     "module.features.11.conv.0.0": {
@@ -1387,10 +1819,10 @@
             "variance_sa": 0.04135750800822607
         },
         "apbm": {
-            "total_transitions": 9534311.0,
+            "total_transitions": 14387469.0,
             "total_samples": 4816896,
-            "average_sa": 0.24741848742810463,
-            "variance_sa": 0.04366370397088945
+            "average_sa": 0.37335952413328505,
+            "variance_sa": 0.04383154360012024
         },
         "abe": {
             "total_transitions": 13472929.0,
@@ -1403,6 +1835,18 @@
             "total_samples": 4816896,
             "average_sa": 0.389243719242375,
             "variance_sa": 0.050195492905890815
+        },
+        "huffman": {
+            "total_transitions": 12752401.0,
+            "total_samples": 3202337,
+            "average_sa": 0.49777728664325044,
+            "variance_sa": 0.03086419011907739
+        },
+        "rle": {
+            "total_transitions": 16341142.0,
+            "total_samples": 5285239,
+            "average_sa": 0.3864807507249437,
+            "variance_sa": 0.024666082259140715
         }
     },
     "module.features.11.conv.1.0": {
@@ -1425,10 +1869,10 @@
             "variance_sa": 0.0425306277629078
         },
         "apbm": {
-            "total_transitions": 8337128.0,
+            "total_transitions": 13130358.0,
             "total_samples": 4816896,
-            "average_sa": 0.21635119719238222,
-            "variance_sa": 0.042124799171817835
+            "average_sa": 0.3407370827057679,
+            "variance_sa": 0.042008132837586795
         },
         "abe": {
             "total_transitions": 12431910.0,
@@ -1441,6 +1885,18 @@
             "total_samples": 4816896,
             "average_sa": 0.3595277403804733,
             "variance_sa": 0.05353692670631404
+        },
+        "huffman": {
+            "total_transitions": 11568453.0,
+            "total_samples": 2936721,
+            "average_sa": 0.4924053450788635,
+            "variance_sa": 0.031165510906146412
+        },
+        "rle": {
+            "total_transitions": 15527367.0,
+            "total_samples": 5176836,
+            "average_sa": 0.3749242297658705,
+            "variance_sa": 0.023364897718224687
         }
     },
     "module.features.11.conv.2": {
@@ -1463,10 +1919,10 @@
             "variance_sa": 0.02315622457020136
         },
         "apbm": {
-            "total_transitions": 3465807.0,
+            "total_transitions": 4889484.0,
             "total_samples": 1204224,
-            "average_sa": 0.3597555228558166,
-            "variance_sa": 0.023085001241220583
+            "average_sa": 0.5075351492207009,
+            "variance_sa": 0.0599204070225958
         },
         "abe": {
             "total_transitions": 4092766.0,
@@ -1479,6 +1935,18 @@
             "total_samples": 1204224,
             "average_sa": 0.5127818933868561,
             "variance_sa": 0.044714342070792674
+        },
+        "huffman": {
+            "total_transitions": 3993106.0,
+            "total_samples": 1001264,
+            "average_sa": 0.4985086335957685,
+            "variance_sa": 0.03130180134202191
+        },
+        "rle": {
+            "total_transitions": 4957558.0,
+            "total_samples": 1225033,
+            "average_sa": 0.5058600510027493,
+            "variance_sa": 0.049885350675626446
         }
     },
     "module.features.12.conv.0.0": {
@@ -1501,10 +1969,10 @@
             "variance_sa": 0.042675557197761685
         },
         "apbm": {
-            "total_transitions": 10203453.0,
+            "total_transitions": 17416818.0,
             "total_samples": 7225344,
-            "average_sa": 0.17652194850818848,
-            "variance_sa": 0.039577787516943436
+            "average_sa": 0.3013147265119455,
+            "variance_sa": 0.0395376385180204
         },
         "abe": {
             "total_transitions": 16458304.0,
@@ -1517,6 +1985,18 @@
             "total_samples": 7225344,
             "average_sa": 0.3135994720250651,
             "variance_sa": 0.059678063805312175
+        },
+        "huffman": {
+            "total_transitions": 14873636.0,
+            "total_samples": 3775187,
+            "average_sa": 0.49248023805979363,
+            "variance_sa": 0.031117976766750186
+        },
+        "rle": {
+            "total_transitions": 21389635.0,
+            "total_samples": 7268723,
+            "average_sa": 0.36783692855497846,
+            "variance_sa": 0.021978356093546
         }
     },
     "module.features.12.conv.1.0": {
@@ -1539,10 +2019,10 @@
             "variance_sa": 0.0339575389433366
         },
         "apbm": {
-            "total_transitions": 7697209.0,
+            "total_transitions": 14921382.0,
             "total_samples": 7225344,
-            "average_sa": 0.13316338407740644,
-            "variance_sa": 0.030252551273498917
+            "average_sa": 0.2581431428238078,
+            "variance_sa": 0.030269584697318285
         },
         "abe": {
             "total_transitions": 13870095.0,
@@ -1555,6 +2035,18 @@
             "total_samples": 7225344,
             "average_sa": 0.25778004587463876,
             "variance_sa": 0.05499943914651885
+        },
+        "huffman": {
+            "total_transitions": 12168037.0,
+            "total_samples": 3063882,
+            "average_sa": 0.49643071157136975,
+            "variance_sa": 0.031378120130287554
+        },
+        "rle": {
+            "total_transitions": 18117073.0,
+            "total_samples": 6646392,
+            "average_sa": 0.3407314022000812,
+            "variance_sa": 0.018230207340133312
         }
     },
     "module.features.12.conv.2": {
@@ -1577,10 +2069,10 @@
             "variance_sa": 0.022075495697400103
         },
         "apbm": {
-            "total_transitions": 3301019.0,
+            "total_transitions": 4859318.0,
             "total_samples": 1204224,
-            "average_sa": 0.3426503023111168,
-            "variance_sa": 0.02185693251117729
+            "average_sa": 0.5044038770227773,
+            "variance_sa": 0.06598177425541532
         },
         "abe": {
             "total_transitions": 3970477.0,
@@ -1593,6 +2085,18 @@
             "total_samples": 1204224,
             "average_sa": 0.5069413015695597,
             "variance_sa": 0.04791533142353428
+        },
+        "huffman": {
+            "total_transitions": 3830330.0,
+            "total_samples": 961361,
+            "average_sa": 0.4980353353582425,
+            "variance_sa": 0.03128862547813294
+        },
+        "rle": {
+            "total_transitions": 4837215.0,
+            "total_samples": 1229357,
+            "average_sa": 0.4918444087798815,
+            "variance_sa": 0.05448035121476463
         }
     },
     "module.features.12.residual_eltwiseadd": {
@@ -1615,10 +2119,10 @@
             "variance_sa": 0.023238138269815894
         },
         "apbm": {
-            "total_transitions": 3365117.0,
+            "total_transitions": 5091470.0,
             "total_samples": 1204224,
-            "average_sa": 0.3493037626751856,
-            "variance_sa": 0.024768159121874404
+            "average_sa": 0.5285015732135991,
+            "variance_sa": 0.05808284626582413
         },
         "abe": {
             "total_transitions": 4116006.0,
@@ -1631,6 +2135,18 @@
             "total_samples": 1204224,
             "average_sa": 0.5112481243092019,
             "variance_sa": 0.04447607303149066
+        },
+        "huffman": {
+            "total_transitions": 3940027.0,
+            "total_samples": 988677,
+            "average_sa": 0.49814436175248517,
+            "variance_sa": 0.031230547191071847
+        },
+        "rle": {
+            "total_transitions": 4801395.0,
+            "total_samples": 1242046,
+            "average_sa": 0.4832146782121421,
+            "variance_sa": 0.0501341874796819
         }
     },
     "module.features.13.conv.0.0": {
@@ -1653,10 +2169,10 @@
             "variance_sa": 0.03719665377085219
         },
         "apbm": {
-            "total_transitions": 8548011.0,
+            "total_transitions": 15773043.0,
             "total_samples": 7225344,
-            "average_sa": 0.14788244308955298,
-            "variance_sa": 0.03180337986659642
+            "average_sa": 0.27287706272214346,
+            "variance_sa": 0.03180880964699418
         },
         "abe": {
             "total_transitions": 14791091.0,
@@ -1669,6 +2185,18 @@
             "total_samples": 7225344,
             "average_sa": 0.2782326908217368,
             "variance_sa": 0.05351654559107705
+        },
+        "huffman": {
+            "total_transitions": 13284232.0,
+            "total_samples": 3320239,
+            "average_sa": 0.5001234851236568,
+            "variance_sa": 0.03133706435234441
+        },
+        "rle": {
+            "total_transitions": 19141367.0,
+            "total_samples": 7012828,
+            "average_sa": 0.34118492798981065,
+            "variance_sa": 0.018732467902717077
         }
     },
     "module.features.13.conv.1.0": {
@@ -1691,10 +2219,10 @@
             "variance_sa": 0.03463554961577709
         },
         "apbm": {
-            "total_transitions": 8151052.0,
+            "total_transitions": 15452531.0,
             "total_samples": 7225344,
-            "average_sa": 0.14101496634831037,
-            "variance_sa": 0.032666756729000115
+            "average_sa": 0.26733213565086117,
+            "variance_sa": 0.033122497810118896
         },
         "abe": {
             "total_transitions": 14411141.0,
@@ -1707,6 +2235,18 @@
             "total_samples": 7225344,
             "average_sa": 0.268727311630742,
             "variance_sa": 0.05685575450246511
+        },
+        "huffman": {
+            "total_transitions": 12629005.0,
+            "total_samples": 3174441,
+            "average_sa": 0.4972926327163216,
+            "variance_sa": 0.031165200789840506
+        },
+        "rle": {
+            "total_transitions": 19093200.0,
+            "total_samples": 6803777,
+            "average_sa": 0.35078315335484295,
+            "variance_sa": 0.019065085997196876
         }
     },
     "module.features.13.conv.2": {
@@ -1729,10 +2269,10 @@
             "variance_sa": 0.020688397466281
         },
         "apbm": {
-            "total_transitions": 3087890.0,
+            "total_transitions": 4562771.0,
             "total_samples": 1204224,
-            "average_sa": 0.32052721962626524,
-            "variance_sa": 0.020856467592407304
+            "average_sa": 0.4736218914603026,
+            "variance_sa": 0.07368746732122951
         },
         "abe": {
             "total_transitions": 3786119.0,
@@ -1745,6 +2285,18 @@
             "total_samples": 1204224,
             "average_sa": 0.4952813972162963,
             "variance_sa": 0.05274106226116945
+        },
+        "huffman": {
+            "total_transitions": 3630329.0,
+            "total_samples": 912965,
+            "average_sa": 0.497052594625856,
+            "variance_sa": 0.03127610675291015
+        },
+        "rle": {
+            "total_transitions": 4818574.0,
+            "total_samples": 1236231,
+            "average_sa": 0.48722466693091093,
+            "variance_sa": 0.061407074105147605
         }
     },
     "module.features.13.residual_eltwiseadd": {
@@ -1767,10 +2319,10 @@
             "variance_sa": 0.022044244975940243
         },
         "apbm": {
-            "total_transitions": 3319897.0,
+            "total_transitions": 5224913.0,
             "total_samples": 1204224,
-            "average_sa": 0.3446098646180981,
-            "variance_sa": 0.02211632202714632
+            "average_sa": 0.5423531397423899,
+            "variance_sa": 0.061357759792950564
         },
         "abe": {
             "total_transitions": 4013846.0,
@@ -1783,6 +2335,18 @@
             "total_samples": 1204224,
             "average_sa": 0.5039966642390986,
             "variance_sa": 0.046387898196264515
+        },
+        "huffman": {
+            "total_transitions": 3857861.0,
+            "total_samples": 966677,
+            "average_sa": 0.4988565196611895,
+            "variance_sa": 0.03128992589080569
+        },
+        "rle": {
+            "total_transitions": 4903280.0,
+            "total_samples": 1229097,
+            "average_sa": 0.4986673132123121,
+            "variance_sa": 0.05260871470498787
         }
     },
     "module.features.14.conv.0.0": {
@@ -1805,10 +2369,10 @@
             "variance_sa": 0.04016779693938469
         },
         "apbm": {
-            "total_transitions": 6828779.0,
+            "total_transitions": 14051383.0,
             "total_samples": 7225344,
-            "average_sa": 0.11813935684437403,
-            "variance_sa": 0.03136456750059537
+            "average_sa": 0.24309197155069318,
+            "variance_sa": 0.031371745578654686
         },
         "abe": {
             "total_transitions": 12712220.0,
@@ -1821,6 +2385,18 @@
             "total_samples": 7225344,
             "average_sa": 0.23212510464901112,
             "variance_sa": 0.05996206834705359
+        },
+        "huffman": {
+            "total_transitions": 11171567.0,
+            "total_samples": 2836370,
+            "average_sa": 0.49233575567918,
+            "variance_sa": 0.031371017132044994
+        },
+        "rle": {
+            "total_transitions": 16485465.0,
+            "total_samples": 5735596,
+            "average_sa": 0.3592797477855392,
+            "variance_sa": 0.019984656510629334
         }
     },
     "module.features.14.conv.1.0": {
@@ -1843,10 +2419,10 @@
             "variance_sa": 0.03522688748096555
         },
         "apbm": {
-            "total_transitions": 3502129.0,
+            "total_transitions": 5300803.0,
             "total_samples": 1806336,
-            "average_sa": 0.24235046378440323,
-            "variance_sa": 0.03029532434578799
+            "average_sa": 0.3668203157221667,
+            "variance_sa": 0.030195751684972013
         },
         "abe": {
             "total_transitions": 4952084.0,
@@ -1859,6 +2435,18 @@
             "total_samples": 1806336,
             "average_sa": 0.3835328164487761,
             "variance_sa": 0.03491790601326606
+        },
+        "huffman": {
+            "total_transitions": 4788218.0,
+            "total_samples": 1201689,
+            "average_sa": 0.4980720869310503,
+            "variance_sa": 0.03119866783840525
+        },
+        "rle": {
+            "total_transitions": 5441424.0,
+            "total_samples": 2026855,
+            "average_sa": 0.33558312537558205,
+            "variance_sa": 0.02358254020678716
         }
     },
     "module.features.14.conv.2": {
@@ -1881,10 +2469,10 @@
             "variance_sa": 0.01979342004379235
         },
         "apbm": {
-            "total_transitions": 1222806.0,
+            "total_transitions": 1580410.0,
             "total_samples": 501760,
-            "average_sa": 0.3046298123202573,
-            "variance_sa": 0.019603930302175797
+            "average_sa": 0.3937174021791338,
+            "variance_sa": 0.058668250201310564
         },
         "abe": {
             "total_transitions": 1532357.0,
@@ -1897,6 +2485,18 @@
             "total_samples": 501760,
             "average_sa": 0.46960542810393036,
             "variance_sa": 0.050357823641740365
+        },
+        "huffman": {
+            "total_transitions": 1442658.0,
+            "total_samples": 362245,
+            "average_sa": 0.4978198396660814,
+            "variance_sa": 0.031283808616226316
+        },
+        "rle": {
+            "total_transitions": 1817145.0,
+            "total_samples": 517108,
+            "average_sa": 0.4392574940969664,
+            "variance_sa": 0.05268718947170702
         }
     },
     "module.features.15.conv.0.0": {
@@ -1919,10 +2519,10 @@
             "variance_sa": 0.03558207134411753
         },
         "apbm": {
-            "total_transitions": 4738430.0,
+            "total_transitions": 7750883.0,
             "total_samples": 3010560,
-            "average_sa": 0.1967421166633838,
-            "variance_sa": 0.03475505928212678
+            "average_sa": 0.32182075654388437,
+            "variance_sa": 0.03476728051405349
         },
         "abe": {
             "total_transitions": 7321422.0,
@@ -1935,6 +2535,18 @@
             "total_samples": 3010560,
             "average_sa": 0.3364441620310381,
             "variance_sa": 0.047188673661998345
+        },
+        "huffman": {
+            "total_transitions": 6738804.0,
+            "total_samples": 1707405,
+            "average_sa": 0.49335160278410967,
+            "variance_sa": 0.03136131634282444
+        },
+        "rle": {
+            "total_transitions": 9082135.0,
+            "total_samples": 3272551,
+            "average_sa": 0.34690589143023026,
+            "variance_sa": 0.020051459746043075
         }
     },
     "module.features.15.conv.1.0": {
@@ -1957,10 +2569,10 @@
             "variance_sa": 0.03581730551785742
         },
         "apbm": {
-            "total_transitions": 3488523.0,
+            "total_transitions": 6491776.0,
             "total_samples": 3010560,
-            "average_sa": 0.14484531776324597,
-            "variance_sa": 0.032095540750928984
+            "average_sa": 0.2695419687838704,
+            "variance_sa": 0.03201463856281013
         },
         "abe": {
             "total_transitions": 6048463.0,
@@ -1973,6 +2585,18 @@
             "total_samples": 3010560,
             "average_sa": 0.2722645113415814,
             "variance_sa": 0.05438259133718254
+        },
+        "huffman": {
+            "total_transitions": 5392415.0,
+            "total_samples": 1353778,
+            "average_sa": 0.4979046585959135,
+            "variance_sa": 0.03134707335638709
+        },
+        "rle": {
+            "total_transitions": 7852895.0,
+            "total_samples": 2868116,
+            "average_sa": 0.3422498313352149,
+            "variance_sa": 0.01898133163056779
         }
     },
     "module.features.15.conv.2": {
@@ -1995,10 +2619,10 @@
             "variance_sa": 0.0197507732312015
         },
         "apbm": {
-            "total_transitions": 1234708.0,
+            "total_transitions": 2528133.0,
             "total_samples": 501760,
-            "average_sa": 0.30759488120791056,
-            "variance_sa": 0.019407073269623255
+            "average_sa": 0.6298175518525826,
+            "variance_sa": 0.04106785782175176
         },
         "abe": {
             "total_transitions": 1669064.0,
@@ -2011,6 +2635,18 @@
             "total_samples": 501760,
             "average_sa": 0.45470385184919454,
             "variance_sa": 0.041975745265885676
+        },
+        "huffman": {
+            "total_transitions": 1445582.0,
+            "total_samples": 362337,
+            "average_sa": 0.4987021714651594,
+            "variance_sa": 0.03123046273660771
+        },
+        "rle": {
+            "total_transitions": 1728905.0,
+            "total_samples": 516675,
+            "average_sa": 0.41827753089956143,
+            "variance_sa": 0.04227272913870588
         }
     },
     "module.features.15.residual_eltwiseadd": {
@@ -2033,10 +2669,10 @@
             "variance_sa": 0.01926079351823462
         },
         "apbm": {
-            "total_transitions": 1208390.0,
+            "total_transitions": 2298960.0,
             "total_samples": 501760,
-            "average_sa": 0.30103844674435337,
-            "variance_sa": 0.019251249439120884
+            "average_sa": 0.5727251529120554,
+            "variance_sa": 0.07338944903362499
         },
         "abe": {
             "total_transitions": 1526757.0,
@@ -2049,6 +2685,18 @@
             "total_samples": 501760,
             "average_sa": 0.4786645580846582,
             "variance_sa": 0.05590944559128144
+        },
+        "huffman": {
+            "total_transitions": 1425954.0,
+            "total_samples": 357376,
+            "average_sa": 0.49875970619097587,
+            "variance_sa": 0.0313557544309735
+        },
+        "rle": {
+            "total_transitions": 2004622.0,
+            "total_samples": 517672,
+            "average_sa": 0.4840482661767802,
+            "variance_sa": 0.0622043722171443
         }
     },
     "module.features.16.conv.0.0": {
@@ -2071,10 +2719,10 @@
             "variance_sa": 0.038153353109425296
         },
         "apbm": {
-            "total_transitions": 4259303.0,
+            "total_transitions": 7267153.0,
             "total_samples": 3010560,
-            "average_sa": 0.17684851052578607,
-            "variance_sa": 0.036013296599235724
+            "average_sa": 0.30173603141476385,
+            "variance_sa": 0.03598184419804199
         },
         "abe": {
             "total_transitions": 6866037.0,
@@ -2087,6 +2735,18 @@
             "total_samples": 3010560,
             "average_sa": 0.31335160679461854,
             "variance_sa": 0.05352609564655767
+        },
+        "huffman": {
+            "total_transitions": 6249817.0,
+            "total_samples": 1582291,
+            "average_sa": 0.49373194863141395,
+            "variance_sa": 0.03130364448048889
+        },
+        "rle": {
+            "total_transitions": 8724618.0,
+            "total_samples": 3099730,
+            "average_sa": 0.35182986964344304,
+            "variance_sa": 0.020434207166625022
         }
     },
     "module.features.16.conv.1.0": {
@@ -2109,10 +2769,10 @@
             "variance_sa": 0.033098604487146716
         },
         "apbm": {
-            "total_transitions": 3454575.0,
+            "total_transitions": 6465555.0,
             "total_samples": 3010560,
-            "average_sa": 0.14343577887030282,
-            "variance_sa": 0.03087018968940334
+            "average_sa": 0.268453259012695,
+            "variance_sa": 0.030968669934893136
         },
         "abe": {
             "total_transitions": 6004763.0,
@@ -2125,6 +2785,18 @@
             "total_samples": 3010560,
             "average_sa": 0.26914000854990716,
             "variance_sa": 0.05272140785476589
+        },
+        "huffman": {
+            "total_transitions": 5368870.0,
+            "total_samples": 1348452,
+            "average_sa": 0.49768864422956416,
+            "variance_sa": 0.03125395070484762
+        },
+        "rle": {
+            "total_transitions": 7708460.0,
+            "total_samples": 2858203,
+            "average_sa": 0.3371201545587051,
+            "variance_sa": 0.01850898193122828
         }
     },
     "module.features.16.conv.2": {
@@ -2147,10 +2819,10 @@
             "variance_sa": 0.018774761533692178
         },
         "apbm": {
-            "total_transitions": 1009194.0,
+            "total_transitions": 1974443.0,
             "total_samples": 501760,
-            "average_sa": 0.2514140254584372,
-            "variance_sa": 0.01983620971210729
+            "average_sa": 0.4918803150516483,
+            "variance_sa": 0.102686369379642
         },
         "abe": {
             "total_transitions": 1380055.0,
@@ -2163,6 +2835,18 @@
             "total_samples": 501760,
             "average_sa": 0.4669569952905678,
             "variance_sa": 0.06990660605598382
+        },
+        "huffman": {
+            "total_transitions": 1288240.0,
+            "total_samples": 323145,
+            "average_sa": 0.49832272918575,
+            "variance_sa": 0.031405204550351166
+        },
+        "rle": {
+            "total_transitions": 2045799.0,
+            "total_samples": 537307,
+            "average_sa": 0.475938990072696,
+            "variance_sa": 0.08047959753107833
         }
     },
     "module.features.16.residual_eltwiseadd": {
@@ -2185,10 +2869,10 @@
             "variance_sa": 0.017680684010180515
         },
         "apbm": {
-            "total_transitions": 1117228.0,
+            "total_transitions": 2650299.0,
             "total_samples": 501760,
-            "average_sa": 0.27832784264955884,
-            "variance_sa": 0.017872958186180687
+            "average_sa": 0.6602519835219697,
+            "variance_sa": 0.03783712731702551
         },
         "abe": {
             "total_transitions": 1603629.0,
@@ -2201,6 +2885,18 @@
             "total_samples": 501760,
             "average_sa": 0.42759522001598377,
             "variance_sa": 0.0438781166742912
+        },
+        "huffman": {
+            "total_transitions": 1342992.0,
+            "total_samples": 336693,
+            "average_sa": 0.4985981252895822,
+            "variance_sa": 0.0311947590531901
+        },
+        "rle": {
+            "total_transitions": 1666387.0,
+            "total_samples": 521985,
+            "average_sa": 0.39905126402341834,
+            "variance_sa": 0.0447547329750069
         }
     },
     "module.features.17.conv.0.0": {
@@ -2223,10 +2919,10 @@
             "variance_sa": 0.030351524727654594
         },
         "apbm": {
-            "total_transitions": 2046647.0,
+            "total_transitions": 5057594.0,
             "total_samples": 3010560,
-            "average_sa": 0.08497786457598074,
-            "variance_sa": 0.023892300125955123
+            "average_sa": 0.20999397454094074,
+            "variance_sa": 0.02392541486172443
         },
         "abe": {
             "total_transitions": 4432051.0,
@@ -2239,6 +2935,18 @@
             "total_samples": 3010560,
             "average_sa": 0.18365110931225728,
             "variance_sa": 0.05450552050120018
+        },
+        "huffman": {
+            "total_transitions": 3719248.0,
+            "total_samples": 977364,
+            "average_sa": 0.4756738284547297,
+            "variance_sa": 0.034891918978338064
+        },
+        "rle": {
+            "total_transitions": 5546297.0,
+            "total_samples": 1983168,
+            "average_sa": 0.3495858518218587,
+            "variance_sa": 0.01962279045322335
         }
     },
     "module.features.17.conv.1.0": {
@@ -2261,10 +2969,10 @@
             "variance_sa": 0.03333855414431616
         },
         "apbm": {
-            "total_transitions": 5958979.0,
+            "total_transitions": 10376127.0,
             "total_samples": 3010560,
-            "average_sa": 0.24741995589523408,
-            "variance_sa": 0.03130044966895575
+            "average_sa": 0.43082227420223285,
+            "variance_sa": 0.023889614165044093
         },
         "abe": {
             "total_transitions": 8922154.0,
@@ -2277,6 +2985,18 @@
             "total_samples": 3010560,
             "average_sa": 0.4034531045563299,
             "variance_sa": 0.03961003228203829
+        },
+        "huffman": {
+            "total_transitions": 8180535.0,
+            "total_samples": 2050428,
+            "average_sa": 0.49870923227210723,
+            "variance_sa": 0.03134406855101994
+        },
+        "rle": {
+            "total_transitions": 9983295.0,
+            "total_samples": 3335466,
+            "average_sa": 0.3741343036128396,
+            "variance_sa": 0.023955870936041013
         }
     },
     "module.features.17.conv.2": {
@@ -2299,10 +3019,10 @@
             "variance_sa": 0.020684888794159032
         },
         "apbm": {
-            "total_transitions": 2840229.0,
+            "total_transitions": 3875875.0,
             "total_samples": 1003520,
-            "average_sa": 0.3537836602994064,
-            "variance_sa": 0.023252675496362965
+            "average_sa": 0.48278545299092496,
+            "variance_sa": 0.061883769438944185
         },
         "abe": {
             "total_transitions": 3351836.0,
@@ -2315,6 +3035,18 @@
             "total_samples": 1003520,
             "average_sa": 0.5093530864886464,
             "variance_sa": 0.04631550890438304
+        },
+        "huffman": {
+            "total_transitions": 3307668.0,
+            "total_samples": 830390,
+            "average_sa": 0.49790941353991924,
+            "variance_sa": 0.03124886588322497
+        },
+        "rle": {
+            "total_transitions": 3993120.0,
+            "total_samples": 1022708,
+            "average_sa": 0.488057674387679,
+            "variance_sa": 0.05406074140113828
         }
     },
     "module.features.18.0": {
@@ -2337,10 +3069,10 @@
             "variance_sa": 0.05281514693185926
         },
         "apbm": {
-            "total_transitions": 5399154.0,
+            "total_transitions": 9239763.0,
             "total_samples": 4014080,
-            "average_sa": 0.16813178066500434,
-            "variance_sa": 0.04736921358222587
+            "average_sa": 0.28772985658727696,
+            "variance_sa": 0.04643744841935019
         },
         "abe": {
             "total_transitions": 8764459.0,
@@ -2353,6 +3085,18 @@
             "total_samples": 4014080,
             "average_sa": 0.30307873860977824,
             "variance_sa": 0.07581416547223878
+        },
+        "huffman": {
+            "total_transitions": 8146844.0,
+            "total_samples": 2042653,
+            "average_sa": 0.49854576305704545,
+            "variance_sa": 0.03155707271192596
+        },
+        "rle": {
+            "total_transitions": 11539742.0,
+            "total_samples": 3608760,
+            "average_sa": 0.39971296226763825,
+            "variance_sa": 0.027323426535816035
         }
     },
     "module.mean32.0": {
@@ -2375,10 +3119,10 @@
             "variance_sa": 0.03864088320043694
         },
         "apbm": {
-            "total_transitions": 1137624.0,
+            "total_transitions": 1680304.0,
             "total_samples": 573440,
-            "average_sa": 0.24798278456819295,
-            "variance_sa": 0.04110579605860301
+            "average_sa": 0.36627784297893934,
+            "variance_sa": 0.03998362845287737
         },
         "abe": {
             "total_transitions": 1615835.0,
@@ -2391,6 +3135,18 @@
             "total_samples": 573440,
             "average_sa": 0.39751765226990143,
             "variance_sa": 0.04700689099462174
+        },
+        "huffman": {
+            "total_transitions": 1603442.0,
+            "total_samples": 402774,
+            "average_sa": 0.4976258339064436,
+            "variance_sa": 0.03159792787419474
+        },
+        "rle": {
+            "total_transitions": 1886179.0,
+            "total_samples": 631162,
+            "average_sa": 0.3735534594184368,
+            "variance_sa": 0.02637415106200959
         }
     },
     "module.mean32.1": {
@@ -2413,10 +3169,10 @@
             "variance_sa": 0.030563630156532108
         },
         "apbm": {
-            "total_transitions": 222912.0,
+            "total_transitions": 298059.0,
             "total_samples": 81920,
-            "average_sa": 0.34014087086024,
-            "variance_sa": 0.030561466501669615
+            "average_sa": 0.4548074927672457,
+            "variance_sa": 0.030424349835336605
         },
         "abe": {
             "total_transitions": 274682.0,
@@ -2429,6 +3185,18 @@
             "total_samples": 81920,
             "average_sa": 0.4688716903282511,
             "variance_sa": 0.03180387407484272
+        },
+        "huffman": {
+            "total_transitions": 275169.0,
+            "total_samples": 69180,
+            "average_sa": 0.49720471530377713,
+            "variance_sa": 0.03123382943988592
+        },
+        "rle": {
+            "total_transitions": 281071.0,
+            "total_samples": 86391,
+            "average_sa": 0.40668914226183583,
+            "variance_sa": 0.028114294327068426
         }
     },
     "module.classifier.1": {
@@ -2451,10 +3219,10 @@
             "variance_sa": 0.025996786430399484
         },
         "apbm": {
-            "total_transitions": 189671.0,
+            "total_transitions": 294186.0,
             "total_samples": 64000,
-            "average_sa": 0.37045696026500413,
-            "variance_sa": 0.024201418947124957
+            "average_sa": 0.5745910092345193,
+            "variance_sa": 0.02542689994635406
         },
         "abe": {
             "total_transitions": 227463.0,
@@ -2467,6 +3235,18 @@
             "total_samples": 64000,
             "average_sa": 0.4810856419631557,
             "variance_sa": 0.03462716869945468
+        },
+        "huffman": {
+            "total_transitions": 218124.0,
+            "total_samples": 54878,
+            "average_sa": 0.4968474953076881,
+            "variance_sa": 0.031292451604282845
+        },
+        "rle": {
+            "total_transitions": 227533.0,
+            "total_samples": 65179,
+            "average_sa": 0.4363684832305379,
+            "variance_sa": 0.03361447671205394
         }
     }
 }

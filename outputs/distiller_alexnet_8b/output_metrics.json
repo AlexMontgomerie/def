@@ -19,10 +19,10 @@
             "variance_sa": 0.03025998360650603
         },
         "apbm": {
-            "total_transitions": 2289450.0,
+            "total_transitions": 5381061.0,
             "total_samples": 3097600,
-            "average_sa": 0.09238808832260083,
-            "variance_sa": 0.022152675394306254
+            "average_sa": 0.21714644955657592,
+            "variance_sa": 0.022043255679747523
         },
         "abe": {
             "total_transitions": 4884369.0,
@@ -35,6 +35,18 @@
             "total_samples": 3097600,
             "average_sa": 0.20107722949290724,
             "variance_sa": 0.049859114623518816
+        },
+        "huffman": {
+            "total_transitions": 4178512.0,
+            "total_samples": 1086982,
+            "average_sa": 0.4805180587333173,
+            "variance_sa": 0.03284352203098866
+        },
+        "rle": {
+            "total_transitions": 6192096.0,
+            "total_samples": 2438701,
+            "average_sa": 0.317387132488621,
+            "variance_sa": 0.018631604772303887
         }
     },
     "features.module.2": {
@@ -57,10 +69,10 @@
             "variance_sa": 0.035969324655576104
         },
         "apbm": {
-            "total_transitions": 1294054.0,
+            "total_transitions": 2033073.0,
             "total_samples": 746496,
-            "average_sa": 0.21668832343150324,
-            "variance_sa": 0.03217387730496679
+            "average_sa": 0.3404364731177034,
+            "variance_sa": 0.03189952265071625
         },
         "abe": {
             "total_transitions": 1855545.0,
@@ -73,6 +85,18 @@
             "total_samples": 746496,
             "average_sa": 0.3412571417089197,
             "variance_sa": 0.043188763468426775
+        },
+        "huffman": {
+            "total_transitions": 1857329.0,
+            "total_samples": 470927,
+            "average_sa": 0.49299916547398104,
+            "variance_sa": 0.03332615633596793
+        },
+        "rle": {
+            "total_transitions": 2047810.0,
+            "total_samples": 785162,
+            "average_sa": 0.3260175301626036,
+            "variance_sa": 0.023327188875548896
         }
     },
     "features.module.3": {
@@ -95,10 +119,10 @@
             "variance_sa": 0.023661306638415775
         },
         "apbm": {
-            "total_transitions": 1097545.0,
+            "total_transitions": 3335072.0,
             "total_samples": 2239488,
-            "average_sa": 0.061260960657507725,
-            "variance_sa": 0.016906520552204353
+            "average_sa": 0.18615156060294166,
+            "variance_sa": 0.016856449293790612
         },
         "abe": {
             "total_transitions": 2839582.0,
@@ -111,6 +135,18 @@
             "total_samples": 2239488,
             "average_sa": 0.143787170901193,
             "variance_sa": 0.04486944554341792
+        },
+        "huffman": {
+            "total_transitions": 2226607.0,
+            "total_samples": 610786,
+            "average_sa": 0.4556855112682859,
+            "variance_sa": 0.03732764512296795
+        },
+        "rle": {
+            "total_transitions": 3292720.0,
+            "total_samples": 1231879,
+            "average_sa": 0.33411587835808415,
+            "variance_sa": 0.018993176983918978
         }
     },
     "features.module.5": {
@@ -133,10 +169,10 @@
             "variance_sa": 0.037858823471259115
         },
         "apbm": {
-            "total_transitions": 635848.0,
+            "total_transitions": 1153484.0,
             "total_samples": 519168,
-            "average_sa": 0.1530933206463431,
-            "variance_sa": 0.03204367964779737
+            "average_sa": 0.2777247013003523,
+            "variance_sa": 0.031979233234504606
         },
         "abe": {
             "total_transitions": 1088663.0,
@@ -149,6 +185,18 @@
             "total_samples": 519168,
             "average_sa": 0.2854050334478116,
             "variance_sa": 0.053350511549398516
+        },
+        "huffman": {
+            "total_transitions": 1007798.0,
+            "total_samples": 254359,
+            "average_sa": 0.4952655312590915,
+            "variance_sa": 0.03134847740593479
+        },
+        "rle": {
+            "total_transitions": 1377891.0,
+            "total_samples": 511468,
+            "average_sa": 0.3367497316542416,
+            "variance_sa": 0.020234858871932448
         }
     },
     "features.module.6": {
@@ -171,10 +219,10 @@
             "variance_sa": 0.028292031485850654
         },
         "apbm": {
-            "total_transitions": 461421.0,
+            "total_transitions": 1498597.0,
             "total_samples": 1038336,
-            "average_sa": 0.05554818531591442,
-            "variance_sa": 0.01719517012613287
+            "average_sa": 0.1804086590551219,
+            "variance_sa": 0.017133168698682442
         },
         "abe": {
             "total_transitions": 1239363.0,
@@ -187,6 +235,18 @@
             "total_samples": 1038336,
             "average_sa": 0.13081194893748163,
             "variance_sa": 0.04598984320200086
+        },
+        "huffman": {
+            "total_transitions": 940549.0,
+            "total_samples": 265771,
+            "average_sa": 0.44236981224366934,
+            "variance_sa": 0.03903746212139682
+        },
+        "rle": {
+            "total_transitions": 1392895.0,
+            "total_samples": 486318,
+            "average_sa": 0.35802136260916234,
+            "variance_sa": 0.01991054937636121
         }
     },
     "features.module.8": {
@@ -209,10 +269,10 @@
             "variance_sa": 0.0321837428039993
         },
         "apbm": {
-            "total_transitions": 340369.0,
+            "total_transitions": 1030718.0,
             "total_samples": 692224,
-            "average_sa": 0.061463032866576235,
-            "variance_sa": 0.020419542179008127
+            "average_sa": 0.1861246303575582,
+            "variance_sa": 0.02024794452927712
         },
         "abe": {
             "total_transitions": 853634.0,
@@ -225,6 +285,18 @@
             "total_samples": 692224,
             "average_sa": 0.14048417200815344,
             "variance_sa": 0.05180109285928177
+        },
+        "huffman": {
+            "total_transitions": 667712.0,
+            "total_samples": 185722,
+            "average_sa": 0.44940529073179664,
+            "variance_sa": 0.0381872839601409
+        },
+        "rle": {
+            "total_transitions": 991421.0,
+            "total_samples": 329995,
+            "average_sa": 0.37554508566822425,
+            "variance_sa": 0.021401181014550047
         }
     },
     "features.module.10": {
@@ -247,10 +319,10 @@
             "variance_sa": 0.02085705152016003
         },
         "apbm": {
-            "total_transitions": 219504.0,
+            "total_transitions": 909619.0,
             "total_samples": 692224,
-            "average_sa": 0.03963751565608193,
-            "variance_sa": 0.01431031018245338
+            "average_sa": 0.16425685797784817,
+            "variance_sa": 0.014106087579986451
         },
         "abe": {
             "total_transitions": 716737.0,
@@ -263,6 +335,18 @@
             "total_samples": 692224,
             "average_sa": 0.09633979945768921,
             "variance_sa": 0.04045755936510482
+        },
+        "huffman": {
+            "total_transitions": 474355.0,
+            "total_samples": 150981,
+            "average_sa": 0.39272999735064246,
+            "variance_sa": 0.050058730549357514
+        },
+        "rle": {
+            "total_transitions": 686295.0,
+            "total_samples": 219758,
+            "average_sa": 0.39037152400151076,
+            "variance_sa": 0.022752745040762738
         }
     },
     "features.module.12": {
@@ -285,10 +369,10 @@
             "variance_sa": 0.04200171829678414
         },
         "apbm": {
-            "total_transitions": 128589.0,
+            "total_transitions": 274340.0,
             "total_samples": 147456,
-            "average_sa": 0.10900698518191991,
-            "variance_sa": 0.033215451987421665
+            "average_sa": 0.23256247668780305,
+            "variance_sa": 0.03250191596204614
         },
         "abe": {
             "total_transitions": 247055.0,
@@ -301,6 +385,18 @@
             "total_samples": 147456,
             "average_sa": 0.21944237224916077,
             "variance_sa": 0.06622263079623061
+        },
+        "huffman": {
+            "total_transitions": 217622.0,
+            "total_samples": 55896,
+            "average_sa": 0.48667591018874673,
+            "variance_sa": 0.03320369682642579
+        },
+        "rle": {
+            "total_transitions": 318063.0,
+            "total_samples": 105170,
+            "average_sa": 0.37803796746189466,
+            "variance_sa": 0.02302958209544566
         }
     },
     "avgpool": {
@@ -323,10 +419,10 @@
             "variance_sa": 0.042549323716807544
         },
         "apbm": {
-            "total_transitions": 257322.0,
+            "total_transitions": 547519.0,
             "total_samples": 294912,
-            "average_sa": 0.10906765091841267,
-            "variance_sa": 0.033470688585018955
+            "average_sa": 0.23206959048662137,
+            "variance_sa": 0.03252649311417493
         },
         "abe": {
             "total_transitions": 493209.0,
@@ -339,6 +435,18 @@
             "total_samples": 294912,
             "average_sa": 0.2195874348532269,
             "variance_sa": 0.06674369031063136
+        },
+        "huffman": {
+            "total_transitions": 436402.0,
+            "total_samples": 111829,
+            "average_sa": 0.48780493257502594,
+            "variance_sa": 0.032976090306534964
+        },
+        "rle": {
+            "total_transitions": 637991.0,
+            "total_samples": 210181,
+            "average_sa": 0.37943132077267105,
+            "variance_sa": 0.02323788373591852
         }
     },
     "classifier.1": {
@@ -361,10 +469,10 @@
             "variance_sa": 0.06489981869174058
         },
         "apbm": {
-            "total_transitions": 118130.0,
+            "total_transitions": 243849.0,
             "total_samples": 131072,
-            "average_sa": 0.11265840651250086,
-            "variance_sa": 0.038365573275818333
+            "average_sa": 0.23255430262987237,
+            "variance_sa": 0.03595545625844795
         },
         "abe": {
             "total_transitions": 218357.0,
@@ -377,6 +485,18 @@
             "total_samples": 131072,
             "average_sa": 0.2270830313341624,
             "variance_sa": 0.07591334586117442
+        },
+        "huffman": {
+            "total_transitions": 197258.0,
+            "total_samples": 49818,
+            "average_sa": 0.4949565409398398,
+            "variance_sa": 0.03171949998817943
+        },
+        "rle": {
+            "total_transitions": 294478.0,
+            "total_samples": 90855,
+            "average_sa": 0.4051527725801836,
+            "variance_sa": 0.025808125999037874
         }
     },
     "classifier.4": {
@@ -399,10 +519,10 @@
             "variance_sa": 0.037521564388033786
         },
         "apbm": {
-            "total_transitions": 47563.0,
+            "total_transitions": 177045.0,
             "total_samples": 131072,
-            "average_sa": 0.04535995758024277,
-            "variance_sa": 0.0169845153939572
+            "average_sa": 0.1688445575298884,
+            "variance_sa": 0.016088408488644425
         },
         "abe": {
             "total_transitions": 139633.0,
@@ -415,6 +535,18 @@
             "total_samples": 131072,
             "average_sa": 0.11017597332743323,
             "variance_sa": 0.047080709433629124
+        },
+        "huffman": {
+            "total_transitions": 102634.0,
+            "total_samples": 30407,
+            "average_sa": 0.4219315266723673,
+            "variance_sa": 0.04423666254813299
+        },
+        "rle": {
+            "total_transitions": 146016.0,
+            "total_samples": 45827,
+            "average_sa": 0.39828918081438486,
+            "variance_sa": 0.02363807383965102
         }
     },
     "classifier.6": {
@@ -437,10 +569,10 @@
             "variance_sa": 0.028279170496711546
         },
         "apbm": {
-            "total_transitions": 100276.0,
+            "total_transitions": 143143.0,
             "total_samples": 32000,
-            "average_sa": 0.3917153661051908,
-            "variance_sa": 0.02501093764037895
+            "average_sa": 0.5591698178068064,
+            "variance_sa": 0.032596252108192066
         },
         "abe": {
             "total_transitions": 114166.0,
@@ -453,6 +585,18 @@
             "total_samples": 32000,
             "average_sa": 0.49258570580330635,
             "variance_sa": 0.03581626640525748
+        },
+        "huffman": {
+            "total_transitions": 113835.0,
+            "total_samples": 28616,
+            "average_sa": 0.49726978857242704,
+            "variance_sa": 0.03176074007451409
+        },
+        "rle": {
+            "total_transitions": 117569.0,
+            "total_samples": 32428,
+            "average_sa": 0.4532064329108459,
+            "variance_sa": 0.03764454732593502
         }
     }
 }
