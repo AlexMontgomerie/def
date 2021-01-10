@@ -1,2 +1,6 @@
 dahuffman
 mlrose
+deepdish
+numpy
+tqdm
+scipy
