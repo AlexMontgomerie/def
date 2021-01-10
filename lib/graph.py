@@ -4,10 +4,6 @@ import matplotlib.style
 import matplotlib as mpl
 import numpy as np
 
-# update stylesheet
-#plt.style.use('classic')
-#mpl.style.use('classic')
-
 from cycler import cycler
 mpl.rcParams['axes.prop_cycle'] = cycler(color='bgrcmyk')
 
