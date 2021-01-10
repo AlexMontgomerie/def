@@ -45,27 +45,13 @@ def popcount(x,n=8):
 
 n=16
 dtype=np.int16
-#twos    = np.arange(-2**(n-1),2**(n-1),dtype=dtype)
-twos    = np.arange(0,2**(n),dtype=dtype)
+twos    = np.arange(-2**(n-1),2**(n-1),dtype=dtype)
 sbint   = np.array([ int2sbint(x,n=n) for x in twos])  
 
-
-twos_popcount   = np.array([popcount(x,n=n) for x in twos])
+#twos_popcount   = np.array([popcount(x,n=n) for x in twos])
 sbint_popcount  = np.array([popcount(x,n=n) for x in sbint])
-sbint_popcount  = np.array([scipy.special.comb(n,x+1) for x in twos])
-#plt.semilogx(twos+(2**(n-1)),twos_popcount)
-#plt.semilogx(twos+(2**(n-1)),sbint_popcount)
-plt.plot(twos,twos_popcount, color='red',alpha=0.7,marker='x')
-plt.plot(twos,sbint_popcount, color='blue',alpha=0.7,marker='x')
-#plt.fill_between(twos,twos_popcount,sbint_popcount, facecolor='red', alpha=0.5)
-plt.fill_between(twos,0,twos_popcount, facecolor='red', alpha=0.5)
-plt.fill_between(twos,0,sbint_popcount, facecolor='blue', alpha=0.5)
-#plt.stackplot(twos,twos_popcount,sbint_popcount)
+#plt.bar(twos,twos_popcount, color='red',alpha=0.7, edgecolor="none")
+plt.bar(twos,sbint_popcount, color='blue',alpha=0.7,edgecolor="none")
 plt.grid(True)
-plt.legend()
+#plt.legend()
 plt.show()
-
-#print(twos_popcount)
-print(twos)
-#print(sbint_popcount)
-print(sbint)
