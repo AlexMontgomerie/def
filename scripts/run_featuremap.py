@@ -13,6 +13,7 @@ import lib.stream
 import lib.analysis
 import lib.featuremap
 
+<<<<<<< HEAD
 import lib.ABE.coding
 import lib.AWR.coding
 import lib.BI.coding
@@ -20,6 +21,16 @@ import lib.DEF.coding
 import lib.Huffman.coding
 import lib.PBM.coding
 import lib.RLE.coding
+=======
+import lib.bi.coding
+import lib.def.coding
+import lib.abe.coding
+import lib.awr.coding
+import lib.rle.coding
+import lib.rle_def.coding
+import lib.huffman.coding
+import lib.pbm.coding
+>>>>>>> ece5b4c182ea5532c9375cdbb9815a2072da7e85
 
 ABE_N = 32
 AWR_N = 4
@@ -73,13 +84,22 @@ if __name__ == "__main__":
 
     def run_def(stream_in, layer):
         channels = dimensions[layer][1]
+<<<<<<< HEAD
         return lib.DEF.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
+=======
+        return lib.def.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
+>>>>>>> ece5b4c182ea5532c9375cdbb9815a2072da7e85
 
     def run_pbm(stream_in, layer):
         code_table_stream =copy.deepcopy(stream_in)
         code_table_stream.arr = stream_samples
+<<<<<<< HEAD
         code_table = lib.PBM.coding.get_code_table(code_table_stream)
         return lib.PBM.coding.encoder(stream_in, code_table=code_table), [len(code_table.keys())*stream_in.bitwidth,0]
+=======
+        code_table = lib.pbm.coding.get_code_table(code_table_stream)
+        return lib.pbm.coding.encoder(stream_in, code_table=code_table), [len(code_table.keys())*stream_in.bitwidth,0]
+>>>>>>> ece5b4c182ea5532c9375cdbb9815a2072da7e85
 
     def run_abe(stream_in, layer):
         return lib.ABE.coding.encoder(stream_in,window_size=ABE_N), [ABE_N*stream_in.bitwidth,0]
@@ -100,8 +120,13 @@ if __name__ == "__main__":
 
     def run_def_rle(stream_in, layer):
         channels = dimensions[layer][1]
+<<<<<<< HEAD
         def_stream = lib.DEF.coding.encoder(stream_in, channels=channels, use_correlator=False)
         rle_stream = lib.RLE.coding.encoder(def_stream,rle_zero=0)
+=======
+        def_stream = lib.def.coding.encoder(stream_in, channels=channels, use_correlator=False)
+        rle_stream = lib.rle.coding.encoder(deaf_stream,rle_zero=0)
+>>>>>>> ece5b4c182ea5532c9375cdbb9815a2072da7e85
         return lib.coding.correlator(rle_stream), [channels*stream_in.bitwidth, 0]
  
     # encoders to run
