@@ -1,7 +1,5 @@
 import deepdish as dd
 import numpy as np
-from lib.stream import stream
-import pickle
 
 def get_layers(filepath):
     # load file
@@ -43,14 +41,5 @@ def load(filepath, layer, restricted_range=False, sample_range=[0,-1], bitwidth=
     return featuremap
 
 def from_dat(filepath):
-    """
-    with open(filepath,"r") as f:
-        data = f.readlines()
-    return np.array([ int(x) for x in data ])
-    """
     return np.array(np.loadtxt(filepath).reshape(-1), np.uint32)
-
-if __name__ == "__main__":
-    # testing to binary function
-    to_file("featuremaps/caffe_alexnet_8b.h5","conv1","src/test.txt")
 

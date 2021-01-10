@@ -68,35 +68,3 @@ class stream():
             assert a.arr[i] == b.arr[i], "ERROR (value) : {} != {}".format(a.arr[i],b.arr[i])
 
 
-class multi_stream:
-
-    def __init__(self, stream_in, bitwidth=8, memory_bus_width=32):
-
-        # bus widths
-        self.channel_bitwidth = bitwidth
-        self.memory_bus_width = memory_bus_width
-        # convert the stream in to multi channels
-        self.n_channels = int(self.memory_bus_width/stream_in.bitwidth)
-        stream_length = math.floor(stream_in.arr.shape[0]/self.n_channels)*self.n_channels  # find longest stream that is a multiple of the channels
-        stream_in.arr = stream_in.arr[0:stream_length] # shorten stream
-        self.multi_channel_arr = stream_in.arr.reshape((self.n_channels,-1),order="F")
-        # initialise streams 
-        self.streams = [ stream(self.multi_channel_arr[i],bitwidth=self.channel_bitwidth) for i in range(self.n_channels) ]
-
-    def single_stream(self): # TODO: convert to a single wide stream
-        # initialise the stream out
-        stream_out = stream([], bitwidth=self.memory_bus_width)
-        # iterate over stream dimensions
-        stream_dim = self.streams[0].arr.shape[0]
-        for i in range(stream_dim):
-            channel_out = np.uint64(0)
-            for j in range(self.n_channels):
-                # TODO: add side channels
-                channel_out = np.bitwise_or( channel_out, np.uint64( np.uint64(self.streams[j].arr[i]) << np.uint64(j*self.streams[j].bitwidth) ) )
-            stream_out.push(channel_out)
-        # return stream out
-        stream_out.queue_to_array()    
-        return stream_out
-
-if __name__=="__main__":
-    tmp = featuremaps_to_stream("featuremaps/distiller_resnet18.h5")

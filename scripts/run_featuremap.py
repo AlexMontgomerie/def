@@ -13,21 +13,18 @@ import lib.stream
 import lib.analysis
 import lib.featuremap
 
-import lib.bi.coding
-import lib.deaf.coding
-import lib.abe.coding
-import lib.awr.coding
-import lib.rle.coding
-import lib.rle_deaf.coding
-import lib.huffman.coding
-import lib.apbm.coding
+import lib.ABE.coding
+import lib.AWR.coding
+import lib.BI.coding
+import lib.DEF.coding
+import lib.Huffman.coding
+import lib.PBM.coding
+import lib.RLE.coding
 
 ABE_N = 32
 AWR_N = 4
 
 SAMPLES_PERCENTAGE=0.001
-
-MAX_ITER=4
 
 if __name__ == "__main__":
 
@@ -44,6 +41,8 @@ if __name__ == "__main__":
         help='Bitwidth of samples')
     parser.add_argument('-s','--save_bin',action='store_true',
         help='Save to bin file')
+    parser.add_argument('--max_iter',metavar='N',type=int,default=4,
+        help='Max iterations of stream samples')
 
     # parse arguments
     args = parser.parse_args()
@@ -58,11 +57,10 @@ if __name__ == "__main__":
     stream_samples = np.array([])
     for layer in tqdm(layers,desc="sampling loop"):
         # load feature map
-        featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, bitwidth=args.bitwidth)
+        featuremap = lib.featuremap.load(args.featuremap_path, layer, bitwidth=args.bitwidth)
         sample_length = int(len(featuremap)*SAMPLES_PERCENTAGE)
         sample_start = random.randint(0,len(featuremap)-sample_length-1)
         # create stream in
-        #stream_in = lib.stream.stream(featuremap[sample_start:sample_start+sample_length], args.bitwidth)
         stream_in = lib.stream.stream(np.random.choice(featuremap,sample_length), args.bitwidth)
         # append to stream samples
         stream_samples = np.concatenate((stream_samples,stream_in.arr),axis=None)
@@ -71,62 +69,52 @@ if __name__ == "__main__":
         return stream_in, [0,0]
 
     def run_bi(stream_in, layer):
-        return lib.bi.coding.encoder(stream_in), [0,0]
+        return lib.BI.coding.encoder(stream_in), [0,0]
 
-    def run_deaf(stream_in, layer):
+    def run_def(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.deaf.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
+        return lib.DEF.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
 
-    def run_apbm(stream_in, layer):
+    def run_pbm(stream_in, layer):
         code_table_stream =copy.deepcopy(stream_in)
         code_table_stream.arr = stream_samples
-        code_table = lib.apbm.coding.get_code_table(code_table_stream)
-        return lib.apbm.coding.encoder(stream_in, code_table=code_table), [len(code_table.keys())*stream_in.bitwidth,0]
+        code_table = lib.PBM.coding.get_code_table(code_table_stream)
+        return lib.PBM.coding.encoder(stream_in, code_table=code_table), [len(code_table.keys())*stream_in.bitwidth,0]
 
     def run_abe(stream_in, layer):
-        return lib.abe.coding.encoder(stream_in,window_size=ABE_N), [ABE_N*stream_in.bitwidth,0]
+        return lib.ABE.coding.encoder(stream_in,window_size=ABE_N), [ABE_N*stream_in.bitwidth,0]
 
     def run_awr(stream_in, layer):
-        return lib.awr.coding.encoder(stream_in,N=AWR_N), [AWR_N,0]
+        return lib.AWR.coding.encoder(stream_in,N=AWR_N), [AWR_N,0]
 
     def run_huffman(stream_in, layer):
         code_table_stream =copy.deepcopy(stream_in)
         code_table_stream.arr = stream_samples
-        code_table = lib.huffman.coding.get_code_table(code_table_stream)
+        code_table = lib.Huffman.coding.get_code_table(code_table_stream)
         code_table_size = np.sum([ code_table._table[key][0] for key in code_table._table ])
-        return lib.huffman.coding.encoder(stream_in, code_table), [code_table_size,0]
+        return lib.Huffman.coding.encoder(stream_in, code_table), [code_table_size,0]
 
-    def run_deaf_huffman(stream_in, layer):
-        channels = dimensions[layer][1]
-        deaf_stream = lib.deaf.coding.encoder(stream_in, channels=channels, use_correlator=False)
-        code_table_stream = copy.deepcopy(deaf_stream)
-        code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
-        code_table = lib.huffman.coding.get_code_table(code_table_stream)
-        code_table_size = np.sum([ code_table._table[key][0] for key in code_table._table ])
-        return lib.huffman.coding.encoder(deaf_stream, code_table), [code_table_size+channels*stream_in.bitwidth, 0]
- 
     def run_rle(stream_in, layer):
         rle_zero = stats.mode(stream_in.arr).mode[0]
-        return lib.rle.coding.encoder(stream_in,rle_zero=rle_zero), [0,0]
+        return lib.RLE.coding.encoder(stream_in,rle_zero=rle_zero), [0,0]
 
-    def run_deaf_rle(stream_in, layer):
+    def run_def_rle(stream_in, layer):
         channels = dimensions[layer][1]
-        deaf_stream = lib.deaf.coding.encoder(stream_in, channels=channels, use_correlator=False)
-        rle_stream = lib.rle.coding.encoder(deaf_stream,rle_zero=0)
+        def_stream = lib.DEF.coding.encoder(stream_in, channels=channels, use_correlator=False)
+        rle_stream = lib.RLE.coding.encoder(def_stream,rle_zero=0)
         return lib.coding.correlator(rle_stream), [channels*stream_in.bitwidth, 0]
  
     # encoders to run
     encoders = {
         "baseline"  : run_baseline,
         "bi"        : run_bi,
-        "deaf"      : run_deaf,
-        "apbm"      : run_apbm,
+        "def"       : run_def,
+        "pbm"       : run_pbm,
         "abe"       : run_abe,
         "awr"       : run_awr,
         "huffman"   : run_huffman,
         "rle"       : run_rle,
-        "deaf_rle"  : run_deaf_rle,
-        #"deaf_huffman"  : run_deaf_huffman,
+        "def_rle"   : run_def_rle,
     }
 
     # list of metrics for each layer
@@ -139,7 +127,7 @@ if __name__ == "__main__":
         metrics[layer] = {}
 
         # load feature map
-        featuremap = lib.featuremap.to_stream(args.featuremap_path, layer, bitwidth=args.bitwidth)
+        featuremap = lib.featuremap.load(args.featuremap_path, layer, bitwidth=args.bitwidth)
 
         # iterate over encoders
         for encoder in encoders:
@@ -163,7 +151,7 @@ if __name__ == "__main__":
                     f.write("")
 
             # iterate over each n_limit section
-            n_sections = min(MAX_ITER,math.ceil(stream_length/args.limit))
+            n_sections = min(args.max_iter,math.ceil(stream_length/args.limit))
             for i in tqdm(range(n_sections),ncols=150,desc="({})\t running {}".format(layer,encoder)):
  
                 # create stream in
