@@ -14,13 +14,13 @@ import lib.analysis
 import lib.featuremap
 
 import lib.bi.coding
-import lib.deaf.coding
+import lib.def.coding
 import lib.abe.coding
 import lib.awr.coding
 import lib.rle.coding
-import lib.rle_deaf.coding
+import lib.rle_def.coding
 import lib.huffman.coding
-import lib.apbm.coding
+import lib.pbm.coding
 
 ABE_N = 32
 AWR_N = 4
@@ -62,7 +62,6 @@ if __name__ == "__main__":
         sample_length = int(len(featuremap)*SAMPLES_PERCENTAGE)
         sample_start = random.randint(0,len(featuremap)-sample_length-1)
         # create stream in
-        #stream_in = lib.stream.stream(featuremap[sample_start:sample_start+sample_length], args.bitwidth)
         stream_in = lib.stream.stream(np.random.choice(featuremap,sample_length), args.bitwidth)
         # append to stream samples
         stream_samples = np.concatenate((stream_samples,stream_in.arr),axis=None)
@@ -73,15 +72,15 @@ if __name__ == "__main__":
     def run_bi(stream_in, layer):
         return lib.bi.coding.encoder(stream_in), [0,0]
 
-    def run_deaf(stream_in, layer):
+    def run_def(stream_in, layer):
         channels = dimensions[layer][1]
-        return lib.deaf.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
+        return lib.def.coding.encoder(stream_in, channels=channels), [channels*stream_in.bitwidth, 0]
 
-    def run_apbm(stream_in, layer):
+    def run_pbm(stream_in, layer):
         code_table_stream =copy.deepcopy(stream_in)
         code_table_stream.arr = stream_samples
-        code_table = lib.apbm.coding.get_code_table(code_table_stream)
-        return lib.apbm.coding.encoder(stream_in, code_table=code_table), [len(code_table.keys())*stream_in.bitwidth,0]
+        code_table = lib.pbm.coding.get_code_table(code_table_stream)
+        return lib.pbm.coding.encoder(stream_in, code_table=code_table), [len(code_table.keys())*stream_in.bitwidth,0]
 
     def run_abe(stream_in, layer):
         return lib.abe.coding.encoder(stream_in,window_size=ABE_N), [ABE_N*stream_in.bitwidth,0]
@@ -96,22 +95,13 @@ if __name__ == "__main__":
         code_table_size = np.sum([ code_table._table[key][0] for key in code_table._table ])
         return lib.huffman.coding.encoder(stream_in, code_table), [code_table_size,0]
 
-    def run_deaf_huffman(stream_in, layer):
-        channels = dimensions[layer][1]
-        deaf_stream = lib.deaf.coding.encoder(stream_in, channels=channels, use_correlator=False)
-        code_table_stream = copy.deepcopy(deaf_stream)
-        code_table_stream.arr = np.random.choice(code_table_stream.arr, int(args.limit/20))
-        code_table = lib.huffman.coding.get_code_table(code_table_stream)
-        code_table_size = np.sum([ code_table._table[key][0] for key in code_table._table ])
-        return lib.huffman.coding.encoder(deaf_stream, code_table), [code_table_size+channels*stream_in.bitwidth, 0]
- 
     def run_rle(stream_in, layer):
         rle_zero = stats.mode(stream_in.arr).mode[0]
         return lib.rle.coding.encoder(stream_in,rle_zero=rle_zero), [0,0]
 
-    def run_deaf_rle(stream_in, layer):
+    def run_def_rle(stream_in, layer):
         channels = dimensions[layer][1]
-        deaf_stream = lib.deaf.coding.encoder(stream_in, channels=channels, use_correlator=False)
+        def_stream = lib.def.coding.encoder(stream_in, channels=channels, use_correlator=False)
         rle_stream = lib.rle.coding.encoder(deaf_stream,rle_zero=0)
         return lib.coding.correlator(rle_stream), [channels*stream_in.bitwidth, 0]
  
@@ -119,14 +109,13 @@ if __name__ == "__main__":
     encoders = {
         "baseline"  : run_baseline,
         "bi"        : run_bi,
-        "deaf"      : run_deaf,
-        "apbm"      : run_apbm,
+        "def"       : run_def,
+        "pbm"       : run_pbm,
         "abe"       : run_abe,
         "awr"       : run_awr,
         "huffman"   : run_huffman,
         "rle"       : run_rle,
-        "deaf_rle"  : run_deaf_rle,
-        #"deaf_huffman"  : run_deaf_huffman,
+        "def_rle"   : run_def_rle,
     }
 
     # list of metrics for each layer
