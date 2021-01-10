@@ -24,6 +24,8 @@ if __name__ == "__main__":
     # parse arguments
     args = parser.parse_args()
 
+    print(args.featuremap_path)
+
     # get all the layers
     layers = lib.featuremap.get_layers( args.featuremap_path )
 
@@ -33,13 +35,13 @@ if __name__ == "__main__":
     # encoding schemes
     encoding_schemes = [
         "baseline",
-        #"bi",      
-        #"def",    
-        #"apbm",    
-        #"abe",     
-        #"awr",     
+        "bi",      
+        "def",    
+        "apbm",    
+        "abe",     
+        "awr",     
         "huffman", 
-        #"rle",     
+        "rle",     
         #"deaf_rle",
     ] 
 
